@@ -138,7 +138,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Magang Perhotelan (OJT) - berbagai departemen',
                 'min_ipk' => 0.00,
                 'job_description' => 'Operasional harian di Front Office, Housekeeping, atau F&B. Melayani tamu dan belajar standar hotel.',
-                'status_magang' => 'Unpaid / Paid',
+                'status_magang' => 'Unpaid',
             ],
             [
                 'name' => 'Wakil Direktur 4 Politeknik Negeri Malang',

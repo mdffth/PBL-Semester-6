@@ -13,7 +13,7 @@ class TechnologySeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('minat_bidang')->insert([
+        DB::table('technologies')->insert([
             ['name' => 'Visual Basic', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'VB.NET', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'MySQL', 'created_at' => now(), 'updated_at' => now()],
