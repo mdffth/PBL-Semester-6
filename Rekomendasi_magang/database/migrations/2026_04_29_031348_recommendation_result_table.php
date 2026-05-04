@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('recommendation_results', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_input_id')->constrained('user_input')->cascadeOnDelete();
-            $table->foreignId('perusahaan_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('perusahaan_id')->constrained('perusahaan')->cascadeOnDelete();
 
             // Skor per dimensi (untuk transparansi hasil rekomendasi)
             $table->decimal('score_skill', 5, 4)->default(0)->comment('Cosine similarity skill (bobot 40%)');

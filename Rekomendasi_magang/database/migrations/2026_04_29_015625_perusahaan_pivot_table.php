@@ -13,7 +13,7 @@ return new class extends Migration
     {
         // perusahaan - Skills
         Schema::create('perusahaan_skills', function (Blueprint $table){
-            $table->foreignId('perusahaan_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('perusahaan_id')->constrained('perusahaan')->cascadeOnDelete();
             $table->foreignId('skill_id')->constrained()->cascadeOnDelete();
             $table->primary(['perusahaan_id', 'skill_id']);
         });
@@ -21,7 +21,7 @@ return new class extends Migration
 
                 // perusahaan - Teknologi
         Schema::create('perusahaan_technologies', function (Blueprint $table){
-            $table->foreignId('perusahaan_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('perusahaan_id')->constrained('perusahaan')->cascadeOnDelete();
             $table->foreignId('technology_id')->constrained()->cascadeOnDelete();
             $table->primary(['perusahaan_id', 'technology_id']);
         });
@@ -29,9 +29,9 @@ return new class extends Migration
 
                 // perusahaan - Minat Bidang
         Schema::create('perusahaan_minat', function (Blueprint $table){
-            $table->foreignId('perusahaan_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('minatBidang_id')->constrained()->cascadeOnDelete();
-            $table->primary(['perusahaan_id', 'minatBidang_id']);
+            $table->foreignId('perusahaan_id')->constrained('perusahaan')->cascadeOnDelete();
+            $table->foreignId('minat_bidang_id')->constrained('minat_bidang')->cascadeOnDelete();
+            $table->primary(['perusahaan_id', 'minat_bidang_id']);
         });
     }
 

@@ -29,8 +29,8 @@ return new class extends Migration
     // user - minatbidang
         Schema::create('user_minat', function (Blueprint $table) {
             $table->foreignId('user_input_id')->constrained('user_input')->cascadeOnDelete();
-            $table->foreignId('minatBidang_id')->constrained()->cascadeOnDelete();
-            $table->primary(['user_input_id', 'minatBidang_id']);
+            $table->foreignId('minat_bidang_id')->constrained('minat_bidang')->cascadeOnDelete();
+            $table->primary(['user_input_id', 'minat_bidang_id']);
         });
     }
 
