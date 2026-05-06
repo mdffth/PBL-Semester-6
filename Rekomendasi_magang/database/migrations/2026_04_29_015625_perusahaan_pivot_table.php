@@ -28,7 +28,7 @@ return new class extends Migration
 
 
                 // perusahaan - Minat Bidang
-        Schema::create('perusahaan_minat', function (Blueprint $table){
+        Schema::create('perusahaan_posisi', function (Blueprint $table){
             $table->foreignId('perusahaan_id')->constrained('perusahaan')->cascadeOnDelete();
             $table->foreignId('minat_bidang_id')->constrained('minat_bidang')->cascadeOnDelete();
             $table->primary(['perusahaan_id', 'minat_bidang_id']);
@@ -40,7 +40,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perusahaan_minat');
+        Schema::dropIfExists('perusahaan_posisi');
         Schema::dropIfExists('perusahaan_technologies');
         Schema::dropIfExists('perusahaan_skills');
     }

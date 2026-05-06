@@ -29,7 +29,7 @@ class MinatbidangSeeder extends Seeder
             ['name' => 'Database Engineer', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Desktop Programmer', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'DevOps Engineer', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'DevSecOps Engineer', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'System Admin', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Embedded Systems Developer', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Front End Programmer', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Full Stack Web Developer', 'created_at' => now(), 'updated_at' => now()],
@@ -44,6 +44,10 @@ class MinatbidangSeeder extends Seeder
             ['name' => 'Systems Engineer', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'UI/UX Designer', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Web Security Specialist', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Software Engineer', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Web Developer', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'IT Staff', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'IT Infra Engineer', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
