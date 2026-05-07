@@ -17,6 +17,7 @@ class TechnologySeeder extends Seeder
             // Frameworks
             ['name' => 'Laravel', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'FastAPI', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'RestAPI', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Express', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'React.js', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Next.js', 'created_at' => now(), 'updated_at' => now()],
@@ -63,8 +64,10 @@ class TechnologySeeder extends Seeder
 
             // Tambahan untuk Blockchain Developer
             ['name' => 'Solidity', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Truffle / Hardhat', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Web3.js / Ethers.js', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Hardhat', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Truffle', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Ethers.js', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Web3.js', 'created_at' => now(), 'updated_at' => now()],
 
             // Tambahan untuk IoT & Embedded Systems
             ['name' => 'Arduino IDE', 'created_at' => now(), 'updated_at' => now()],
@@ -84,17 +87,32 @@ class TechnologySeeder extends Seeder
 
             // Tambahan untuk Network Engineer & Administrator Jaringan
             ['name' => 'Winbox', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'GNS3 / Cisco Packet Tracer', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'GNS3', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Zabbix', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Cisco Packet Tracer', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Microtik', 'created_at' => now(), 'updated_at' => now()],
 
             // Tambahan untuk System Analyst & Enterprise Architect
             ['name' => 'Enterprise Architect (Sparx)', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Visual Paradigm', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Trello / Jira', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Trello', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Jira', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'BPMN', 'created_at' => now(), 'updated_at' => now()],
+
 
             // Tambahan untuk Game Developer
             ['name' => 'Unreal Engine', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Blender', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Unity', 'created_at' => now(), 'updated_at' => now()],
+
+            ['name' => 'API AI', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Node.js', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Sistem Manajemen', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Graph QL', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Firewall Tools', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'IoT Platform', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Ruby', 'created_at' => now(), 'updated_at' => now()],
+
         ]);
     }
 }
