@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         SkillSeeder::class,
         perusahaan_posisipvtSeeder::class,
         perusahaan_technologypvtSeeder::class,
+        perusahaan_skillpvtSeeder::class,
         
     ]);
 
