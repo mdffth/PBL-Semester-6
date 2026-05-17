@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perusahaan', function (Blueprint $table){
+        Schema::create('perusahaan', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('profile_perusahaan')->nullable();
@@ -21,6 +21,10 @@ return new class extends Migration
             $table->text('job_description')->nullable();
             $table->string('duration_months')->nullable();
             $table->enum('status_magang', ['Paid', 'Unpaid'])->default('Unpaid');
+            $table->string('logo')->nullable();
+            $table->string('kota')->nullable();
+            $table->string('provinsi')->nullable();
+            $table->string('alamat')->nullable();
             $table->timestamps();
         });
     }

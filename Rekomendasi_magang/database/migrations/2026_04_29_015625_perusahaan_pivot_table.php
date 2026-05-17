@@ -23,7 +23,7 @@ return new class extends Migration
                 // perusahaan - Teknologi
         Schema::create('perusahaan_technologies', function (Blueprint $table){
             $table->foreignId('perusahaan_id')->constrained('perusahaan')->cascadeOnDelete();
-            $table->foreignId('technology_id')->constrained('technology')->cascadeOnDelete();
+            $table->foreignId('technology_id')->constrained('technologies')->cascadeOnDelete();
             $table->primary(['perusahaan_id', 'technology_id']);
         });
 
