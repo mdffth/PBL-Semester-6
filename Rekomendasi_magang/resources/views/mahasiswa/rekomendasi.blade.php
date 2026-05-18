@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rekomendasi Perusahaan — RekomIntern</title>
+    <title>Rekomendasi Perusahaan — RekomIn</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -371,7 +371,7 @@
 
     <a href="/" class="navbar-brand">
         <div class="brand-logo">RI</div>
-        <span class="brand-name">RekomIntern</span>
+        <span class="brand-name">RekomIn</span>
     </a>
 
     <ul class="nav-links">
@@ -665,6 +665,11 @@
     @endif
 
 </div>
-
+<!-- FOOTER -->
+<footer style="background:#1a1a2e; padding:1.5rem 5%; text-align:center; margin-top:3rem;">
+    <p style="font-size:.85rem; color:rgba(255,255,255,0.5);">
+        &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
+    </p>
+</footer>
 </body>
 </html>
