@@ -60,7 +60,7 @@
         .nav-avatar { width: 34px; height: 34px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .9rem; cursor: pointer; }
 
         /* HERO */
-        .hero { background: linear-gradient(135deg, #ffffff 0%, #2d2db8 60%, #3b3bdb 100%); padding: 5rem 5% 4rem; min-height: 88vh; display: flex; align-items: center; }
+        .hero { background: linear-gradient(135deg, #3b3bdb 0%, #2d2db8 60%, #3b3bdb 100%); padding: 5rem 5% 4rem; min-height: 88vh; display: flex; align-items: center; }
         .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 3rem; width: 100%; max-width: 1200px; margin: 0 auto; }
         .hero-left { flex: 1; }
         .hero-left h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1.2rem; }
