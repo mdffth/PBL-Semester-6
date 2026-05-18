@@ -20,10 +20,10 @@ return new class extends Migration
             $table->decimal('score_ipk', 5, 4)->default(0)->comment('IPK score normalized (bobot 10%)');
             $table->decimal('final_score', 5, 4)->default(0)->comment('Weighted final score: 0.4*skill + 0.3*tech + 0.2*interest + 0.1*ipk');
 
-            $table->unsignedSmallInteger('rank')->comment('Urutan rekomendasi dari yang paling cocok');
+            $table->unsignedSmallInteger('ranking')->comment('Urutan rekomendasi dari yang paling cocok');
             $table->timestamps();
 
-            $table->index(['user_input_id', 'rank']);
+            $table->index(['user_input_id', 'ranking']);
         });
     }
 

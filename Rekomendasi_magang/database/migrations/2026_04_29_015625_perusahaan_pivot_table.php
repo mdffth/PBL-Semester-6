@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Technology;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,13 +23,13 @@ return new class extends Migration
                 // perusahaan - Teknologi
         Schema::create('perusahaan_technologies', function (Blueprint $table){
             $table->foreignId('perusahaan_id')->constrained('perusahaan')->cascadeOnDelete();
-            $table->foreignId('technology_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('technology_id')->constrained('technologies')->cascadeOnDelete();
             $table->primary(['perusahaan_id', 'technology_id']);
         });
 
 
                 // perusahaan - Minat Bidang
-        Schema::create('perusahaan_minat', function (Blueprint $table){
+        Schema::create('perusahaan_posisi', function (Blueprint $table){
             $table->foreignId('perusahaan_id')->constrained('perusahaan')->cascadeOnDelete();
             $table->foreignId('minat_bidang_id')->constrained('minat_bidang')->cascadeOnDelete();
             $table->primary(['perusahaan_id', 'minat_bidang_id']);
@@ -40,7 +41,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perusahaan_minat');
+        Schema::dropIfExists('perusahaan_posisi');
         Schema::dropIfExists('perusahaan_technologies');
         Schema::dropIfExists('perusahaan_skills');
     }

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class MinatBidang extends Model
 {
+
+    protected $table = 'minat_bidang';
+    
     protected $fillable = ['name'];
 
     public function Perusahaan(): BelongsToMany
