@@ -14,14 +14,14 @@ class Perusahaan extends Model
     protected $table = 'perusahaan';
 
     protected $fillable = [
-        'nama_perusahaan',
-        'profil_perusahaan',
-        'bidang_industri',
-        'posisi_magang',
-        'minimal_ipk',
-        'job_description',
-        'durasi_magang',
-        'status_magang',
+    'name',
+    'profile_perusahaan',
+    'tipe_industri',
+    'posisi_magang',
+    'min_ipk',
+    'job_description',
+    'duration_months',
+    'status_magang',
     ];
 
     protected $casts = [
