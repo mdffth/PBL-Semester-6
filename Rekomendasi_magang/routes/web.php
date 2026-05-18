@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 use App\Models\Perusahaan;
+
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Admin\DashboardController;
 
@@ -22,28 +23,14 @@ use App\Http\Controllers\Admin\DashboardController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
+Route::get('/', [AuthController::class, 'loginForm'])
+    ->name('login.form');
 
-    return view('admin.login');
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login');
 
-});
-
-
-Route::post('/login', function (Request $request) {
-
-    $email = $request->email;
-    $password = $request->password;
-
-    // dummy login sementara
-    if ($email == 'admin@gmail.com' && $password == '123456') {
-
-        return redirect('/detail-perusahaan/1');
-
-    }
-
-    return back()->with('error', 'Email atau Password salah');
-
-})->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
 
 
 /*
@@ -52,17 +39,31 @@ Route::post('/login', function (Request $request) {
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('admin')->group(function () {
+Route::middleware('auth')
+    ->prefix('admin')
+    ->group(function () {
 
     Route::prefix('dashboard')
         ->name('dashboard.')
         ->group(function () {
 
+        /*
+        |--------------------------------------------------------------------------
+        | DASHBOARD
+        |--------------------------------------------------------------------------
+        */
+
         // halaman dashboard
         Route::get('/', [DashboardController::class, 'index'])
             ->name('index');
 
-        // tambah perusahaan
+        /*
+        |--------------------------------------------------------------------------
+        | CRUD PERUSAHAAN
+        |--------------------------------------------------------------------------
+        */
+
+        // form tambah perusahaan
         Route::get('/create', [DashboardController::class, 'create'])
             ->name('create');
 
@@ -70,7 +71,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/store', [DashboardController::class, 'store'])
             ->name('store');
 
-        // edit perusahaan
+        // form edit perusahaan
         Route::get('/{id}/edit', [DashboardController::class, 'edit'])
             ->name('edit');
 
@@ -86,8 +87,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/{id}/detail', [DashboardController::class, 'show'])
             ->name('show');
 
-        // toggle status
-        Route::patch('/toggle_status/{id}', [DashboardController::class, 'toggleStatus'])
+        /*
+        |--------------------------------------------------------------------------
+        | TOGGLE STATUS MAGANG
+        |--------------------------------------------------------------------------
+        */
+
+        Route::patch('/toggle_status/{id}',
+            [DashboardController::class, 'toggleStatus'])
             ->name('toggle_status');
 
     });
@@ -112,11 +119,24 @@ Route::get('/form-page', function () {
 # detail perusahaan
 Route::get('/detail-perusahaan/{id}', function ($id) {
 
-    // ambil data perusahaan berdasarkan id
+    /*
+    |--------------------------------------------------------------------------
+    | AMBIL DATA PERUSAHAAN
+    |--------------------------------------------------------------------------
+    */
+
     $perusahaan = Perusahaan::findOrFail($id);
 
-    // kirim data ke blade
-    return view('mahasiswa.detail_perusahaan', compact('perusahaan'));
+    /*
+    |--------------------------------------------------------------------------
+    | KIRIM KE VIEW
+    |--------------------------------------------------------------------------
+    */
+
+    return view(
+        'mahasiswa.detail_perusahaan',
+        compact('perusahaan')
+    );
 
 })->name('detail.perusahaan');
 
