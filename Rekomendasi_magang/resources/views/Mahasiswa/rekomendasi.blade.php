@@ -476,11 +476,37 @@
     @php
 
         $fotoPerusahaan = [
-            'PT Indoprima Gemilang' => 'PT Indoprima Gemilang.jpg',
-            'Link Apisindo' => 'link-apisindo.jpg',
-            'ARM Solusi' => 'arm.jpg',
-            'Sarastya' => 'sarastya.jpg',
-            'TimeDoor' => 'timedoor.jpg',
+            'Ariverse Studio (PT Studio Karya Semesta)' => 'Ariverse.jpg',
+            'Atria Hotel Malang' => 'Atria.jpg',
+            'CV DB KLIK' => 'Db Klik.jpg',
+            'CV Harsyad Utama (Harsyad Teknologi)' => 'Harsyad.jpg',
+            'DOT Indonesia' => 'dot.jpg',
+            'Humas POLINEMA' => 'Humas.jpg',
+            'Oyitok Group' => 'Oyi.jpg',
+            'Pengembangan Platform Satu Peta Jatim - Batch 2' => 'Peta.jpg',
+            'Pengembangan Platform Satu Peta Jatim - PT Link Apisindo Media & Dinas Kominfo Jatim' => 'Peta.jpg',
+            'Pengembangan SIPP - PT Link Apisindo Media & Dinas LH Kota Batu' => 'DLH.jpg',
+            'Politeknik Batu' => 'PoltekBatu.jpg',
+            'PT Alfath Corporation' => 'Alfath.jpg',
+            'PT ARM Solusi' => 'ARM.jpg',
+            'PT Dutakom Wibawa Putra' => 'd-net.jpg',
+            'PT Green Energi Utama' => 'Green.jpg',
+            'PT Indoprima Gemilang' => 'PT Indo.jpg',
+            'PT Industri Kereta Api / PT INKA (Persero)' => 'inka.jpg',
+            'PT Intelix Global Crossing' => 'Intelix.jpg',
+            'PT JST Indonesia' => 'JST.jpg',
+            'PT Maxchat Inovasi Indonesia' => 'MaxChat.jpg',
+            'PT PAL Indonesia (Persero)' => 'PAL.jpg',
+            'PT Peruri Wira Timur' => 'Peruri.jpg',
+            'PT Rekaindo Global Jasa' => 'Reka.jpg',
+            'PT Sekuriti Siber Indonesia' => 'Siber.jpg',
+            'PT Time Door Indonesia' => 'Time.jpg',
+            'PT UTERO KREATIF INDONESIA' => 'Utero.jpg',
+            'Sarastya Agility Innovations' => 'Sarastya.jpg',
+            'The Himana Hotel & Mall Malang City Point' => 'Hotel.jpg',
+            'UPA Bahasa Polinema' => 'UPA.jpg',
+            'Wakil Direktur 4 Politeknik Negeri Malang' => 'Wadir4.jpg',
+
         ];
 
         $gradients = [

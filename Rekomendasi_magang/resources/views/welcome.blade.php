@@ -6,6 +6,42 @@
     <title>RekomIntern - Rekomendasi Magang</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            400: '#8b8bff',
+                            600: '#3b3bdb',
+                            700: '#2d2db8',
+                            800: '#1a1a6e',
+                            900: '#12124a',
+                        },
+                        success: {
+                            50: '#ecfdf5',
+                            200: '#a7f3d0',
+                            600: '#059669',
+                            700: '#047857',
+                        },
+                        dark: {
+                            100: '#f1f1f8',
+                            300: '#c0c0d0',
+                            400: '#8888a0',
+                            500: '#666680',
+                            600: '#555570',
+                            800: '#2a2a40',
+                            900: '#1a1a2e',
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Inter', sans-serif; background: #f4f6fb; color: #1a1a2e; }
@@ -72,25 +108,28 @@
         .p-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1.5px solid #e8e8f0; transition: all .25s; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
         .p-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,26,110,0.12); border-color: #3b3bdb; }
         .p-card-img { 
-    width: 100%; 
-    height: 160px; 
-    background: linear-gradient(135deg, #1a1a6e, #3b3bdb); 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    font-size: 3rem; 
-    color: rgba(255,255,255,0.4); 
-    overflow: hidden;
-    position: relative;
-}
-.p-card-img img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    object-position: center;
-    display: block;
-}
-        .p-card-body { padding: 1.2rem; }
+            width: 100%; 
+            height: 160px; 
+            background: linear-gradient(135deg, #1a1a6e, #3b3bdb); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 3rem; 
+            color: rgba(255,255,255,0.4); 
+            overflow: hidden;
+            position: relative;
+        }
+        .p-card-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center;
+            display: block;
+        }
+        /* Samakan tinggi kartu & dorong tombol ke bawah */
+        .p-card { display: flex; flex-direction: column; }
+        .p-card-body { display: flex; flex-direction: column; flex: 1; padding: 1.2rem; }
+        .p-card-desc { flex: 1; font-size: .8rem; color: #666; line-height: 1.55; margin-bottom: 1rem; }
         .p-card-name { font-size: .95rem; font-weight: 700; color: #1a1a2e; margin-bottom: .5rem; }
         .p-card-badges { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .7rem; }
         .badge { padding: .2rem .65rem; border-radius: 20px; font-size: .72rem; font-weight: 600; }
@@ -102,32 +141,22 @@
         .btn-detail { display: block; text-align: center; background: #1a1a6e; color: #fff; padding: .6rem; border-radius: 8px; text-decoration: none; font-size: .85rem; font-weight: 600; transition: background .2s; }
         .btn-detail:hover { background: #2d2db8; }
 
-        /* TESTIMONI */
-        #testimoni { background: #eef0fb; }
-        .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
-        .testi-card { background: #fff; border-radius: 16px; padding: 1.5rem; border: 1.5px solid #e8e8f0; transition: all .25s; }
-        .testi-card:hover { box-shadow: 0 8px 28px rgba(26,26,110,0.08); border-color: #c7c7ff; }
-        .testi-top { display: flex; align-items: center; gap: .8rem; margin-bottom: 1rem; }
-        .testi-avatar { width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, #1a1a6e, #3b3bdb); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: .9rem; }
-        .testi-name { font-weight: 700; font-size: .9rem; color: #1a1a2e; }
-        .testi-company { font-size: .75rem; color: #888; margin-top: .1rem; }
-        .testi-stars { color: #f59e0b; font-size: .85rem; margin-bottom: .8rem; }
-        .testi-text { font-size: .85rem; color: #555; line-height: 1.65; font-style: italic; }
-
-        /* FOOTER */
-        footer { background: #1a1a6e; color: rgba(255,255,255,0.6); padding: 2rem 5%; text-align: center; font-size: .85rem; }
-        footer a { color: #7eb8ff; text-decoration: none; }
+        /* Testimonial star rating shimmer */
+        @keyframes starPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
 
         @media(max-width: 900px) {
             .hero-right { display: none; }
-            .langkah-grid, .perusahaan-grid, .testi-grid { grid-template-columns: 1fr 1fr; }
+            .langkah-grid, .perusahaan-grid { grid-template-columns: 1fr 1fr; }
         }
         @media(max-width: 600px) {
-            .langkah-grid, .perusahaan-grid, .testi-grid { grid-template-columns: 1fr; }
+            .langkah-grid, .perusahaan-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body>
+<body class="font-inter">
 
 <!-- NAVBAR -->
 <nav class="navbar">
@@ -139,7 +168,7 @@
         <li><a href="/" class="active">Home</a></li>
         <li><a href="#perusahaan">Perusahaan</a></li>
         <li><a href="{{ route('rekomendasi') }}" class="nav-btn">Start Rekomendasi</a></li>
-        <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li>
+        {{-- <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li> --}}
     </ul>
 </nav>
 
@@ -151,7 +180,7 @@
             <p>Masukkan skill kamu di RekomInternship untuk dapatkan rekomendasi magang yang tepat! Raih pengalaman berharga dan kembangkan karier bersama perusahaan impian. Mulai sekarang dan perluas jaringanmu!</p>
             <a href="{{ route('rekomendasi') }}" class="btn-hero">Start Rekomendasi</a>
         </div>
-        <div class="hero-right">
+        {{-- <div class="hero-right">
             <div class="hero-card-demo">
                 <div class="demo-header">
                     <div class="demo-avatar">M</div>
@@ -181,7 +210,7 @@
                         <span class="demo-item-name">Sarastya Innovations</span>
                         <span class="demo-item-pct">87%</span>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -224,26 +253,26 @@
         </div>
         <a href="{{ route('rekomendasi') }}" class="btn-lihat-semua">Lihat Semua</a>
     </div>
-    <div class="perusahaan-grid">
-        @forelse($perusahaanList ?? [] as $p)
-        <div class="p-card">
-            <div class="p-card-img">
-    @if($loop->index == 0)
-        <img src="{{ asset('img/perusahaan/PT Indoprima Gemilang.jpg') }}" alt="{{ $p->name }}">
-    @elseif($loop->index == 1)
-        <img src="{{ asset('img/perusahaan/link-apisindo.jpg') }}" alt="{{ $p->name }}">
-    @elseif($loop->index == 2)
-        <img src="{{ asset('img/perusahaan/arm.jpg') }}" alt="{{ $p->name }}">
-    @elseif($loop->index == 3)
-        <img src="{{ asset('img/perusahaan/sarastya.jpg') }}" alt="{{ $p->name }}">
-    @elseif($loop->index == 4)
-        <img src="{{ asset('img/perusahaan/timedoor.jpg') }}" alt="{{ $p->name }}">
-    @elseif($loop->index == 5)
-        <img src="{{ asset('img/perusahaan/foto6.jpg') }}" alt="{{ $p->name }}">
-    @else
-        <i class="fas fa-building"></i>
-    @endif
-</div>
+            <div class="perusahaan-grid">
+                @forelse($perusahaanList ?? [] as $p)
+                <div class="p-card">
+                    <div class="p-card-img">
+            @if($loop->index == 0)
+                <img src="{{ asset('img/perusahaan/PT Indo.jpg') }}" alt="{{ $p->name }}">
+            @elseif($loop->index == 1)
+                <img src="{{ asset('img/perusahaan/DLH.jpg') }}" alt="{{ $p->name }}">
+            @elseif($loop->index == 2)
+                <img src="{{ asset('img/perusahaan/arm.jpg') }}" alt="{{ $p->name }}">
+            @elseif($loop->index == 3)
+                <img src="{{ asset('img/perusahaan/sarastya.jpg') }}" alt="{{ $p->name }}">
+            @elseif($loop->index == 4)
+                <img src="{{ asset('img/perusahaan/timedoor.jpg') }}" alt="{{ $p->name }}">
+            @elseif($loop->index == 5)
+                <img src="{{ asset('img/perusahaan/foto6.jpg') }}" alt="{{ $p->name }}">
+            @else
+                <i class="fas fa-building"></i>
+            @endif
+        </div>
             <div class="p-card-body">
                 <div class="p-card-name">{{ $p->name }}</div>
                 <div class="p-card-badges">
@@ -269,45 +298,241 @@
         @endforelse
     </div>
 </section>
+<!-- ========== TESTIMONIALS ========== -->
+<section id="testimonials" class="py-16 lg:py-24 px-[5%] bg-[#f4f6fb]">
+  <div class="max-w-7xl mx-auto">
 
-<!-- TESTIMONI -->
-<section id="testimoni">
-    <h2 class="sec-title">Review Mahasiswa</h2>
-    <p class="sec-sub">Pengalaman mahasiswa yang sudah menggunakan RekomIntern.</p>
-    <div class="testi-grid">
-        <div class="testi-card">
-            <div class="testi-top">
-                <div class="testi-avatar">L</div>
-                <div><div class="testi-name">Daffa</div><div class="testi-company">Magang di PT ARM Solusi</div></div>
-            </div>
-            <div class="testi-stars">★★★★★</div>
-            <p class="testi-text">"Saya merasa sangat terbantu dengan Platform RekomIntern. Platform ini membantu saya menemukan tempat magang yang sesuai dengan skill dan minat saya."</p>
-        </div>
-        <div class="testi-card">
-            <div class="testi-top">
-                <div class="testi-avatar">S</div>
-                <div><div class="testi-name">Isna</div><div class="testi-company">Magang di PT Link Apisindo</div></div>
-            </div>
-            <div class="testi-stars">★★★★★</div>
-            <p class="testi-text">"Fitur rekomendasinya akurat banget! Tidak perlu bingung pilih tempat magang karena sistem langsung mencarikan yang paling cocok untuk saya."</p>
-        </div>
-        <div class="testi-card">
-            <div class="testi-top">
-                <div class="testi-avatar">R</div>
-                <div><div class="testi-name">Zaki</div><div class="testi-company">Magang di Dinas Kominfo Jatim</div></div>
-            </div>
-            <div class="testi-stars">★★★★☆</div>
-            <p class="testi-text">"Tampilan webnya bersih dan mudah digunakan. Informasi perusahaan lengkap, mulai dari posisi sampai info uang saku. Sangat recommended!"</p>
-        </div>
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-10">
+      <h2 class="text-3xl lg:text-4xl font-extrabold text-dark-900 mb-4">
+        Apa Kata <span class="text-primary-600">Mereka</span>?
+      </h2>
+      <p class="text-base text-dark-500">Mahasiswa yang sudah menemukan magang impian mereka melalui RekomIntern.</p>
     </div>
+
+    <!-- Carousel: tombol kiri | track | tombol kanan -->
+    <div class="flex items-center gap-3">
+
+      <!-- Tombol Kiri -->
+      <button id="testi-prev"
+        class="flex-shrink-0 w-10 h-10 rounded-xl border border-dark-100 bg-white hover:bg-dark-100 flex items-center justify-center transition-colors disabled:opacity-25"
+        aria-label="Sebelumnya">
+        <i class="fas fa-arrow-left text-sm text-dark-600"></i>
+      </button>
+
+      <!-- Track Outer (overflow hidden) -->
+      <div id="testi-outer" class="overflow-hidden flex-1">
+        <div id="testi-track" class="flex gap-6" style="transition: transform 0.4s cubic-bezier(.4,0,.2,1);">
+
+          <!-- Card 1: Daffa -->
+          <div class="flex-none w-80 bg-white rounded-2xl p-6 border border-dark-100">
+            <div class="flex gap-1 mb-4">⭐⭐⭐⭐⭐</div>
+            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Saya merasa sangat terbantu dengan RekomIntern. Platform ini membantu saya menemukan tempat magang yang sesuai dengan skill dan minat saya."</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-dark-100">
+              <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold">D</div>
+              <div><p class="text-sm font-bold text-dark-800">Daffa</p><p class="text-xs text-dark-400">Magang di PT ARM Solusi</p></div>
+            </div>
+          </div>
+
+          <!-- Card 2: Isna -->
+          <div class="flex-none w-80 bg-white rounded-2xl p-6 border border-dark-100">
+            <div class="flex gap-1 mb-4">⭐⭐⭐⭐⭐</div>
+            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Fitur rekomendasinya akurat banget! Tidak perlu bingung pilih tempat magang karena sistem langsung mencarikan yang paling cocok untuk saya."</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-dark-100">
+              <div class="w-10 h-10 rounded-full bg-green-100 text-green-800 flex items-center justify-center font-bold">I</div>
+              <div><p class="text-sm font-bold text-dark-800">Isna</p><p class="text-xs text-dark-400">Magang di PT Link Apisindo</p></div>
+            </div>
+          </div>
+
+          <!-- Card 3: Zaki -->
+          <div class="flex-none w-80 bg-white rounded-2xl p-6 border border-dark-100">
+            <div class="flex gap-1 mb-4">⭐⭐⭐⭐</div>
+            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Tampilan webnya bersih dan mudah digunakan. Informasi perusahaan lengkap, mulai dari posisi sampai info uang saku. Sangat recommended!"</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-dark-100">
+              <div class="w-10 h-10 rounded-full bg-yellow-100 text-yellow-800 flex items-center justify-center font-bold">Z</div>
+              <div><p class="text-sm font-bold text-dark-800">Zaki</p><p class="text-xs text-dark-400">Magang di Dinas Kominfo Jatim</p></div>
+            </div>
+          </div>
+
+          <!-- Card 4: Rara -->
+          <div class="flex-none w-80 bg-white rounded-2xl p-6 border border-dark-100">
+            <div class="flex gap-1 mb-4">⭐⭐⭐⭐⭐</div>
+            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Awalnya bingung mau magang di mana, tapi setelah isi form di RekomIntern langsung dapet 5 rekomendasi relevan. Proses seleksinya jadi lebih terarah!"</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-dark-100">
+              <div class="w-10 h-10 rounded-full bg-red-100 text-red-800 flex items-center justify-center font-bold">R</div>
+              <div><p class="text-sm font-bold text-dark-800">Rara</p><p class="text-xs text-dark-400">Magang di Sarastya Innovations</p></div>
+            </div>
+          </div>
+
+          <!-- Card 5: Faiz -->
+          <div class="flex-none w-80 bg-white rounded-2xl p-6 border border-dark-100">
+            <div class="flex gap-1 mb-4">⭐⭐⭐⭐⭐</div>
+            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Skor kesesuaiannya membantu banget buat nentuin prioritas. Saya pilih yang 95% match dan ternyata emang cocok banget sama ritme kerja saya."</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-dark-100">
+              <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center font-bold">F</div>
+              <div><p class="text-sm font-bold text-dark-800">Faiz</p><p class="text-xs text-dark-400">Magang di Timedoor Academy</p></div>
+            </div>
+          </div>
+
+          <!-- Card 6: Nadia -->
+          <div class="flex-none w-80 bg-white rounded-2xl p-6 border border-dark-100">
+            <div class="flex gap-1 mb-4">⭐⭐⭐⭐</div>
+            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Enak banget bisa lihat status paid/unpaid langsung di kartu perusahaan. Ga perlu riset satu-satu. Hemat waktu dan langsung bisa fokus apply!"</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-dark-100">
+              <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">N</div>
+              <div><p class="text-sm font-bold text-dark-800">Nadia</p><p class="text-xs text-dark-400">Magang di PT Indoprima Gemilang</p></div>
+            </div>
+          </div>
+
+          <!-- Card 7: Aldi -->
+          <div class="flex-none w-80 bg-white rounded-2xl p-6 border border-dark-100">
+            <div class="flex gap-1 mb-4">⭐⭐⭐⭐⭐</div>
+            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Sistem ini membantu saya yang masih semester 5 buat tahu perusahaan mana yang cocok sama IPK dan skill saya. Jadi lebih percaya diri waktu apply!"</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-dark-100">
+              <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-800 flex items-center justify-center font-bold">A</div>
+              <div><p class="text-sm font-bold text-dark-800">Aldi</p><p class="text-xs text-dark-400">Magang di DLH Kota Surabaya</p></div>
+            </div>
+          </div>
+
+        </div><!-- end testi-track -->
+      </div><!-- end testi-outer -->
+
+      <!-- Tombol Kanan -->
+      <button id="testi-next"
+        class="flex-shrink-0 w-10 h-10 rounded-xl border border-dark-100 bg-white hover:bg-dark-100 flex items-center justify-center transition-colors disabled:opacity-25"
+        aria-label="Berikutnya">
+        <i class="fas fa-arrow-right text-sm text-dark-600"></i>
+      </button>
+
+    </div><!-- end flex wrapper -->
+
+    <!-- Dots -->
+    <div id="testi-dots" class="flex justify-center gap-2 mt-5"></div>
+
+  </div>
 </section>
 
-<footer>
-    <p>&copy; {{ date('Y') }} RekomIntern — Platform Rekomendasi Magang Mahasiswa.</p>
-    <p style="margin-top:.4rem"><a href="/">Home</a> · <a href="#perusahaan">Perusahaan</a> · <a href="{{ route('rekomendasi') }}">Start Rekomendasi</a></p>
+<script>
+  (function () {
+    const track   = document.getElementById('testi-track');
+    const prevBtn = document.getElementById('testi-prev');
+    const nextBtn = document.getElementById('testi-next');
+    const dotsEl  = document.getElementById('testi-dots');
+    const cards   = track.querySelectorAll('.flex-none');
+    const VISIBLE = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    const pages   = cards.length - VISIBLE + 1;
+    let current   = 0;
+
+    function cardWidth() { return cards[0].offsetWidth + 24; }
+
+    function goTo(idx) {
+      current = Math.max(0, Math.min(idx, pages - 1));
+      track.style.transform = `translateX(-${current * cardWidth()}px)`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current >= pages - 1;
+      dotsEl.querySelectorAll('button').forEach((d, i) => {
+        d.style.background = i === current ? '#1a1a6e' : '#c0c0d0';
+        d.style.width      = i === current ? '20px'   : '8px';
+      });
+    }
+
+    for (let i = 0; i < pages; i++) {
+      const b = document.createElement('button');
+      b.style.cssText = 'height:8px;width:8px;border-radius:4px;border:none;background:#c0c0d0;cursor:pointer;transition:all .2s;padding:0;';
+      b.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(b);
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    let sx = 0;
+    track.addEventListener('touchstart', e => sx = e.touches[0].clientX);
+    track.addEventListener('touchend', e => {
+      if (Math.abs(sx - e.changedTouches[0].clientX) > 40)
+        goTo(current + (sx > e.changedTouches[0].clientX ? 1 : -1));
+    });
+
+    goTo(0);
+    window.addEventListener('resize', () => goTo(current));
+  })();
+</script>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-dark-900 text-dark-300 pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-[5%] sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+            <!-- Brand -->
+            <div class="col-span-2 md:col-span-4 lg:col-span-2">
+                <a href="/" class="flex items-center gap-2 mb-4">
+                    <div class="w-9 h-9 bg-primary-600 rounded-xl flex items-center justify-center">
+                        <i data-lucide="briefcase" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-white">Rekom<span class="text-primary-400">Intern</span></span>
+                </a>
+                <p class="text-sm text-dark-400 leading-relaxed max-w-sm mb-6">Platform rekomendasi magang terbaik di Indonesia. Temukan pengalaman magang yang sesuai dengan minat dan skillmu.</p>
+                <div class="flex items-center gap-3">
+                    <a href="#" aria-label="Instagram"
+                    class="w-10 h-10 bg-dark-800 rounded-xl flex items-center justify-center transition-colors hover:bg-[#e1306c]">
+                        <i class="fab fa-instagram text-white text-base"></i>
+                    </a>
+                    <a href="#" aria-label="Twitter / X"
+                    class="w-10 h-10 bg-dark-800 rounded-xl flex items-center justify-center transition-colors hover:bg-[#1da1f2]">
+                        <i class="fab fa-x-twitter text-white text-base"></i>
+                    </a>
+                    <a href="#" aria-label="LinkedIn"
+                    class="w-10 h-10 bg-dark-800 rounded-xl flex items-center justify-center transition-colors hover:bg-[#0a66c2]">
+                        <i class="fab fa-linkedin-in text-white text-base"></i>
+                    </a>
+                    <a href="#" aria-label="GitHub"
+                    class="w-10 h-10 bg-dark-800 rounded-xl flex items-center justify-center transition-colors hover:bg-[#6e40c9]">
+                        <i class="fab fa-github text-white text-base"></i>
+                    </a>
+                </div>
+            </div>
+
+            
+            <!-- Links 1 -->
+            <div>
+                <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Menu</h4>
+                <ul class="space-y-3">
+                    <li><a href="#perusahaan" class="text-sm text-dark-400 hover:text-white transition-colors">Home</a></li>
+                    <li><a href="{{ route('rekomendasi') }}" class="text-sm text-dark-400 hover:text-white transition-colors">Perusahaan</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Tentang Kami</a></li>
+                </ul>
+            </div>
+            <!-- Links 2 -->
+            <div>
+                <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Bantuan</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Help Center</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Community</a></li>
+                </ul>
+            </div>
+            <!-- Links 3 -->
+            <div>
+                <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Kontak</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Gedung Inovasi Lt. 3, Jakarta Selatan,Indonesia</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">support@internpath.com</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">+62 812 3456 7890</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div class="border-t border-dark-800 pt-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-dark-400 items-center justify-between gap-4">&copy; {{ date('Y') }} RekomIntern — Platform Rekomendasi Magang Mahasiswa.</p>
+            </div>
+        </div>
+    </div>
 </footer>
 
+<script src="https://unpkg.com/lucide@latest"></script>
 <script>
+    lucide.createIcons();
+
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', function(e) {
             e.preventDefault();
