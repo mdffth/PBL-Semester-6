@@ -6,9 +6,33 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+=======
+        /* HERO */
+        .hero { background: linear-gradient(135deg, #ffffff 0%, #2d2db8 60%, #3b3bdb 100%); padding: 5rem 5% 4rem; min-height: 88vh; display: flex; align-items: center; }
+        .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 3rem; width: 100%; max-width: 1200px; margin: 0 auto; }
+        .hero-left { flex: 1; }
+        .hero-left h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1.2rem; }
+        .hero-left h1 span { color: #7eb8ff; }
+        .hero-left p { color: rgba(255,255,255,0.8); font-size: .98rem; line-height: 1.75; margin-bottom: 2rem; max-width: 480px; }
+        .btn-hero { display: inline-block; background: #3b3bdb; color: #fff; padding: .85rem 2rem; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 1rem; transition: all .2s; box-shadow: 0 4px 20px rgba(59,59,219,0.4); }
+        .btn-hero:hover { background: #2d2db8; transform: translateY(-2px); }
+        .hero-right { flex: 1; display: flex; justify-content: center; }
+        .hero-card-demo { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 2rem; width: 340px; }
+        .demo-header { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.5rem; }
+        .demo-avatar { width: 44px; height: 44px; background: #3b3bdb; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; }
+        .demo-title { color: #fff; font-weight: 700; font-size: .95rem; }
+        .demo-sub { color: rgba(255,255,255,0.6); font-size: .78rem; }
+        .demo-match { text-align: center; margin-bottom: 1.5rem; }
+        .match-circle { width: 90px; height: 90px; background: #3b3bdb; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto .5rem; border: 3px solid rgba(255,255,255,0.3); }
+        .match-pct { color: #fff; font-size: 1.4rem; font-weight: 800; }
+        .match-lbl { color: rgba(255,255,255,0.7); font-size: .65rem; }
+        .match-name { color: #fff; font-weight: 700; font-size: .9rem; }
+        .match-type { color: rgba(255,255,255,0.6); font-size: .78rem; }
+        .demo-list { display: flex; flex-direction: column; gap: .6rem; }
+        .demo-item { background: rgba(255,255,255,0.1); border-radius: 8px; padding: .6rem .8rem; display: flex; justify-content: space-between; align-items: center; }
+        .demo-item-name { color: #fff; font-size: .8rem; font-weight: 600; }
+        .demo-item-pct { color: #7eb8ff; font-size: .8rem; font-weight: 700; }
+>>>>>>> 0003867f40633b6819f48435134e8e97bdc32c13
 
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -38,15 +62,190 @@
                             Log in
                         </a>
 
-                        @if (Route::has('register'))
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
-                            </a>
-                        @endif
-                    @endauth
-                </nav>
+=======
+        /* LANGKAH */
+        #langkah { background: #fff; }
+        .langkah-header { text-align: center; margin-bottom: 2.5rem; }
+        .langkah-header h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: #1a1a2e; margin-bottom: .5rem; }
+        .langkah-header p { color: #666; font-size: .93rem; }
+        .langkah-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+        .langkah-card { background: #fff; border-radius: 16px; padding: 2rem 1.5rem; color: #1a1a2e; border: 1.5px solid #e8e8f0; box-shadow: 0 2px 12px rgba(0,0,0,0.04); transition: all .25s; }
+        .langkah-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(26,26,110,0.08); border-color: #c7c7ff; }
+        .langkah-icon { width: 48px; height: 48px; background: #eef0fb; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #3b3bdb; margin-bottom: 1.2rem; }
+        .langkah-card h3 { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: .6rem; }
+        .langkah-card p { font-size: .85rem; color: #666; line-height: 1.65; }          
+
+        /* PERUSAHAAN */
+        #perusahaan { background: #fff; }
+        .perusahaan-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .btn-lihat-semua { background: #1a1a6e; color: #fff; padding: .6rem 1.4rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: .88rem; transition: background .2s; }
+        .btn-lihat-semua:hover { background: #2d2db8; }
+        .perusahaan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .p-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1.5px solid #e8e8f0; transition: all .25s; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+        .p-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,26,110,0.12); border-color: #3b3bdb; }
+        .p-card-img { 
+            width: 100%; 
+            height: 160px; 
+            background: linear-gradient(135deg, #1a1a6e, #3b3bdb); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 3rem; 
+            color: rgba(255,255,255,0.4); 
+            overflow: hidden;
+            position: relative;
+        }
+        .p-card-img img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center;
+            display: block;
+        }
+        /* Samakan tinggi kartu & dorong tombol ke bawah */
+        .p-card { display: flex; flex-direction: column; }
+        .p-card-body { display: flex; flex-direction: column; flex: 1; padding: 1.2rem; }
+        .p-card-desc { flex: 1; font-size: .8rem; color: #666; line-height: 1.55; margin-bottom: 1rem; }
+        .p-card-name { font-size: .95rem; font-weight: 700; color: #1a1a2e; margin-bottom: .5rem; }
+        .p-card-badges { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .7rem; }
+        .badge { padding: .2rem .65rem; border-radius: 20px; font-size: .72rem; font-weight: 600; }
+        .b-blue { background: #e0e0ff; color: #1a1a6e; }
+        .b-green { background: #d1fae5; color: #065f46; }
+        .b-red { background: #fee2e2; color: #991b1b; }
+        .b-orange { background: #fff3e0; color: #b45309; }
+        .p-card-desc { font-size: .8rem; color: #666; line-height: 1.55; margin-bottom: 1rem; }
+        .btn-detail { display: block; text-align: center; background: #1a1a6e; color: #fff; padding: .6rem; border-radius: 8px; text-decoration: none; font-size: .85rem; font-weight: 600; transition: background .2s; }
+        .btn-detail:hover { background: #2d2db8; }
+
+        /* Testimonial star rating shimmer */
+        @keyframes starPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @media(max-width: 900px) {
+            .hero-right { display: none; }
+            .langkah-grid, .perusahaan-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media(max-width: 600px) {
+            .langkah-grid, .perusahaan-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="font-inter">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="/" class="navbar-brand">
+        <div class="brand-logo">RI</div>
+        <span class="brand-name">RekomIntern</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="#perusahaan">Perusahaan</a></li>
+        <li><a href="{{ route('rekomendasi') }}" class="nav-btn">Start Rekomendasi</a></li>
+        {{-- <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li> --}}
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-left">
+            <h1>Welcome to<br><span>RekomIntern!</span></h1>
+            <p>Sistem berbasis data untuk membantu mahasiswa untuk memilih tempat magang yang tepat berdasarkan portofolio, minat, dan kebutuhan industri terkini</p>
+            <a href="{{ route('rekomendasi') }}" class="btn-hero">Start Rekomendasi</a>
+            <a href="#langkah" class="btn-hero" style="background:#fff; color:#1a1a2e; border:1.5px solid #d0d0e8; box-shadow:none; margin-left:.8rem;">Pelajari Sistem</a>
+        </div>
+        {{-- <div class="hero-right">
+            <div class="hero-card-demo">
+                <div class="demo-header">
+                    <div class="demo-avatar">M</div>
+                    <div>
+                        <div class="demo-title">Rekomendasi Untukmu</div>
+                        <div class="demo-sub">Berdasarkan profil akademikmu</div>
+                    </div>
+                </div>
+                <div class="demo-match">
+                    <div class="match-circle">
+                        <div class="match-pct">98%</div>
+                        <div class="match-lbl">Match</div>
+                    </div>
+                    <div class="match-name">PT Indoprima Gemilang</div>
+                    <div class="match-type">IT System Development</div>
+                </div>
+                <div class="demo-list">
+                    <div class="demo-item">
+                        <span class="demo-item-name">PT ARM Solusi</span>
+                        <span class="demo-item-pct">95%</span>
+                    </div>
+                    <div class="demo-item">
+                        <span class="demo-item-name">PT Link Apisindo</span>
+                        <span class="demo-item-pct">90%</span>
+                    </div>
+                    <div class="demo-item">
+                        <span class="demo-item-name">Sarastya Innovations</span>
+                        <span class="demo-item-pct">87%</span>
+                    </div>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LANGKAH-LANGKAH -->
+<section id="langkah">
+    <div class="langkah-header">
+        <h2>Cara Kerja</h2>
+        <p>Tiga langkah mudah untuk mendapatkan karier impian melalui sistem kurasi data kami yang canggih.</p>
+    </div>
+    <div class="langkah-grid">
+        <div class="langkah-card">
+            <div class="langkah-icon"><i class="fas fa-user-edit"></i></div>
+            <h3>Isi Data Diri</h3>
+            <p>Lengkapi profil akademik Anda mulai dari IPK, keahlian teknis, tools yang dikuasai, hingga minat karir Anda.</p>
+        </div>
+        <div class="langkah-card">
+            <div class="langkah-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Sistem Menganalisis</h3>
+            <p>Algoritma kami mencocokkan profil Anda dengan ribuan kriteria dari mitra perusahaan yang tersedia.</p>
+        </div>
+        <div class="langkah-card">
+            <div class="langkah-icon"><i class="fas fa-check-circle"></i></div>
+            <h3>Dapatkan Rekomendasi</h3>
+            <p>Terima daftar magang yang paling sesuai dengan profil Anda lengkap dengan skor kecocokan.</p>
+        </div>
+    </div>
+</section>
+
+<!-- PERUSAHAAN -->
+<section id="perusahaan">
+    <div class="perusahaan-header">
+        <div>
+            <h2 class="sec-title">Perusahaan</h2>
+            <p class="sec-sub">Daftar perusahaan yang tersedia untuk tempat magang.</p>
+        </div>
+        <a href="{{ route('rekomendasi') }}" class="btn-lihat-semua">Lihat Semua</a>
+    </div>
+            <div class="perusahaan-grid">
+                @forelse($perusahaanList ?? [] as $p)
+                <div class="p-card">
+                    <div class="p-card-img">
+            @if($loop->index == 0)
+                <img src="{{ asset('img/perusahaan/PT Indo.jpg') }}" alt="{{ $p->name }}">
+            @elseif($loop->index == 1)
+                <img src="{{ asset('img/perusahaan/DLH.jpg') }}" alt="{{ $p->name }}">
+            @elseif($loop->index == 2)
+                <img src="{{ asset('img/perusahaan/Peta.jpg') }}" alt="{{ $p->name }}">
+            @elseif($loop->index == 3)
+                <img src="{{ asset('img/perusahaan/ARM.jpg') }}" alt="{{ $p->name }}">
+            @elseif($loop->index == 4)
+                <img src="{{ asset('img/perusahaan/Peta.jpg') }}" alt="{{ $p->name }}">
+            @elseif($loop->index == 5)
+                <img src="{{ asset('img/perusahaan/Sarastya.jpg') }}" alt="{{ $p->name }}">
+            @else
+                <i class="fas fa-building"></i>
+>>>>>>> 0003867f40633b6819f48435134e8e97bdc32c13
             @endif
         </header>
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
@@ -215,7 +414,38 @@
                     </svg>
                     <div class="absolute inset-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"></div>
                 </div>
-            </main>
+=======
+            </div>
+
+            
+            <!-- Links 1 -->
+            <div>
+                <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Menu</h4>
+                <ul class="space-y-3">
+                    <li><a href="#perusahaan" class="text-sm text-dark-400 hover:text-white transition-colors">Home</a></li>
+                    <li><a href="{{ route('rekomendasi') }}" class="text-sm text-dark-400 hover:text-white transition-colors">Perusahaan</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Tentang Kami</a></li>
+                </ul>
+            </div>
+            <!-- Links 2 -->
+            <div>
+                <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Bantuan</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Help Center</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Community</a></li>
+                </ul>
+            </div>
+            <!-- Links 3 -->
+            <div>
+                <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Kontak</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Gedung Inovasi Lt. 3, Jakarta Selatan,Indonesia</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Kelompok_3_PBL@internpath.com</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">+62 812 3456 7890</a></li>
+                </ul>
+            </div>
+>>>>>>> 0003867f40633b6819f48435134e8e97bdc32c13
         </div>
 
         @if (Route::has('login'))
