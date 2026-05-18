@@ -29,6 +29,8 @@ Route::get('/', function () {
 
 });
 
+
+
 Route::get('/detail-perusahaan', function () {
     return view('mahasiswa.detail_perusahaan');
 });
@@ -146,10 +148,10 @@ Route::controller(MahasiswaController::class)->group(function () {
     Route::get('/mahasiswa-form', 'formPage');
 
 });
-use App\Http\Controllers\MahasiswaController;
+// use App\Http\Controllers\MahasiswaController;
 
 // Landing Page (halaman utama)
-Route::get('/', [MahasiswaController::class, 'landing'])->name('landing');
+Route::get('/landing', [MahasiswaController::class, 'landing'])->name('landing');
 
 // Page Rekomendasi + Filter
 Route::get('/rekomendasi', [MahasiswaController::class, 'rekomendasi'])->name('rekomendasi');
