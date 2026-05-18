@@ -85,6 +85,7 @@
         .demo-item-name { color: #fff; font-size: .8rem; font-weight: 600; }
         .demo-item-pct { color: #7eb8ff; font-size: .8rem; font-weight: 700; }
 
+
         /* SECTION */
         section { padding: 5rem 5%; }
         .sec-title { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: #1a1a2e; margin-bottom: .5rem; }
@@ -272,6 +273,19 @@
                 <img src="{{ asset('img/perusahaan/Sarastya.jpg') }}" alt="{{ $p->name }}">
             @else
                 <i class="fas fa-building"></i>
+            @endif
+                    </div>
+                    <div class="p-card-body">
+                        <div class="p-card-name">{{ $p->name }}</div>
+                        <div class="p-card-badges">
+                            @foreach($p->categories as $cat)
+                                <span class="badge b-blue">{{ $cat }}</span>
+                            @endforeach
+                        </div>
+                        <div class="p-card-desc">{{ Str::limit($p->description, 100) }}</div>
+                        <a href="{{ route('perusahaan.show', $p->id) }}" class="btn-detail">Lihat Detail</a>
+                    </div>
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -489,6 +503,7 @@
                     </svg>
                     <div class="absolute inset-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]"></div>
                 </div>
+
 <
             </div>
 
@@ -521,16 +536,18 @@
                 </ul>
             </div>
         </div>
+        
         <!-- Footer Bottom -->
         <div class="border-t border-dark-800 pt-8">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 <p class="text-sm text-dark-400 items-center justify-between gap-4">&copy; {{ date('Y') }} RekomIntern — Platform Rekomendasi Magang Mahasiswa.</p>
             </div>
-
         </div>
+    </footer>
 
         @if (Route::has('login'))
             <div class="h-14.5 hidden lg:block"></div>
         @endif
+
     </body>
 </html>
