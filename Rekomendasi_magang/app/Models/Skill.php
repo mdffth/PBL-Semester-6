@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Skill extends Model
 {
+    protected $teble = 'skills';
+    
     protected $fillable = [
         'name'
     ];

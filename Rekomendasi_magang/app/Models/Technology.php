@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Technology extends Model
 {
+    protected $table = 'technologies';
+    
     protected $fillable = ['name'];
 
     public function Perusahaan(): BelongsToMany
