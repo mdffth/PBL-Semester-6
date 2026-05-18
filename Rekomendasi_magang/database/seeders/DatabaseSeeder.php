@@ -21,11 +21,6 @@ class DatabaseSeeder extends Seeder
         PerusahaanSeeder::class,
         MinatBidangSeeder::class,
         TechnologySeeder::class,
-        SkillSeeder::class,
-        perusahaan_posisipvtSeeder::class,
-        perusahaan_technologypvtSeeder::class,
-        perusahaan_skillpvtSeeder::class,
-        
     ]);
 
         User::factory()->create([
