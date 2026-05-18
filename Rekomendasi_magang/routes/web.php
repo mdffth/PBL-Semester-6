@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RecommendationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -10,11 +11,17 @@ Route::get('/', function () {
 Route::get('/detail-perusahaan', function () {
     return view('mahasiswa.detail_perusahaan');
 });
-
-Route::get('/form-page', function () {
-    return view('mahasiswa.form_page');
+//form page
+// Route::get('/form-page', [RecommendationController::class, 'getdata']);
+// Route::post('/form-page', [RecommendationController::class, 'process'])->name('recommendation.process');
+Route::controller(RecommendationController::class)->group(function () {
+    Route::get('/form-page',                  'getdata')->name('recommendation.index');
+    Route::post('/process',          'process')->name('recommendation.process');
+    Route::get('/result/{uuid}',     'result')->name('recommendation.result');
 });
 
+
+//Login
 Route::post('/login', function (Request $request) {
 
     $email = $request->email;
