@@ -6,16 +6,8 @@ use App\Models\Perusahaan;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\Admin\DashboardController;
-
-/*
-|--------------------------------------------------------------------------
-| WEB ROUTES
-|--------------------------------------------------------------------------
-| InternPath - Sistem Rekomendasi Magang
-|--------------------------------------------------------------------------
-*/
-
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +23,39 @@ Route::post('/login', [AuthController::class, 'login'])
 
 Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
+
+
+/*
+|--------------------------------------------------------------------------
+| LANDING PAGE
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/landing', [MahasiswaController::class, 'landing'])
+    ->name('landing');
+
+Route::get('/rekomendasi', [MahasiswaController::class, 'rekomendasi'])
+    ->name('rekomendasi');
+
+
+/*
+|--------------------------------------------------------------------------
+| RECOMMENDATION
+|--------------------------------------------------------------------------
+*/
+
+Route::controller(RecommendationController::class)->group(function () {
+
+    Route::get('/form-page', 'getdata')
+        ->name('recommendation.index');
+
+    Route::post('/process', 'process')
+        ->name('recommendation.process');
+
+    Route::get('/result/{uuid}', 'result')
+        ->name('recommendation.result');
+
+});
 
 
 /*
@@ -53,7 +78,6 @@ Route::middleware('auth')
         |--------------------------------------------------------------------------
         */
 
-        // halaman dashboard
         Route::get('/', [DashboardController::class, 'index'])
             ->name('index');
 
@@ -63,33 +87,27 @@ Route::middleware('auth')
         |--------------------------------------------------------------------------
         */
 
-        // form tambah perusahaan
         Route::get('/create', [DashboardController::class, 'create'])
             ->name('create');
 
-        // simpan perusahaan
         Route::post('/store', [DashboardController::class, 'store'])
             ->name('store');
 
-        // form edit perusahaan
         Route::get('/{id}/edit', [DashboardController::class, 'edit'])
             ->name('edit');
 
-        // update perusahaan
         Route::put('/{id}/update', [DashboardController::class, 'update'])
             ->name('update');
 
-        // hapus perusahaan
         Route::delete('/{id}/delete', [DashboardController::class, 'destroy'])
             ->name('destroy');
 
-        // detail perusahaan
         Route::get('/{id}/detail', [DashboardController::class, 'show'])
             ->name('show');
 
         /*
         |--------------------------------------------------------------------------
-        | TOGGLE STATUS MAGANG
+        | TOGGLE STATUS
         |--------------------------------------------------------------------------
         */
 
@@ -108,30 +126,9 @@ Route::middleware('auth')
 |--------------------------------------------------------------------------
 */
 
-# form rekomendasi magang
-Route::get('/form-page', function () {
-
-    return view('mahasiswa.form_page');
-
-})->name('form.page');
-
-
-# detail perusahaan
 Route::get('/detail-perusahaan/{id}', function ($id) {
 
-    /*
-    |--------------------------------------------------------------------------
-    | AMBIL DATA PERUSAHAAN
-    |--------------------------------------------------------------------------
-    */
-
     $perusahaan = Perusahaan::findOrFail($id);
-
-    /*
-    |--------------------------------------------------------------------------
-    | KIRIM KE VIEW
-    |--------------------------------------------------------------------------
-    */
 
     return view(
         'mahasiswa.detail_perusahaan',
@@ -143,7 +140,7 @@ Route::get('/detail-perusahaan/{id}', function ($id) {
 
 /*
 |--------------------------------------------------------------------------
-| CONTROLLER MAHASISWA
+| MAHASISWA
 |--------------------------------------------------------------------------
 */
 
