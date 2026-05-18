@@ -1,4 +1,4 @@
-<!-- resources/views/admin/detail_perusahaan.blade.php -->
+<!-- resources/views/mahasiswa/detail_perusahaan.blade.php -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +8,7 @@
     <title>Detail Perusahaan</title>
 
     <style>
+
         *{
             margin: 0;
             padding: 0;
@@ -102,13 +103,22 @@
 
         .company-badge{
             display: flex;
-            gap: 15px;
-            color: #7C8299;
-            font-size: 14px;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .badge{
+            background: #EEF3FF;
+            color: #0242C4;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .section-title{
-            font-size: 32px;
+            font-size: 30px;
             font-weight: bold;
             margin-bottom: 20px;
             border-left: 5px solid #0242C4;
@@ -119,10 +129,12 @@
             color: #555;
             line-height: 1.8;
             font-size: 16px;
+            white-space: pre-line;
         }
 
         .responsibility-list{
             margin-top: 20px;
+            padding-left: 20px;
         }
 
         .responsibility-list li{
@@ -141,13 +153,19 @@
         }
 
         .sidebar-title{
-            font-size: 28px;
+            font-size: 26px;
             font-weight: bold;
             margin-bottom: 25px;
         }
 
         .info-group{
-            margin-bottom: 25px;
+            margin-bottom: 22px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .info-group:last-child{
+            border-bottom: none;
         }
 
         .info-label{
@@ -155,12 +173,14 @@
             color: #7C8299;
             margin-bottom: 8px;
             text-transform: uppercase;
+            font-weight: 600;
         }
 
         .info-value{
             font-size: 15px;
             color: #333;
             font-weight: 500;
+            line-height: 1.6;
         }
 
         .tag-container{
@@ -236,6 +256,7 @@
         }
 
         @media(max-width: 992px){
+
             .container{
                 grid-template-columns: 1fr;
             }
@@ -256,6 +277,7 @@
                 flex-direction: column;
                 gap: 15px;
             }
+
         }
 
     </style>
@@ -264,7 +286,10 @@
 
     <!-- NAVBAR -->
     <div class="navbar">
-        <div class="logo">InternPath</div>
+
+        <div class="logo">
+            InternPath
+        </div>
 
         <div class="nav-menu">
             <a href="#">Beranda</a>
@@ -272,6 +297,7 @@
             <a href="#" class="btn-login">Login</a>
             <a href="#" class="btn-primary">Mulai Rekomendasi</a>
         </div>
+
     </div>
 
     <!-- CONTENT -->
@@ -282,63 +308,96 @@
 
             <!-- IMAGE -->
             <div class="card">
-                <img src="{{ asset('images/reka.png') }}" class="company-image">
+
+                {{-- LOGO DINAMIS --}}
+                <img
+                    src="{{ $perusahaan->logo ? asset('storage/' . $perusahaan->logo) : asset('images/reka.png') }}"
+                    class="company-image"
+                >
 
                 <div class="company-header">
+
                     <div class="company-title">
-                        PT. Rekaindo Global Jasa
+                        {{ $perusahaan->name }}
                     </div>
 
                     <div class="company-badge">
-                        <span>🏢 TechNova Solutions</span>
-                        <span>✔ Verified Employer</span>
+
+                        <div class="badge">
+                            🏢 {{ $perusahaan->tipe_industri ?? '-' }}
+                        </div>
+
+                        <div class="badge">
+                            📍
+                            {{ $perusahaan->kota ?? '-' }},
+                            {{ $perusahaan->provinsi ?? '-' }}
+                        </div>
+
+                        <div class="badge">
+                            💼 {{ $perusahaan->status_magang ?? '-' }}
+                        </div>
+
                     </div>
+
                 </div>
+
             </div>
 
             <!-- PROFILE -->
             <div class="card">
+
                 <div class="section-title">
                     Profil Perusahaan
                 </div>
 
                 <div class="description">
-                    PT Rekaindo Global Jasa (REKA) berdiri 1998 di Madiun,
-                    merupakan perusahaan konsultan engineering dan support
-                    komponen kereta api. Dimiliki bersama PT INKA, Nippon
-                    Sharyo Ltd, Sumitomo Corporation, dan KOPINKA.
-                    Bergerak di bidang desain 3D, panel kontrol elektrik,
-                    dan komponen perkeretaapian.
+                    {{ $perusahaan->profile_perusahaan ?? '-' }}
                 </div>
+
             </div>
 
             <!-- JOB DESCRIPTION -->
             <div class="card">
+
                 <div class="section-title">
                     Detailed Job Description
                 </div>
 
                 <div class="description">
-                    Kami membuka kesempatan magang bagi mahasiswa yang memiliki
-                    minat dalam pengembangan sistem digital untuk mendukung
-                    proses digitalisasi di perusahaan.
-                    <br><br>
-                    Pada posisi ini, Anda akan terlibat langsung dalam proses
-                    pengembangan sistem, mulai dari perancangan, implementasi,
-                    hingga dokumentasi.
+                    {{ $perusahaan->job_description ?? '-' }}
                 </div>
 
                 <div class="section-title"
                      style="margin-top:35px; font-size:24px;">
-                    Key Responsibilities
+
+                    Informasi Magang
+
                 </div>
 
                 <ul class="responsibility-list">
-                    <li>Berkolaborasi dalam pengembangan sistem dan aplikasi digital.</li>
-                    <li>Mengimplementasikan front-end dan UI/UX.</li>
-                    <li>Mendukung perancangan serta pengelolaan database.</li>
-                    <li>Membantu dokumentasi dan maintenance sistem.</li>
+
+                    <li>
+                        <strong>Posisi Magang :</strong>
+                        {{ $perusahaan->posisi_magang ?? '-' }}
+                    </li>
+
+                    <li>
+                        <strong>Minimal IPK :</strong>
+                        {{ $perusahaan->min_ipk ?? '-' }}
+                    </li>
+
+                    <li>
+                        <strong>Durasi Magang :</strong>
+                        {{ $perusahaan->duration_months ?? '-' }}
+                    </li>
+
+                    <li>
+                        <strong>Status Magang :</strong>
+                        {{ $perusahaan->status_magang ?? '-' }}
+                    </li>
+
                 </ul>
+
             </div>
 
         </div>
@@ -353,34 +412,133 @@
                 </div>
 
                 <div class="info-group">
-                    <div class="info-label">Location</div>
-                    <div class="info-value">Madiun, Indonesia</div>
+
+                    <div class="info-label">
+                        Lokasi
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ $perusahaan->alamat ?? '-' }},
+                        {{ $perusahaan->kota ?? '-' }},
+                        {{ $perusahaan->provinsi ?? '-' }}
+
+                    </div>
+
                 </div>
 
                 <div class="info-group">
-                    <div class="info-label">Internship Type</div>
-                    <div class="info-value">On Site</div>
+
+                    <div class="info-label">
+                        Tipe Industri
+                    </div>
+
+                    <div class="info-value">
+                        {{ $perusahaan->tipe_industri ?? '-' }}
+                    </div>
+
                 </div>
 
                 <div class="info-group">
-                    <div class="info-label">Benefits</div>
+
+                    <div class="info-label">
+                        Posisi Magang
+                    </div>
+
+                    <div class="info-value">
+                        {{ $perusahaan->posisi_magang ?? '-' }}
+                    </div>
+
+                </div>
+
+                <div class="info-group">
+
+                    <div class="info-label">
+                        Minimal IPK
+                    </div>
+
+                    <div class="info-value">
+                        {{ $perusahaan->min_ipk ?? '-' }}
+                    </div>
+
+                </div>
+
+                <div class="info-group">
+
+                    <div class="info-label">
+                        Durasi Magang
+                    </div>
+
+                    <div class="info-value">
+                        {{ $perusahaan->duration_months ?? '-' }}
+                    </div>
+
+                </div>
+
+                <div class="info-group">
+
+                    <div class="info-label">
+                        Status Magang
+                    </div>
+
+                    <div class="info-value">
+                        {{ $perusahaan->status_magang ?? '-' }}
+                    </div>
+
+                </div>
+
+                <!-- SKILLS -->
+                <div class="info-group">
+
+                    <div class="info-label">
+                        Required Skills
+                    </div>
 
                     <div class="tag-container">
-                        <div class="tag">Certificate</div>
-                        <div class="tag">Paid Salary</div>
-                        <div class="tag">Work Experience</div>
+
+                        @forelse($perusahaan->skills as $skill)
+
+                            <div class="tag">
+                                {{ $skill->name }}
+                            </div>
+
+                        @empty
+
+                            <div class="tag">
+                                Belum ada skill
+                            </div>
+
+                        @endforelse
+
                     </div>
+
                 </div>
 
+                <!-- TECHNOLOGIES -->
                 <div class="info-group">
-                    <div class="info-label">Required Skills</div>
+
+                    <div class="info-label">
+                        Technologies
+                    </div>
 
                     <div class="tag-container">
-                        <div class="tag">Figma</div>
-                        <div class="tag">UX Research</div>
-                        <div class="tag">UI Design</div>
-                        <div class="tag">Teamwork</div>
+
+                        @forelse($perusahaan->technologies as $tech)
+
+                            <div class="tag">
+                                {{ $tech->name }}
+                            </div>
+
+                        @empty
+
+                            <div class="tag">
+                                Belum ada teknologi
+                            </div>
+
+                        @endforelse
+
                     </div>
+
                 </div>
 
                 <button class="apply-btn">
@@ -390,7 +548,10 @@
             </div>
 
             <div class="sidebar-card help-box">
-                <h3>Need Help?</h3>
+
+                <h3>
+                    Need Help?
+                </h3>
 
                 <p>
                     Contact our talent acquisition team if you have
@@ -400,6 +561,7 @@
                 <p>
                     Visit Help Center
                 </p>
+
             </div>
 
         </div>
@@ -410,16 +572,40 @@
     <footer>
 
         <div>
-            <h3>InternPath</h3>
-            <p>© 2024 InternPath. Bridging academic life and professional careers.</p>
+
+            <h3>
+                InternPath
+            </h3>
+
+            <p>
+                © 2024 InternPath.
+                Bridging academic life and professional careers.
+            </p>
+
         </div>
 
         <div class="footer-links">
-            <a href="#">About Us</a>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Help Center</a>
-            <a href="#">Contact</a>
+
+            <a href="#">
+                About Us
+            </a>
+
+            <a href="#">
+                Privacy
+            </a>
+
+            <a href="#">
+                Terms
+            </a>
+
+            <a href="#">
+                Help Center
+            </a>
+
+            <a href="#">
+                Contacts
+            </a>
+
         </div>
 
     </footer>

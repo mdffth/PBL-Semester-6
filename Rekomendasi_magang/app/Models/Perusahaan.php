@@ -11,6 +11,9 @@ class Perusahaan extends Model
 {
     use HasFactory;
 
+    // TAMBAHKAN INI
+    protected $table = 'perusahaan';
+
     protected $fillable = [
         'nama_perusahaan',
         'profil_perusahaan',
@@ -23,7 +26,7 @@ class Perusahaan extends Model
     ];
 
     protected $casts = [
-        'min_ipk' => 'decimal:2',
+        'minimal_ipk' => 'decimal:2',
     ];
 
     public function skills(): BelongsToMany
@@ -35,7 +38,7 @@ class Perusahaan extends Model
     {
         return $this->belongsToMany(Technology::class, 'perusahaan_technologies');
     }
-    
+
     public function minatBidang(): BelongsToMany
     {
         return $this->belongsToMany(MinatBidang::class, 'perusahaan_minat');
@@ -45,7 +48,6 @@ class Perusahaan extends Model
     {
         return $this->hasMany(RecommendationResult::class);
     }
-    
 
     public function skillIds(): array
     {

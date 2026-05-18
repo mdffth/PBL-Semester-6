@@ -245,19 +245,11 @@
                        list="list_minat_bidang"
                        placeholder="Ketik atau pilih bidang yang diminati...">
 
-                <datalist id="list_minat_bidang">
-
-                    <option value="Frontend Developer">
-                    <option value="Backend Developer">
-                    <option value="Fullstack Developer">
-                    <option value="Web Developer">
-                    <option value="Mobile Developer">
-                    <option value="Game Developer">
-                    <option value="UI/UX Designer">
-                    <option value="Data Analyst">
-                    <option value="Cyber Security">
-
-                </datalist>
+                    <datalist id="list_minat_bidang">
+                    @foreach($minat as $item)
+                    <option value="{{ $item->nama_bidang }}">\
+                        @endforeach
+                    </datalist>
 
             </div>
 
@@ -274,19 +266,12 @@
                            placeholder="Ketik tools lalu tekan Enter">
 
                 </div>
-
+                
                 <datalist id="list_tools">
 
-                    <option value="Figma">
-                    <option value="VS Code">
-                    <option value="Git">
-                    <option value="GitHub">
-                    <option value="Postman">
-                    <option value="Docker">
-                    <option value="Laragon">
-                    <option value="XAMPP">
-                    <option value="Power BI">
-                    <option value="Tableau">
+                    @foreach($technologies as $tech)
+                        <option value="{{ $tech->nama_technology }}">
+                    @endforeach
 
                 </datalist>
 
@@ -308,17 +293,9 @@
 
                 <datalist id="list_skills">
 
-                    <option value="Python">
-                    <option value="PHP">
-                    <option value="Laravel">
-                    <option value="React">
-                    <option value="JavaScript">
-                    <option value="MySQL">
-                    <option value="UI Design">
-                    <option value="UX Research">
-                    <option value="Data Analysis">
-                    <option value="Machine Learning">
-                    <option value="Cyber Security">
+                    @foreach($skills as $skill)
+                        <option value="{{ $skill->nama_skill }}">
+                    @endforeach
 
                 </datalist>
 
