@@ -59,7 +59,7 @@
         .nav-avatar { width: 34px; height: 34px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .9rem; cursor: pointer; }
 
         /* HERO */
-        .hero { background: linear-gradient(135deg, #1a1a6e 0%, #2d2db8 60%, #3b3bdb 100%); padding: 5rem 5% 4rem; min-height: 88vh; display: flex; align-items: center; }
+        .hero { background: linear-gradient(135deg, #ffffff 0%, #2d2db8 60%, #3b3bdb 100%); padding: 5rem 5% 4rem; min-height: 88vh; display: flex; align-items: center; }
         .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 3rem; width: 100%; max-width: 1200px; margin: 0 auto; }
         .hero-left { flex: 1; }
         .hero-left h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1.2rem; }
@@ -90,14 +90,16 @@
         .sec-sub { color: #666; font-size: .93rem; line-height: 1.65; }
 
         /* LANGKAH */
-        #langkah { background: #eef0fb; }
+        #langkah { background: #fff; }
+        .langkah-header { text-align: center; margin-bottom: 2.5rem; }
+        .langkah-header h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: #1a1a2e; margin-bottom: .5rem; }
+        .langkah-header p { color: #666; font-size: .93rem; }
         .langkah-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
-        .langkah-card { background: #1a1a6e; border-radius: 16px; padding: 2rem 1.5rem; text-align: center; color: #fff; position: relative; overflow: hidden; }
-        .langkah-num { position: absolute; top: 1rem; right: 1.2rem; font-size: 3rem; font-weight: 900; color: rgba(255,255,255,0.08); line-height: 1; }
-        .langkah-icon { width: 56px; height: 56px; background: rgba(255,255,255,0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem; }
-        .langkah-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
-        .langkah-card p { font-size: .83rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
-        .langkah-num-badge { width: 28px; height: 28px; background: #3b3bdb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 700; color: #fff; margin: 1rem auto 0; }
+        .langkah-card { background: #fff; border-radius: 16px; padding: 2rem 1.5rem; color: #1a1a2e; border: 1.5px solid #e8e8f0; box-shadow: 0 2px 12px rgba(0,0,0,0.04); transition: all .25s; }
+        .langkah-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(26,26,110,0.08); border-color: #c7c7ff; }
+        .langkah-icon { width: 48px; height: 48px; background: #eef0fb; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #3b3bdb; margin-bottom: 1.2rem; }
+        .langkah-card h3 { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: .6rem; }
+        .langkah-card p { font-size: .85rem; color: #666; line-height: 1.65; }          
 
         /* PERUSAHAAN */
         #perusahaan { background: #fff; }
@@ -177,8 +179,9 @@
     <div class="hero-inner">
         <div class="hero-left">
             <h1>Welcome to<br><span>RekomIntern!</span></h1>
-            <p>Masukkan skill kamu di RekomInternship untuk dapatkan rekomendasi magang yang tepat! Raih pengalaman berharga dan kembangkan karier bersama perusahaan impian. Mulai sekarang dan perluas jaringanmu!</p>
+            <p>Sistem berbasis data untuk membantu mahasiswa untuk memilih tempat magang yang tepat berdasarkan portofolio, minat, dan kebutuhan industri terkini</p>
             <a href="{{ route('rekomendasi') }}" class="btn-hero">Start Rekomendasi</a>
+            <a href="#langkah" class="btn-hero" style="background:#fff; color:#1a1a2e; border:1.5px solid #d0d0e8; box-shadow:none; margin-left:.8rem;">Pelajari Sistem</a>
         </div>
         {{-- <div class="hero-right">
             <div class="hero-card-demo">
@@ -218,28 +221,25 @@
 
 <!-- LANGKAH-LANGKAH -->
 <section id="langkah">
-    <h2 class="sec-title">Langkah – langkah</h2>
+    <div class="langkah-header">
+        <h2>Cara Kerja</h2>
+        <p>Tiga langkah mudah untuk mendapatkan karier impian melalui sistem kurasi data kami yang canggih.</p>
+    </div>
     <div class="langkah-grid">
         <div class="langkah-card">
-            <div class="langkah-num">1</div>
-            <div class="langkah-icon"><i class="fas fa-mouse-pointer"></i></div>
-            <h3>Mulai Rekomendasi</h3>
-            <p>Klik tombol mulai untuk memulai proses pencarian rekomendasi magang terbaik untukmu.</p>
-            <div class="langkah-num-badge">1</div>
-        </div>
-        <div class="langkah-card">
-            <div class="langkah-num">2</div>
             <div class="langkah-icon"><i class="fas fa-user-edit"></i></div>
             <h3>Isi Data Diri</h3>
-            <p>Masukkan data diri kamu seperti IPK, skill, teknologi yang dikuasai, dan minat bidang industri yang diinginkan.</p>
-            <div class="langkah-num-badge">2</div>
+            <p>Lengkapi profil akademik Anda mulai dari IPK, keahlian teknis, tools yang dikuasai, hingga minat karir Anda.</p>
         </div>
         <div class="langkah-card">
-            <div class="langkah-num">3</div>
-            <div class="langkah-icon"><i class="fas fa-trophy"></i></div>
-            <h3>Dapatkan Hasil</h3>
-            <p>Lihat rekomendasi perusahaan magang yang paling cocok dengan profil kamu, lengkap dengan skor kesesuaian.</p>
-            <div class="langkah-num-badge">3</div>
+            <div class="langkah-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Sistem Menganalisis</h3>
+            <p>Algoritma kami mencocokkan profil Anda dengan ribuan kriteria dari mitra perusahaan yang tersedia.</p>
+        </div>
+        <div class="langkah-card">
+            <div class="langkah-icon"><i class="fas fa-check-circle"></i></div>
+            <h3>Dapatkan Rekomendasi</h3>
+            <p>Terima daftar magang yang paling sesuai dengan profil Anda lengkap dengan skor kecocokan.</p>
         </div>
     </div>
 </section>
@@ -262,13 +262,13 @@
             @elseif($loop->index == 1)
                 <img src="{{ asset('img/perusahaan/DLH.jpg') }}" alt="{{ $p->name }}">
             @elseif($loop->index == 2)
-                <img src="{{ asset('img/perusahaan/arm.jpg') }}" alt="{{ $p->name }}">
+                <img src="{{ asset('img/perusahaan/Peta.jpg') }}" alt="{{ $p->name }}">
             @elseif($loop->index == 3)
-                <img src="{{ asset('img/perusahaan/sarastya.jpg') }}" alt="{{ $p->name }}">
+                <img src="{{ asset('img/perusahaan/ARM.jpg') }}" alt="{{ $p->name }}">
             @elseif($loop->index == 4)
-                <img src="{{ asset('img/perusahaan/timedoor.jpg') }}" alt="{{ $p->name }}">
+                <img src="{{ asset('img/perusahaan/Peta.jpg') }}" alt="{{ $p->name }}">
             @elseif($loop->index == 5)
-                <img src="{{ asset('img/perusahaan/foto6.jpg') }}" alt="{{ $p->name }}">
+                <img src="{{ asset('img/perusahaan/Sarastya.jpg') }}" alt="{{ $p->name }}">
             @else
                 <i class="fas fa-building"></i>
             @endif
@@ -515,7 +515,7 @@
                 <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Kontak</h4>
                 <ul class="space-y-3">
                     <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Gedung Inovasi Lt. 3, Jakarta Selatan,Indonesia</a></li>
-                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">support@internpath.com</a></li>
+                    <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Kelompok_3_PBL@internpath.com</a></li>
                     <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">+62 812 3456 7890</a></li>
                 </ul>
             </div>
