@@ -23,15 +23,10 @@ use App\Http\Controllers\Admin\DashboardController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
+// Landing Page (halaman utama)
+Route::get('/', [MahasiswaController::class, 'landing'])->name('landing');
 
-    return view('admin.login');
 
-});
-
-Route::get('/detail-perusahaan', function () {
-    return view('mahasiswa.detail_perusahaan');
-});
 //form page
 // Route::get('/form-page', [RecommendationController::class, 'getdata']);
 // Route::post('/form-page', [RecommendationController::class, 'process'])->name('recommendation.process');
@@ -39,6 +34,12 @@ Route::controller(RecommendationController::class)->group(function () {
     Route::get('/form-page',                  'getdata')->name('recommendation.index');
     Route::post('/process',          'process')->name('recommendation.process');
     Route::get('/result/{uuid}',     'result')->name('recommendation.result');
+});
+
+// Page Rekomendasi + Filter
+Route::get('/rekomendasi', [MahasiswaController::class, 'rekomendasi'])->name('rekomendasi');
+Route::get('/detail-perusahaan', function () {
+    return view('mahasiswa.detail_perusahaan');
 });
 
 
@@ -115,12 +116,7 @@ Route::prefix('admin')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-# form rekomendasi magang
-Route::get('/form-page', function () {
 
-    return view('mahasiswa.form_page');
-
-})->name('form.page');
 
 
 # detail perusahaan
@@ -140,16 +136,3 @@ Route::get('/detail-perusahaan/{id}', function ($id) {
 | CONTROLLER MAHASISWA
 |--------------------------------------------------------------------------
 */
-
-Route::controller(MahasiswaController::class)->group(function () {
-
-    Route::get('/mahasiswa-form', 'formPage');
-
-});
-use App\Http\Controllers\MahasiswaController;
-
-// Landing Page (halaman utama)
-Route::get('/', [MahasiswaController::class, 'landing'])->name('landing');
-
-// Page Rekomendasi + Filter
-Route::get('/rekomendasi', [MahasiswaController::class, 'rekomendasi'])->name('rekomendasi');

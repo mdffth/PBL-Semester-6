@@ -197,23 +197,8 @@
                 STEP 1 OF 2: YOUR PROFILE
             </div>
 
-            <!-- MINAT BIDANG -->
-            <div class="form-group">
-
-                <label>MINAT BIDANG</label>
-
-                <input type="text"
-                       name="minat_bidang"
-                       class="form-control"
-                       list="list_minat_bidang"
-                       placeholder="Ketik atau pilih bidang yang diminati...">
-
-                    <datalist id="list_minat_bidang">
-                    @foreach($minat as $item)
-                    <option value="{{ $item->nama_bidang }}">\
-                        @endforeach
-                    </datalist>
-
+            <div class="step-percent">
+                50% Complete
             </div>
 
         </div>
@@ -246,12 +231,11 @@
                     <input type="text" name="ipk" class="form-control" placeholder="Contoh: 3.80">
 
                 </div>
-                
-                <datalist id="list_tools">
 
-                    @foreach($technologies as $tech)
-                        <option value="{{ $tech->nama_technology }}">
-                    @endforeach
+                <!-- MINAT BIDANG -->
+                <div class="form-group">
+
+                    <label>Minat Bidang Anda</label>
 
                     <div class="tag-box" id="minat-bidang-container">
 
@@ -313,9 +297,7 @@
                     Lihat Hasil Rekomendasi
                 </button>
 
-                    @foreach($skills as $skill)
-                        <option value="{{ $skill->nama_skill }}">
-                    @endforeach
+            </form>
 
         </div>
 
