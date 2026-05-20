@@ -1,5 +1,6 @@
 {{-- resources/views/recommendation/result.blade.php --}}
 
+
 <div class="content-wrap">
 
     {{-- PROFILE SUMMARY --}}
