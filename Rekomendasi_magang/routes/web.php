@@ -53,7 +53,7 @@ Route::post('/login', function (Request $request) {
     // dummy login sementara
     if ($email == 'admin@gmail.com' && $password == '123456') {
 
-        return redirect('/detail-perusahaan/1');
+        return redirect()->route('dashboard.index');
 
     }
 
@@ -118,11 +118,11 @@ Route::prefix('admin')->group(function () {
 */
 
 # form rekomendasi magang
-Route::get('/form-page', function () {
+// Route::get('/form-page', function () {
 
-    return view('mahasiswa.form_page');
+//     return view('mahasiswa.form_page');
 
-})->name('form.page');
+// })->name('form.page');
 
 
 # detail perusahaan

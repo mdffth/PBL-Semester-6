@@ -49,7 +49,7 @@ class UserInput extends Model
 
     public function recommendationResults(): HasMany
     {
-        return $this->hasMany(RecommendationResult::class)->orderBy('rank');
+        return $this->hasMany(RecommendationResult::class)->orderBy('ranking');
     }
 
     public function skillIds(): array

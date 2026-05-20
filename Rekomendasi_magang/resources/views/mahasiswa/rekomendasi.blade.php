@@ -379,9 +379,7 @@
         <li><a href="{{ route('rekomendasi') }}">Perusahaan</a></li>
 
         <li>
-            <a href="{{ route('rekomendasi') }}" class="nav-btn">
-                Start Rekomendasi
-            </a>
+           <a href="{{ route('recommendation.index') }}">Start Rekomendasi</a>
         </li>
 
         {{-- <li>
@@ -604,11 +602,9 @@
                     {{ $p->status_magang }}
                 </div>
 
-                <a href="{{ route('rekomendasi') }}"
-                   class="btn-r-detail">
-
+                <a href="{{ route('detail.perusahaan', $p->id) }}"
+                class="btn-r-detail">
                     Lihat Detail
-
                 </a>
 
             </div>

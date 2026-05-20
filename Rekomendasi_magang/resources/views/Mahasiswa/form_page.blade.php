@@ -188,140 +188,106 @@
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <!-- HEADER -->
-        <div class="step-header">
+    <div class="step-header">
+        <div class="step-title">
+            STEP 1 OF 2: YOUR PROFILE
+        </div>
+    </div>
 
-            <div class="step-title">
-                STEP 1 OF 2: YOUR PROFILE
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+
+    <div class="card">
+
+        <div class="card-title">
+            Lengkapi Data Diri Anda
+        </div>
+
+        <div class="card-subtitle">
+            Informasi ini membantu sistem mencocokkan Anda
+            dengan magang yang paling sesuai.
+        </div>
+
+        @if ($errors->any())
+            <div style="color:red; margin-bottom:15px;">
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
+        <form action="{{ route('recommendation.process') }}" method="POST">
+            @csrf
+
+            <div class="form-group">
+                <label>IPK (GPA)</label>
+                <input type="text" name="ipk" class="form-control" placeholder="Contoh: 3.80" required>
             </div>
 
-            <!-- MINAT BIDANG -->
             <div class="form-group">
-
                 <label>MINAT BIDANG</label>
 
-                <input type="text"
-                       name="minat_bidang"
-                       class="form-control"
-                       list="list_minat_bidang"
-                       placeholder="Ketik atau pilih bidang yang diminati...">
-
-                    <datalist id="list_minat_bidang">
-                    @foreach($minat as $item)
-                    <option value="{{ $item->nama_bidang }}">\
-                        @endforeach
-                    </datalist>
-
-            </div>
-
-        </div>
-
-        <!-- PROGRESS -->
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
-
-        <!-- CARD -->
-        <div class="card">
-
-            <div class="card-title">
-                Lengkapi Data Diri Anda
-            </div>
-
-            <div class="card-subtitle">
-                Informasi ini membantu sistem mencocokkan Anda
-                dengan magang yang paling sesuai.
-            </div>
-
-            <form action="{{ route('recommendation.process') }}" method="POST">
-                @csrf
-
-                <!-- IPK -->
-                <div class="form-group">
-
-                    <label>IPK (GPA)</label>
-
-                    <input type="text" name="ipk" class="form-control" placeholder="Contoh: 3.80">
-
+                <div class="tag-box" id="minat-bidang-container">
+                    <input type="text" id="minat-bidang-input" list="list_minat_bidang"
+                        placeholder="Ketik minat bidang lalu tekan Enter">
                 </div>
-                
+
+                <div id="minat-hidden-input"></div>
+
+                <datalist id="list_minat_bidang">
+                    @foreach ($minat_bidang as $minat)
+                        <option value="{{ $minat->name }}" data-id="{{ $minat->id }}"></option>
+                    @endforeach
+                </datalist>
+            </div>
+
+            <div class="form-group">
+                <label>TOOLS YANG DIKUASAI</label>
+
+                <div class="tag-box" id="tools-container">
+                    <input type="text" id="tools-input" list="list_tools"
+                        placeholder="Ketik tools lalu tekan Enter">
+                </div>
+
+                <div id="technology-hidden-input"></div>
+
                 <datalist id="list_tools">
-
-                    @foreach($technologies as $tech)
-                        <option value="{{ $tech->nama_technology }}">
+                    @foreach ($technologies as $tech)
+                        <option value="{{ $tech->name }}" data-id="{{ $tech->id }}"></option>
                     @endforeach
+                </datalist>
+            </div>
 
-                    <div class="tag-box" id="minat-bidang-container">
+            <div class="form-group">
+                <label>KEAHLIAN (SKILLS)</label>
 
-                        <input type="text" id="minat-bidang-input" list="list_minat-bidang"
-                            placeholder="Ketik minat bidang lalu tekan Enter">
-
-                    </div>
-                    <div id="minat-hidden-input"></div>
-
-                    <datalist id="list_minat-bidang">
-                        @foreach ($minat_bidang as $minat)
-                            <option value="{{ $minat->name }}" data-id="{{ $minat->id }}">
-                        @endforeach
-                    </datalist>
+                <div class="tag-box" id="skills-container">
+                    <input type="text" id="skills-input" list="list_skills"
+                        placeholder="Ketik skill lalu tekan Enter">
                 </div>
 
-                <!-- TOOLS -->
-                <div class="form-group">
+                <div id="skill-hidden-input"></div>
 
-                    <label>TOOLS YANG DIKUASAI</label>
-
-                    <div class="tag-box" id="tools-container">
-
-                        <input type="text" id="tools-input" list="list_tools"
-                            placeholder="Ketik tools lalu tekan Enter">
-
-                    </div>
-                    <div id="technology-hidden-input"></div>
-
-                    <datalist id="list_tools">
-                        @foreach ($technologies as $tech)
-                            <option value="{{ $tech->name }}" data-id="{{ $tech->id }}">
-                        @endforeach
-                    </datalist>
-                </div>
-
-                <!-- SKILLS -->
-                <div class="form-group">
-
-                    <label>KEAHLIAN (SKILLS)</label>
-
-                    <div class="tag-box" id="skills-container">
-
-                        <input type="text" id="skills-input" list="list_skills"
-                            placeholder="Ketik skill lalu tekan Enter">
-                    </div>
-                    <div id="skill-hidden-input"></div>
-
-                    <datalist id="list_skills">
-                        @foreach ($skills as $skill)
-                            <option value="{{ $skill->name }}" data-id="{{ $skill->id }}">
-                        @endforeach
-                    </datalist>
-
-                </div>
-
-                <!-- BUTTON -->
-                <button type="submit" class="btn-submit">
-                    Lihat Hasil Rekomendasi
-                </button>
-
-                    @foreach($skills as $skill)
-                        <option value="{{ $skill->nama_skill }}">
+                <datalist id="list_skills">
+                    @foreach ($skills as $skill)
+                        <option value="{{ $skill->name }}" data-id="{{ $skill->id }}"></option>
                     @endforeach
+                </datalist>
+            </div>
 
-        </div>
+            <button type="submit" class="btn-submit">
+                Lihat Hasil Rekomendasi
+            </button>
+
+        </form>
 
     </div>
 
-    <script>
+</div>
+<script>
         function createTagInput(inputId, containerId, datalistId, hiddenContainerId, inputName) {
 
             const input = document.getElementById(inputId);
@@ -429,7 +395,7 @@
         createTagInput(
             "minat-bidang-input",
             "minat-bidang-container",
-            "list_minat-bidang",
+            "list_minat_bidang",
             "minat-hidden-input",
             "minat_id"
         );

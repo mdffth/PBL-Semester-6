@@ -185,14 +185,18 @@
 
 <!-- NAVBAR -->
 <nav class="navbar">
-    <a href="/" class="navbar-brand">
+    <a href="{{ route('landing') }}" class="navbar-brand">
         <div class="brand-logo">RI</div>
         <span class="brand-name">RekomIn</span>
     </a>
     <ul class="nav-links">
-        <li><a href="/" class="active">Home</a></li>
+        <li><a href="{{ route('landing') }}" class="active">Home</a></li>
         <li><a href="#perusahaan">Perusahaan</a></li>
-        <li><a href="{{ route('rekomendasi') }}" class="nav-btn">Start Rekomendasi</a></li>
+        <li>
+    <a href="{{ route('recommendation.index') }}" class="nav-btn">
+        Start Rekomendasi
+    </a>
+</li>
         @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
@@ -235,7 +239,9 @@
         <div class="hero-left">
             <h1>Welcome to<br><span>RekomIn!</span></h1>
             <p>Sistem berbasis data untuk membantu mahasiswa untuk memilih tempat magang yang tepat berdasarkan portofolio, minat, dan kebutuhan industri terkini</p>
-            <a href="{{ route('rekomendasi') }}" class="btn-hero">Start Rekomendasi</a>
+           <a href="{{ route('recommendation.index') }}" class="btn-hero">
+    Start Rekomendasi
+</a>
             <a href="#langkah" class="btn-hero" style="background:#fff; color:#1a1a2e; border:1.5px solid #d0d0e8; box-shadow:none; margin-left:.8rem;">Pelajari Sistem</a>
         </div>
         {{-- <div class="hero-right">
