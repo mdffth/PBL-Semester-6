@@ -3,6 +3,18 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\AuthController;
+
+
+
+Route::get('/', [AuthController::class, 'loginForm'])
+    ->name('login.form');
+
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login');
+
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
 
 // ================= ROUTE UMUM / MAHASISWA =================
 Route::get('/', function () {

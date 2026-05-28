@@ -135,38 +135,37 @@
                                     </td>
 
                                     {{-- <td>
-                                        @php
-                                            // Pecah teks string menjadi array berdasarkan '/'
-                                            $tags = array_map('trim', explode('/', $item->posisi_magang));
-                                            $tags = array_filter($tags); // Menghilangkan nilai kosong jika ada spasi berlebih
-                                            
-                                            $maksimal_muncul = 3; // Atur di sini mau menampilkan berapa tag (misal: 2 atau 3)
-                                            $total_tags = count($tags);
-                                        @endphp
-
-                                        <div class="tags-container">
-                                            @foreach($tags as $index => $tag) --}}
-                                                {{-- Selama index baris belum melewati batas maksimal, tampilkan tag --}}
-                                                {{-- @if($index < $maksimal_muncul)
-                                                    <span class="tag-item">
-                                                        {{ $tag }}
-                                                        <span class="close-icon">&times;</span>
-                                                    </span>
-                                                @endif
-                                            @endforeach --}}
-
-                                            {{-- Jika total semua tag lebih besar dari batas maksimal, tampilkan sisanya --}}
-                                            {{-- @if($total_tags > $maksimal_muncul)
-                                                <span class="tag-more" title="{{ implode(', ', array_slice($tags, $maksimal_muncul)) }}">
-                                                    +{{ $total_tags - $maksimal_muncul }} lainnya
-                                                </span>
-                                            @endif
-                                        </div>
+                                        {{ $item->posisi_magang }}
                                     </td> --}}
 
                                     <td>
-                                        {{ $item->posisi_magang }}
-                                    </td>
+                                        @php
+                                            $positions = array_map('trim', explode('/', $item->posisi_magang));
+                                            $visiblePositions = array_slice($positions, 0, 2);
+                                            $remaining = count($positions) - 2;
+                                        @endphp
+
+                                        <div class="posisi-wrapper">
+
+                                            {{-- Tetap simpan full text untuk search --}}
+                                            <span style="display:none;">
+                                                {{ implode(' ', $positions) }}
+                                            </span>
+
+                                            @foreach($visiblePositions as $posisi)
+                                                <span class="badge-posisi">
+                                                    {{ $posisi }}
+                                                </span>
+                                            @endforeach
+
+                                            @if($remaining > 0)
+                                                <span class="badge-more">
+                                                    +{{ $remaining }} lainnya
+                                                </span>
+                                            @endif
+
+                                        </div>
+                                    </td>                                 
 
                                     <td style="text-align:center" >
                                         {{ $item->duration_months }} bulan

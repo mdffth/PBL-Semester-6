@@ -95,4 +95,46 @@ class DashboardController extends Controller
             ->route('dashboard.index')
             ->with('success', 'Data berhasil dihapus');
     }
+
+    public function edit($id)
+    {
+        $perusahaan = Perusahaan::findOrFail($id);
+
+        return view('Admin.tambah_perusahaan', compact('perusahaan'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_perusahaan' => 'required',
+            'bidang_industri' => 'required',
+            'posisi_magang' => 'required',
+            'status_magang' => 'required',
+        ]);
+
+        $perusahaan = Perusahaan::findOrFail($id);
+
+        $perusahaan->update([
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'bidang_industri' => $request->bidang_industri,
+            'company_profile' => $request->company_profile,
+            'posisi_magang' => $request->posisi_magang,
+            'status_magang' => $request->status_magang,
+            'duration_months' => $request->duration_months,
+            'min_ipk' => $request->min_ipk,
+            'lokasi' => $request->lokasi,
+            'job_description' => $request->job_description,
+        ]);
+
+        return redirect()
+            ->route('dashboard.index')
+            ->with('success', 'Perusahaan berhasil diupdate');
+    }
+
+    public function show($id)
+    {
+        $perusahaan = Perusahaan::findOrFail($id);
+
+        return view('Admin.detail_perusahaan', compact('perusahaan'));
+    }
 }

@@ -37,127 +37,172 @@
             }
 
             .layout{
-                display:flex;
+                display:60px;
                 min-height:100vh;
             }
 
-            /* ================= SIDEBAR ================= */
-            .sidebar{
-                width:260px;
-                position:fixed;
-                top:0;
-                left:0;
-                bottom:0;
-                
-                display:flex;
-                flex-direction:column;
-                justify-content:space-between;
-
-                background:linear-gradient(
-                    180deg,
-                    #08084A 0%,
-                    #10106B 100%
-                );
-
-                color:white;
-                box-shadow:4px 0 20px rgba(0,0,0,0.08);
-                z-index:1000;
+            /* ================= SIDEBAR (KIRI) ================= */
+            .sidebar {
+                width: 260px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                background: #1a1a6e;
+                color: white;
+                box-shadow: 4px 0 20px rgba(0,0,0,0.05);
+                z-index: 900;
             }
 
-            .sidebar-top{
-                padding:24px 0px;
+            .sidebar-top {
+                padding-top: 15px; /* Menghapus padding putih besar yang merusak layout */
             }
 
-            .sidebar-top .logo {
-                padding: 0 18px;
-                margin-bottom: 20px; /* Jarak ke menu */
-            }
-            
-            .logo{
-                display:flex;
-                align-items:center;
-                gap:12px;
-                margin-bottom:40px;
+            /* ================= 4. MENU SIDEBAR ================= */
+            .menu {
+                display: flex;
+                flex-direction: column;
             }
 
-            .logo-icon{
-                width:42px;
-                height:42px;
-
-                display:flex;
-                justify-content:center;
-                align-items:center;
-
-                border-radius:14px;
-                background:white;
-
-                color:#0606CD;
-                font-weight:800;
+            .menu-item {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                padding: 14px 20px;
+                color: rgba(255,255,255,0.7);
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 0.95rem;
+                transition: 0.2s;
             }
 
-            .logo-text{
-                font-size:22px;
-                font-weight:800;
+            .menu-item:hover {
+                background: rgba(255,255,255,0.05);
+                color: white;
             }
 
-            /* ================= MENU ================= */
-            .menu{
-                display:flex;
-                flex-direction:column;
+            .menu-item.active {
+                background: #fff;
+                color: #1a1a6e;
+                font-weight: 700;
             }
 
-            .menu-item{
-                display:flex;
-                align-items:center;
-                gap:14px;
-
-                padding:14px 16px;
-
-                color:rgba(255,255,255,0.75);
-                font-weight:500;
-
-                transition:0.25s;
+            .menu-icon {
+                width: 20px;
+                text-align: center;
+                font-size: 1.1rem;
             }
 
-            .menu-item:hover{
-                background:rgba(255,255,255,0.08);
-                color:white;
+            /* ================= TAMBAHAN CSS UNTUK TOGGLE SIDEBAR ================= */
+
+            /* Kontainer Logo & Tombol di Sidebar */
+            .sidebar-brand-box {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 20px 20px 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                margin-bottom: 15px;
             }
 
-            .menu-item.active{
-                background:white;
-                color:#0606CD;
-                font-weight:700;
+            .sidebar-logo-title {
+                display: flex;
+                align-items: center;
+                gap: 10px;
             }
 
-            .menu-icon{
-                width:18px;
-                text-align:center;
+            .logo-icon-sm {
+                width: 30px;
+                height: 30px;
+                background: #fff;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                color: #1a1a6e;
+                font-size: 1rem;
+            }
+
+            .logo-text-sm {
+                color: #fff;
+                font-weight: 700;
+                font-size: 1.20rem;
+            }
+
+            /* Desain Tombol Toggle */
+            .toggle-sidebar-btn {
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 1.1rem;
+                cursor: pointer;
+                padding: 5px;
+                border-radius: 6px;
+                transition: 0.2s;
+            }
+
+            .toggle-sidebar-btn:hover {
+                color: #fff;
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            /* Efek Animasi Geser */
+            .sidebar {
+                transition: transform 0.3s ease, width 0.3s ease;
+            }
+
+            .main {
+                transition: margin-left 0.3s ease;
+            }
+
+            /* Kelas Trigger saat Sidebar disembunyikan (diaktifkan via JS) */
+            .sidebar.collapsed {
+                transform: translateX(-260px); /* Menggeser sidebar keluar ke arah kiri */
+            }
+
+            .main.expanded {
+                margin-left: 0; /* Area konten mengambil alih sisa ruang penuh */
+            }
+
+            /* ================= 5. UTAMA / KONTEN (KANAN) ================= */
+            .main {
+                flex-grow: 1;
+                margin-left: 260px; /* Memberi jarak selebar sidebar agar tidak bertabrakan */
+                background: #f8fafc;
+                min-width: 0; /* KUNCI: Mencegah tabel merusak/melebarkan layout flex */
+            }
+
+            .main-container {
+                padding: 23px 40px 40px;
+                width: 100%;
+                box-sizing: border-box;
             }
 
             /* ================= SIDEBAR BOTTOM LOGOUT ================= */
-            .sidebar-bottom{
-                padding:20px;
-                border-top:1px solid rgba(255,255,255,0.1);
+            .sidebar-bottom {
+                padding: 20px;
+                border-top: 1px solid rgba(255,255,255,0.1);
             }
 
-            .logout-btn{
-                display:flex;
-                align-items:center;
-                gap:12px;
-
-                padding:12px 15px;
-                border-radius:12px;
-
-                color:#ff6b6b;
-                font-weight:600;
-
-                transition:0.25s;
+            .logout-btn {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 15px;
+                border-radius: 12px;
+                color: #ff6b6b;
+                text-decoration: none;
+                font-weight: 600;
+                transition: 0.25s;
             }
 
-            .logout-btn:hover{
-                background:rgba(255,255,255,0.08);
-                color:white;
+            .logout-btn:hover {
+                background: rgba(255,255,255,0.08);
+                color: white;
             }
 
             /* ================= MAIN ================= */
@@ -165,59 +210,6 @@
             .main{
                 flex:1;
                 margin-left:260px;
-            }
-
-            /* ================= TOPBAR ================= */
-
-            .topbar{
-                height:80px;
-                background:white;
-                display:flex;
-                justify-content:space-between;
-                align-items:center;
-                padding:0 32px;
-                border-bottom:1px solid #ECECEC;
-            }
-
-            .topbar-left{
-                display:flex;
-                flex-direction:column;
-                gap:4px;
-            }
-
-            .topbar-title{
-                font-size:22px;
-                font-weight:700;
-                color:#111827;
-            }
-
-            .topbar-right{
-                display:flex;
-                align-items:center;
-            }
-
-            .admin-top{
-                display:flex;
-                align-items:center;
-                gap:12px;
-            }
-
-            .admin-name-top{
-                font-size:16px;
-                font-weight:500;
-                color:#111827;
-            }
-
-            .admin-mini{
-                width:38px;
-                height:38px;
-                border-radius:50%;
-
-                background:linear-gradient(
-                    135deg,
-                    #A5B4FC,
-                    #818CF8
-                );
             }
 
             /* ================= CONTENT ================= */
@@ -464,7 +456,7 @@
             }
 
             .table-title{
-                font-size:22px;
+                font-size: 28px;
                 font-weight:800;
             }
 
@@ -561,57 +553,37 @@
             }
 
             /* ================= POSITION TAGS ================= */
-            .position-group {
-                padding: 20px;
+            .posisi-wrapper{
+                display:flex;
+                flex-wrap:wrap;
+                gap:8px;
+                max-width:280px;
             }
 
-            /* Wadah untuk menampung semua tags agar otomatis turun ke bawah jika penuh */
-            .tags-container {
-                display: flex;
-                flex-wrap: wrap; /* Membuat tag otomatis bungkus ke baris baru */
-                gap: 10px;       /* Jarak antar tag */
+            .badge-posisi{
+                padding:6px 12px;
+
+                background:#EEF2FF;
+                color:#4338CA;
+
+                border-radius:20px;
+
+                font-size:12px;
+                font-weight:600;
+
+                white-space:nowrap;
             }
 
-            /* Styling untuk masing-masing item tag */
-            .tag-item {
-                display: inline-flex;
-                align-items: center;
-                
-                padding: 10px 20px;
-                border-radius: 999px; /* Membuat bentuk kapsul/lonjong sempurna */
-                
-                background-color: #DDE5FF; /* Warna background biru muda sesuai gambar */
-                color: #08084A;            /* Warna teks biru gelap */
-                
-                font-size: 12px;
-                font-weight: 600;
-                cursor: default;
-                transition: 0.2s;
-            }
+            .badge-more{
+                padding:6px 12px;
 
-            .tag-item:hover {
-                background-color: #C7D2FE; /* Efek sedikit lebih gelap saat di-hover */
-            }            
+                background:#F3F4F6;
+                color:#6B7280;
 
-            /* ================= BADGE ================= */
-            .badge-custom{
-                display:inline-block;
+                border-radius:20px;
 
-                padding:7px 14px;
-                border-radius:999px;
-
-                font-size:11px;
-                font-weight:700;
-            }
-
-            .badge-blue{
-                background:#DBEAFE;
-                color:#1D4ED8;
-            }
-
-            .badge-green{
-                background:#DCFCE7;
-                color:#166534;
+                font-size:12px;
+                font-weight:600;
             }
 
             /* ================= TOGGLE SWITCH ================= */
@@ -996,16 +968,16 @@
 
     <body>
         <div class="layout">
-            <!-- SIDEBAR -->
-            <aside class="sidebar">
+            <aside class="sidebar" id="sidebar">
                 <div class="sidebar-top">
-                    <div class="logo">
-                        <div class="logo-icon">
-                            IP
+                    <div class="sidebar-brand-box">
+                        <div class="sidebar-logo-title">
+                            <div class="logo-icon-sm">IP</div>
+                            <span class="logo-text-sm">InternPortal</span>
                         </div>
-                        <div class="logo-text">
-                            InternPortal
-                        </div>
+                        <button type="button" class="toggle-sidebar-btn" id="toggleSidebar">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
                     </div>
 
                     <div class="menu">
@@ -1014,7 +986,7 @@
                             <div class="menu-icon">
                                 <i class="fa-solid fa-chart-line"></i>
                             </div>
-                            Dashboard
+                            <span class="menu-text">Dashboard</span>
                         </a>
 
                         <a href="{{ route('dashboard.create') }}"
@@ -1022,88 +994,76 @@
                             <div class="menu-icon">
                                 <i class="fa-solid fa-building"></i>
                             </div>
-                            Tambah Perusahaan
+                            <span class="menu-text">Tambah Perusahaan</span>
                         </a>
                     </div>
                 </div>
 
                 <div class="sidebar-bottom">
-                    <a href="#" class="logout-btn">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        Logout
+                    <form action="{{ route('logout') }}" method="POST" id="logout-form" style="display: none;">
+                        @csrf
+                    </form>
+                    <a href="#" class="logout-btn" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <div class="menu-icon">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </div>
+                        <span class="menu-text">Logout</span>
                     </a>
                 </div>
-
             </aside>
 
-            <!-- MAIN -->
             <main class="main">
-
-                <!-- TOPBAR -->
-                <div class="topbar">
-                    <div class="topbar-left">
-                        <div>
-                            <div class="topbar-title">
-                                @yield('topbar_title')
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="topbar-right">
-                        <div class="admin-top">
-                            <span class="admin-name-top">
-                                Admin
-                            </span>
-                            <div class="admin-mini"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CONTENT -->
-                <div class="content">
+                <div class="main-container">
                     @yield('content')
-                </div>
+                </div>              
             </main>
 
         </div>
 
-        <!-- SWEETALERT -->
+        </div>
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                
+                // --- LOGIC 1: TOGGLE SIDEBAR (BUKA / TUTUP) ---
+                const toggleBtn = document.getElementById('toggleSidebar');
+                const sidebar = document.getElementById('sidebar');
+                const mainContent = document.querySelector('.main');
 
-        // ================= DELETE =================
+                // Kita beri validasi if agar tidak error jika tombol tidak sengaja terhapus
+                if (toggleBtn && sidebar && mainContent) {
+                    toggleBtn.addEventListener('click', function() {
+                        sidebar.classList.toggle('collapsed');
+                        mainContent.classList.toggle('expanded');
+                    });
+                }
 
-        document.querySelectorAll('.form-delete').forEach(form => {
-
-            form.addEventListener('submit', function (e) {
-
-                e.preventDefault();
-
-                Swal.fire({
-                    title: 'Hapus Data?',
-                    text: 'Data yang dihapus tidak bisa dikembalikan',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#DC2626',
-                    cancelButtonColor: '#9CA3AF',
-                    confirmButtonText: 'Ya, Hapus',
-                    cancelButtonText: 'Batal',
-                    borderRadius: '20px'
-                })
-
-                .then((result) => {
-
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-
+                // --- LOGIC 2: SWEETALERT UNTUK TOMBOL HAPUS ---
+                document.querySelectorAll('.form-delete').forEach(form => {
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        
+                        Swal.fire({
+                            title: 'Hapus Data?',
+                            text: 'Data yang dihapus tidak bisa dikembalikan',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#DC2626',
+                            cancelButtonColor: '#9CA3AF',
+                            confirmButtonText: 'Ya, Hapus',
+                            cancelButtonText: 'Batal',
+                            borderRadius: '20px'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
                 });
 
             });
-
-        });
-
         </script>
-    </body>
+</body>
 </html>
