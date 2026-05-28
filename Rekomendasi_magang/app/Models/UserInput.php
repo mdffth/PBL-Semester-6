@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 
 class UserInput extends Model
 {
+    protected $table = 'user_input';
+
     protected $fillable = [
         'session_uuid',
         'ipk',
@@ -32,22 +34,22 @@ class UserInput extends Model
 
     public function skills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'uesr_skills');
+        return $this->belongsToMany(Skill::class, 'user_skills');
     }
 
     public function technologies(): BelongsToMany
     {
-        return $this->belongsToMany(Technology::class, 'uesr_technologies');
+        return $this->belongsToMany(Technology::class, 'user_technologies');
     }
 
     public function minatBidang(): BelongsToMany
     {
-        return $this->belongsToMany(MinatBidang::class, 'uesr_minat');
+        return $this->belongsToMany(MinatBidang::class, 'user_minat');
     }
 
     public function recommendationResults(): HasMany
     {
-        return $this->hasMany(RecommendationResult::class)->orderBy('rank');
+        return $this->hasMany(RecommendationResult::class)->orderBy('ranking');
     }
 
     public function skillIds(): array

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.perusahaan')
 
 @section('topbar_title', 'Dashboard Admin')
 
@@ -189,10 +189,12 @@
                                     <td>
                                         <div class="action-buttons">
 
-                                            <a href="#"
-                                            class="action-btn edit">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </a>
+<a href="{{ route('dashboard.edit', $item->id) }}"
+    class="action-btn edit">
+
+    <i class="fa-solid fa-pen"></i>
+
+</a>
 
                                             <form
                                                 action="{{ route('dashboard.destroy', $item->id) }}"
