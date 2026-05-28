@@ -1,4 +1,4 @@
-@extends('layouts.perusahaan')
+@extends('layouts.app')
 
 @section('topbar_title', 'Tambah Perusahaan')
 

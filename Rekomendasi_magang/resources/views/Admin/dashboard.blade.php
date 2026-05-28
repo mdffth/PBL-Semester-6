@@ -1,4 +1,4 @@
-@extends('layouts.perusahaan')
+@extends('layouts.app')
 
 @section('topbar_title', 'Dashboard Admin')
 
@@ -74,7 +74,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- TABLE -->
@@ -104,7 +103,6 @@
                                 <th>INDUSTRI</th>
                                 <th>POSISI</th>
                                 <th style="text-align:center" >DURASI</th>
-                                <th style="text-align:center" >TIPE</th>
                                 <th>STATUS</th>
                                 <th style="text-align:center" >AKSI</th>
 
@@ -117,11 +115,14 @@
                             @forelse ($perusahaan as $item)
 
                                 <tr>
-
                                     <td>
                                         <div class="company">
                                             <div class="company-logo">
-                                                {{ strtoupper(substr($item->nama_perusahaan, 0, 1)) }}
+                                                @if($item->logo)
+                                                    <img src="{{ asset('storage/' . $item->logo) }}" alt="Logo">
+                                                @else
+                                                    {{ strtoupper(substr($item->name, 0, 1)) }}
+                                                @endif
                                             </div>
                                             <div>
                                                 <strong>{{ $item->name }}</strong>
@@ -130,10 +131,38 @@
                                     </td>
 
                                     <td>
-                                        <span class="badge badge-blue">
-                                            {{ strtoupper($item->bidang_industri) }}
-                                        </span>
+                                        {{ ($item->tipe_industri) }}
                                     </td>
+
+                                    {{-- <td>
+                                        @php
+                                            // Pecah teks string menjadi array berdasarkan '/'
+                                            $tags = array_map('trim', explode('/', $item->posisi_magang));
+                                            $tags = array_filter($tags); // Menghilangkan nilai kosong jika ada spasi berlebih
+                                            
+                                            $maksimal_muncul = 3; // Atur di sini mau menampilkan berapa tag (misal: 2 atau 3)
+                                            $total_tags = count($tags);
+                                        @endphp
+
+                                        <div class="tags-container">
+                                            @foreach($tags as $index => $tag) --}}
+                                                {{-- Selama index baris belum melewati batas maksimal, tampilkan tag --}}
+                                                {{-- @if($index < $maksimal_muncul)
+                                                    <span class="tag-item">
+                                                        {{ $tag }}
+                                                        <span class="close-icon">&times;</span>
+                                                    </span>
+                                                @endif
+                                            @endforeach --}}
+
+                                            {{-- Jika total semua tag lebih besar dari batas maksimal, tampilkan sisanya --}}
+                                            {{-- @if($total_tags > $maksimal_muncul)
+                                                <span class="tag-more" title="{{ implode(', ', array_slice($tags, $maksimal_muncul)) }}">
+                                                    +{{ $total_tags - $maksimal_muncul }} lainnya
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </td> --}}
 
                                     <td>
                                         {{ $item->posisi_magang }}
@@ -143,40 +172,43 @@
                                         {{ $item->duration_months }} bulan
                                     </td>
 
-                                    <td style="text-align:center" >
-                                        @if($item->status_magang == 'Paid')
-                                            <span class="badge badge-green">
-                                                PAID
-                                            </span>
-                                        @else
-                                            <span class="badge badge-yellow">
-                                                UNPAID
-                                            </span>
-                                        @endif
-                                    </td>
-
                                     <td>
-                                        <form action="{{ route('dashboard.toggle_status', $item->id) }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button type="submit"
-                                                style="border:none; background:none; padding:0; cursor:pointer;">
-                                                <div class="switch {{ $item->status_magang == 'Unpaid' ? 'off' : '' }}"></div>
-                                            </button>
-                                        </form>
+                                        <label class="switch-toggle">
+
+                                            <input
+                                                type="checkbox"
+                                                class="toggle-status"
+                                                data-id="{{ $item->id }}"
+                                                {{ $item->status_magang == 'Paid' ? 'checked' : '' }}
+                                            >
+
+                                            <span class="switch-slider"></span>
+
+                                        </label>
                                     </td>
 
                                     <td>
                                         <div class="action-buttons">
-                                            <button class="action-btn edit">
+
+                                            <a href="#"
+                                            class="action-btn edit">
                                                 <i class="fa-solid fa-pen"></i>
-                                            </button>
-                                            <button class="action-btn delete">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
+                                            </a>
+
+                                            <form
+                                                action="{{ route('dashboard.destroy', $item->id) }}"
+                                                method="POST"
+                                                class="form-delete"
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit" class="action-btn delete">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>                                            
                                         </div>
-                                    </td>
+                                    </td>                                    
 
                                 </tr>
 
@@ -208,13 +240,15 @@
                             @if ($perusahaan->onFirstPage())
 
                                 <span class="page-btn disabled">
-                                    <i class="fa-solid fa-chevron-left"></i>
+                                    Previous
+                                    {{-- <i class="fa-solid fa-chevron-left"></i> --}}
                                 </span>
 
                             @else
 
                                 <a href="{{ $perusahaan->previousPageUrl() }}" class="page-btn">
-                                    <i class="fa-solid fa-chevron-left"></i>
+                                    Previous
+                                    {{-- <i class="fa-solid fa-chevron-left"></i> --}}
                                 </a>
 
                             @endif
@@ -233,13 +267,15 @@
                             @if ($perusahaan->hasMorePages())
 
                                 <a href="{{ $perusahaan->nextPageUrl() }}" class="page-btn">
-                                    <i class="fa-solid fa-chevron-right"></i>
+                                    Next
+                                    {{-- <i class="fa-solid fa-chevron-right"></i> --}}
                                 </a>
 
                             @else
 
                                 <span class="page-btn disabled">
-                                    <i class="fa-solid fa-chevron-right"></i>
+                                    Next
+                                    {{-- <i class="fa-solid fa-chevron-right"></i> --}}
                                 </span>
 
                             @endif
@@ -257,6 +293,7 @@
     </div>
     
     <script>
+
     document.getElementById('searchInput').addEventListener('keyup', function () {
 
         let value = this.value.toLowerCase().trim();
@@ -265,15 +302,55 @@
 
         rows.forEach(row => {
 
-            let text = row.innerText.toLowerCase();
+            // ambil kolom pertama (nama perusahaan)
+            let companyName = row.querySelector('td:first-child strong')
+                .innerText
+                .toLowerCase();
 
-            let words = text.split(/\s+/);
+            if (companyName.includes(value) || value === '') {
 
-            if (words.includes(value) || value === '') {
                 row.style.display = '';
+
             } else {
+
                 row.style.display = 'none';
+
             }
+
+        });
+
+    });
+
+    document.querySelectorAll('.toggle-status').forEach(toggle => {
+
+        toggle.addEventListener('change', function () {
+
+            let id = this.dataset.id;
+
+            fetch(`/admin/dashboard/toggle_status/${id}`, {
+
+                method: 'POST',
+
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                location.reload();
+
+            })
+
+            .catch(error => {
+
+                console.log(error);
+
+            });
 
         });
 
@@ -281,5 +358,3 @@
     </script>
 
 @endsection
-{{-- </body> --}}
-{{-- </html> --}}

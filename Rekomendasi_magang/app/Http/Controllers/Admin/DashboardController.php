@@ -48,7 +48,10 @@ class DashboardController extends Controller
 
         $perusahaan->save();
 
-        return back();
+        return response()->json([
+            'success' => true,
+            'status' => $perusahaan->status_magang
+        ]);
     }
 
     public function create()
@@ -80,5 +83,16 @@ class DashboardController extends Controller
         return redirect()
             ->route('dashboard.index')
             ->with('success', 'Perusahaan berhasil ditambahkan');
+    }
+
+    public function destroy($id)
+    {
+        $perusahaan = Perusahaan::findOrFail($id);
+
+        $perusahaan->delete();
+
+        return redirect()
+            ->route('dashboard.index')
+            ->with('success', 'Data berhasil dihapus');
     }
 }
