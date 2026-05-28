@@ -19,39 +19,14 @@
             </style>
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
-            @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
-                    @auth
-                        <a
-                            href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Dashboard
-                        </a>
-                    @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
-                        </a>
-
-                        @if (Route::has('register'))
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
-                            </a>
-                        @endif
-                    @endauth
-                </nav>
+    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex items-center lg:justify-center min-h-screen flex-col">
+        <header class="w-[100%] text-sm mb-6 not-has-[nav]:hidden">
+            
 <html lang="id">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RekomIntern - Rekomendasi Magang</title>
+    <title>RekomIn - Rekomendasi Magang</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -107,7 +82,7 @@
         .nav-avatar { width: 34px; height: 34px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .9rem; cursor: pointer; }
 
         /* HERO */
-        .hero { background: linear-gradient(135deg, #ffffff 0%, #2d2db8 60%, #3b3bdb 100%); padding: 5rem 5% 4rem; min-height: 88vh; display: flex; align-items: center; }
+        .hero { background: linear-gradient(135deg, #3b3bdb 0%, #2d2db8 60%, #3b3bdb 100%); padding: 5rem 5% 4rem; min-height: 88vh; display: flex; align-items: center; }
         .hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 3rem; width: 100%; max-width: 1200px; margin: 0 auto; }
         .hero-left { flex: 1; }
         .hero-left h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 1.2rem; }
@@ -210,14 +185,50 @@
 
 <!-- NAVBAR -->
 <nav class="navbar">
-    <a href="/" class="navbar-brand">
+    <a href="{{ route('landing') }}" class="navbar-brand">
         <div class="brand-logo">RI</div>
-        <span class="brand-name">RekomIntern</span>
+        <span class="brand-name">RekomIn</span>
     </a>
     <ul class="nav-links">
-        <li><a href="/" class="active">Home</a></li>
+        <li><a href="{{ route('landing') }}" class="active">Home</a></li>
         <li><a href="#perusahaan">Perusahaan</a></li>
-        <li><a href="{{ route('rekomendasi') }}" class="nav-btn">Start Rekomendasi</a></li>
+        <li>
+    <a href="{{ route('recommendation.index') }}" class="nav-btn">
+        Start Rekomendasi
+    </a>
+</li>
+        @if (Route::has('login'))
+                <nav class="flex items-center justify-end gap-4">
+                    @auth
+                    <li>
+                        <a
+                            href="{{ url('/dashboard') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                        >
+                            Dashboard
+                        </a>
+                    </li>
+                    @else
+                    <li>
+                        <a
+                            href="{{ route('login') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                        >
+                            Log in
+                        </a>
+                    </li>
+                        @if (Route::has('register'))
+                        <li>
+                            <a
+                                href="{{ route('register') }}"
+                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                Register
+                            </a>
+                        </li>
+                        @endif
+                    @endauth
+                </nav>
+            @endif
         {{-- <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li> --}}
     </ul>
 </nav>
@@ -226,9 +237,11 @@
 <section class="hero">
     <div class="hero-inner">
         <div class="hero-left">
-            <h1>Welcome to<br><span>RekomIntern!</span></h1>
+            <h1>Welcome to<br><span>RekomIn!</span></h1>
             <p>Sistem berbasis data untuk membantu mahasiswa untuk memilih tempat magang yang tepat berdasarkan portofolio, minat, dan kebutuhan industri terkini</p>
-            <a href="{{ route('rekomendasi') }}" class="btn-hero">Start Rekomendasi</a>
+           <a href="{{ route('recommendation.index') }}" class="btn-hero">
+    Start Rekomendasi
+</a>
             <a href="#langkah" class="btn-hero" style="background:#fff; color:#1a1a2e; border:1.5px solid #d0d0e8; box-shadow:none; margin-left:.8rem;">Pelajari Sistem</a>
         </div>
         {{-- <div class="hero-right">
@@ -355,7 +368,7 @@
       <h2 class="text-3xl lg:text-4xl font-extrabold text-dark-900 mb-4">
         Apa Kata <span class="text-primary-600">Mereka</span>?
       </h2>
-      <p class="text-base text-dark-500">Mahasiswa yang sudah menemukan magang impian mereka melalui RekomIntern.</p>
+      <p class="text-base text-dark-500">Mahasiswa yang sudah menemukan magang impian mereka melalui RekomIn.</p>
     </div>
 
     <!-- Carousel: tombol kiri | track | tombol kanan -->
@@ -375,7 +388,7 @@
           <!-- Card 1: Daffa -->
           <div class="flex-none w-80 bg-white rounded-2xl p-6 border border-dark-100">
             <div class="flex gap-1 mb-4">⭐⭐⭐⭐⭐</div>
-            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Saya merasa sangat terbantu dengan RekomIntern. Platform ini membantu saya menemukan tempat magang yang sesuai dengan skill dan minat saya."</p>
+            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Saya merasa sangat terbantu dengan RekomIn. Platform ini membantu saya menemukan tempat magang yang sesuai dengan skill dan minat saya."</p>
             <div class="flex items-center gap-3 pt-4 border-t border-dark-100">
               <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold">D</div>
               <div><p class="text-sm font-bold text-dark-800">Daffa</p><p class="text-xs text-dark-400">Magang di PT ARM Solusi</p></div>
@@ -405,7 +418,7 @@
           <!-- Card 4: Rara -->
           <div class="flex-none w-80 bg-white rounded-2xl p-6 border border-dark-100">
             <div class="flex gap-1 mb-4">⭐⭐⭐⭐⭐</div>
-            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Awalnya bingung mau magang di mana, tapi setelah isi form di RekomIntern langsung dapet 5 rekomendasi relevan. Proses seleksinya jadi lebih terarah!"</p>
+            <p class="text-sm text-dark-600 leading-relaxed mb-6">"Awalnya bingung mau magang di mana, tapi setelah isi form di RekomIn langsung dapet 5 rekomendasi relevan. Proses seleksinya jadi lebih terarah!"</p>
             <div class="flex items-center gap-3 pt-4 border-t border-dark-100">
               <div class="w-10 h-10 rounded-full bg-red-100 text-red-800 flex items-center justify-center font-bold">R</div>
               <div><p class="text-sm font-bold text-dark-800">Rara</p><p class="text-xs text-dark-400">Magang di Sarastya Innovations</p></div>
@@ -516,7 +529,7 @@
                     <div class="w-9 h-9 bg-primary-600 rounded-xl flex items-center justify-center">
                         <i data-lucide="briefcase" class="w-5 h-5 text-white"></i>
                     </div>
-                    <span class="text-xl font-bold text-white">Rekom<span class="text-primary-400">Intern</span></span>
+                    <span class="text-xl font-bold text-white">Rekom<span class="text-primary-400">In</span></span>
                 </a>
                 <p class="text-sm text-dark-400 leading-relaxed max-w-sm mb-6">Platform rekomendasi magang terbaik di Indonesia. Temukan pengalaman magang yang sesuai dengan minat dan skillmu.</p>
                 <div class="flex items-center gap-3">
@@ -572,7 +585,7 @@
         <!-- Footer Bottom -->
         <div class="border-t border-dark-800 pt-8">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <p class="text-sm text-dark-400 items-center justify-between gap-4">&copy; {{ date('Y') }} RekomIntern — Platform Rekomendasi Magang Mahasiswa.</p>
+                <p class="text-sm text-dark-400 text-center w-full">&copy; RekomIn — Platform Rekomendasi Magang Mahasiswa.</p>
             </div>
         </div>
     </div>

@@ -52,7 +52,7 @@ Route::controller(RecommendationController::class)->group(function () {
     Route::post('/process', 'process')
         ->name('recommendation.process');
 
-    Route::get('/result/{uuid}', 'result')
+    Route::get('/hasil-rekomendasi', 'result')
         ->name('recommendation.result');
 
 });

@@ -15,7 +15,7 @@ class RecommendationResult extends Model
         'score_minat',
         'score_ipk',
         'final_score',
-        'rank',
+        'ranking',
     ];
 
     protected $casts = [

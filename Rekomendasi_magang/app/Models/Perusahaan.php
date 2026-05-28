@@ -14,38 +14,51 @@ class Perusahaan extends Model
     protected $table = 'perusahaan';
 
     protected $fillable = [
-    'name',
-    'profile_perusahaan',
-    'tipe_industri',
-    'posisi_magang',
-    'min_ipk',
-    'job_description',
-    'duration_months',
-    'status_magang',
+        'name',
+        'profile_perusahaan',
+        'tipe_industri',
+        'posisi_magang',
+        'min_ipk',
+        'job_description',
+        'duration_months',
+        'status_magang',
+        'logo',
+        'kota',
     ];
 
     protected $casts = [
-        'minimal_ipk' => 'decimal:2',
+        'min_ipk' => 'decimal:2',
     ];
 
     public function skills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'perusahaan_skills');
+        return $this->belongsToMany(
+            Skill::class,
+            'perusahaan_skills'
+        );
     }
 
     public function technologies(): BelongsToMany
     {
-        return $this->belongsToMany(Technology::class, 'perusahaan_technologies');
+        return $this->belongsToMany(
+            Technology::class,
+            'perusahaan_technologies'
+        );
     }
 
     public function minatBidang(): BelongsToMany
     {
-        return $this->belongsToMany(MinatBidang::class, 'perusahaan_minat');
+    return $this->belongsToMany(
+        MinatBidang::class,
+        'perusahaan_posisi'
+    );
     }
 
     public function recommendationResults(): HasMany
     {
-        return $this->hasMany(RecommendationResult::class);
+        return $this->hasMany(
+            RecommendationResult::class
+        );
     }
 
     public function skillIds(): array
