@@ -322,6 +322,7 @@
         toggle.addEventListener('change', function () {
 
             let id = this.dataset.id;
+            // let checkbox = this;
 
             fetch(`/admin/dashboard/toggle_status/${id}`, {
 
@@ -338,6 +339,7 @@
 
             .then(data => {
 
+                // this.checked = data.status === 'Paid';
                 location.reload();
 
             })

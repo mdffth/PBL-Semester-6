@@ -210,14 +210,16 @@ class DashboardController extends Controller
     {
         $perusahaan = Perusahaan::findOrFail($id);
 
-        $perusahaan->status_magang =
-            $perusahaan->status_magang == 'Paid'
+        $perusahaan->status_magang = $perusahaan->status_magang === 'Paid'
             ? 'Unpaid'
             : 'Paid';
 
         $perusahaan->save();
 
-        return back();
+        return response()->json([
+            'success' => true,
+            'status' => $perusahaan->status_magang
+        ]);
     }
 
     // ==============================

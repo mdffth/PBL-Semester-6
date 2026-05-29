@@ -138,9 +138,7 @@ Route::middleware('auth')
         |--------------------------------------------------------------------------
         */
 
-        Route::patch('/toggle_status/{id}',
-            [DashboardController::class, 'toggleStatus'])
-            ->name('toggle_status');
+        Route::post('/toggle_status/{id}', [DashboardController::class, 'toggleStatus']);
 
     });
 
