@@ -134,27 +134,23 @@
                                         {{ ($item->tipe_industri) }}
                                     </td>
 
-                                    {{-- <td>
-                                        {{ $item->posisi_magang }}
-                                    </td> --}}
-
                                     <td>
-                                        @php
-                                            $positions = array_map('trim', explode('/', $item->posisi_magang));
-                                            $visiblePositions = array_slice($positions, 0, 2);
-                                            $remaining = count($positions) - 2;
-                                        @endphp
-
                                         <div class="posisi-wrapper">
 
-                                            {{-- Tetap simpan full text untuk search --}}
+                                            @php
+                                                $bidang = $item->minatBidang->pluck('name')->toArray();
+                                                $visible = array_slice($bidang, 0, 2);
+                                                $remaining = count($bidang) - 2;
+                                            @endphp
+
+                                            {{-- untuk datatable search --}}
                                             <span style="display:none;">
-                                                {{ implode(' ', $positions) }}
+                                                {{ implode(' ', $bidang) }}
                                             </span>
 
-                                            @foreach($visiblePositions as $posisi)
+                                            @foreach($visible as $b)
                                                 <span class="badge-posisi">
-                                                    {{ $posisi }}
+                                                    {{ $b }}
                                                 </span>
                                             @endforeach
 
@@ -188,13 +184,12 @@
 
                                     <td>
                                         <div class="action-buttons">
+                                            <a href="{{ route('dashboard.edit', $item->id) }}"
+                                                class="action-btn edit">
 
-<a href="{{ route('dashboard.edit', $item->id) }}"
-    class="action-btn edit">
+                                                <i class="fa-solid fa-pen"></i>
 
-    <i class="fa-solid fa-pen"></i>
-
-</a>
+                                            </a>
 
                                             <form
                                                 action="{{ route('dashboard.destroy', $item->id) }}"
