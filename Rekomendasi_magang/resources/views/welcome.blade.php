@@ -239,9 +239,7 @@
         <div class="hero-left">
             <h1>Welcome to<br><span>RekomIn!</span></h1>
             <p>Sistem berbasis data untuk membantu mahasiswa untuk memilih tempat magang yang tepat berdasarkan portofolio, minat, dan kebutuhan industri terkini</p>
-           <a href="{{ route('recommendation.index') }}" class="btn-hero">
-    Start Rekomendasi
-</a>
+            <a href="{{ route('recommendation.index') }}" class="btn-hero">Start Rekomendasi</a>
             <a href="#langkah" class="btn-hero" style="background:#fff; color:#1a1a2e; border:1.5px solid #d0d0e8; box-shadow:none; margin-left:.8rem;">Pelajari Sistem</a>
         </div>
         {{-- <div class="hero-right">
@@ -550,7 +548,6 @@
                         <i class="fab fa-github text-white text-base"></i>
                     </a>
                 </div>
-            </main>
             </div>
 
             

@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<html lang="id">
+{{-- resources/views/recommendation/result.blade.php --}}
+
+
+<div class="content-wrap">
 
 <head>
     <meta charset="UTF-8">

@@ -84,6 +84,12 @@ Route::controller(RecommendationController::class)->group(function () {
 
 });
 
+// Page Rekomendasi + Filter
+Route::get('/rekomendasi', [MahasiswaController::class, 'rekomendasi'])->name('rekomendasi');
+Route::get('/detail-perusahaan', function () {
+    return view('mahasiswa.detail_perusahaan');
+});
+
 
 /*
 |--------------------------------------------------------------------------
