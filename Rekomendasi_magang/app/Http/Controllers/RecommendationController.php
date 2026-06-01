@@ -41,6 +41,10 @@ class RecommendationController extends Controller
 
         $python = config('ml.python_path') ?: 'python';
 
+        $pythonPath = base_path('ml/recommendML.py');
+
+        $python = config('ml.python_path') ?: 'python';
+
         $command = '"' . $python . '" "' . $pythonPath . '" '
             . escapeshellarg($user->id);
 
