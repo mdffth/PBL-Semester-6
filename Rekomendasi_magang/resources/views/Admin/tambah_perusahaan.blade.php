@@ -53,6 +53,9 @@
     @if(isset($perusahaan))
         @method('PUT')
     @endif
+    
+        <input type="hidden" name="page" value="{{ request('page', 1) }}">
+
 
         <div class="content-grid">
 
@@ -305,16 +308,9 @@
 
                     <div class="form-group">
 
-
-                    <!-- BENEFIT -->
-
-                    <div class="form-group">
-
                         <label>Benefit</label>
 
-                        <select name="benefit"
-                                class="select"
-                                required>
+                        <select name="benefit" class="select" required>
 
                             <option value="Paid"
                                 {{ old('benefit', $perusahaan->benefit ?? '') == 'Paid' ? 'selected' : '' }}>
@@ -327,8 +323,6 @@
                             </option>
 
                         </select>
-
-                    </div>
 
                     </div>
 
