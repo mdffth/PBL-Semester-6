@@ -7,6 +7,7 @@ use App\Models\RecommendationResult;
 use App\Models\Skill;
 use App\Models\Technology;
 use App\Models\UserInput;
+use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -69,7 +70,7 @@ class RecommendationController extends Controller
         return redirect()->route('recommendation.result');
     }
 
-    public function result()
+    public function result(Request $request)
     {
         $uuid = session('recommendation_uuid');
 
@@ -85,23 +86,36 @@ class RecommendationController extends Controller
         ->where('session_uuid', $uuid)
         ->firstOrFail();
 
-        $results = RecommendationResult::with('perusahaan')
-            ->where('user_input_id', $user->id)
-            ->orderBy('ranking')
-            ->get();
+        $statusMagang = $request->status_magang;
+        $kota = $request->kota;
 
-        if ($results->isEmpty()) {
+        $query = RecommendationResult::with('perusahaan')
+            ->where('user_input_id', $user->id);
 
-            return redirect()
-                ->route('recommendation.index')
-                ->withErrors([
-                    'ml_error' => 'Tidak ada hasil rekomendasi.'
-                ]);
+        if ($statusMagang) {
+            $query->whereHas('perusahaan', function ($q) use ($statusMagang) {
+                $q->where('status_magang', $statusMagang);
+            });
         }
+        
+        if ($kota) {
+            $query->whereHas('perusahaan', function ($q) use ($kota) {
+                $q->where('kota', $kota);
+            });
+        }
+
+        $results = $query
+        ->orderBy('ranking')
+        ->get();
+
+        $kotaList = Perusahaan::select('kota')
+        ->distinct()
+        ->orderBy('kota')
+        ->pluck('kota');
 
         return view(
             'mahasiswa.result',
-            compact('results')
+            compact('results', 'kotaList')
         );
     }
 }

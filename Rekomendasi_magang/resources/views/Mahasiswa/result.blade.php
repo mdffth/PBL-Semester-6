@@ -385,6 +385,61 @@
             Berikut perusahaan yang paling sesuai dengan profil dan minatmu.
         </div>
 
+        <form method="GET" action="{{ route('recommendation.result') }}">
+
+    <div class="filter-bar">
+
+        {{-- Filter Status --}}
+        <div class="filter-select-wrap">
+            <select name="status_magang"
+                class="filter-select"
+                onchange="this.form.submit()">
+
+                <option value="">Semua Status</option>
+
+                <option value="Paid"
+                    {{ request('status_magang') == 'Paid' ? 'selected' : '' }}>
+                    Paid
+                </option>
+
+                <option value="Unpaid"
+                    {{ request('status_magang') == 'Unpaid' ? 'selected' : '' }}>
+                    Unpaid
+                </option>
+
+            </select>
+        </div>
+
+        {{-- Filter Kota --}}
+        <div class="filter-select-wrap">
+            <select name="kota"
+                class="filter-select"
+                onchange="this.form.submit()">
+
+                <option value="">Semua Kota</option>
+
+                @foreach($kotaList as $kota)
+                    <option value="{{ $kota }}"
+                        {{ request('kota') == $kota ? 'selected' : '' }}>
+                        {{ $kota }}
+                    </option>
+                @endforeach
+
+            </select>
+        </div>
+
+        {{-- Reset --}}
+        <a href="{{ route('recommendation.result') }}"
+            class="btn-reset-filter">
+            Reset Filter
+        </a>
+
+    </div>
+
+</form>
+
+
+
         <p class="result-info">
             Menampilkan
             <strong>{{ $results->count() }}</strong>
@@ -430,6 +485,11 @@
                         <p>
                             <strong>Status Magang:</strong>
                             {{ $company->status_magang ?? '-' }}
+                        </p>
+
+                        <p>
+                            <strong>Kota:</strong>
+                            {{ $company->kota ?? '-' }}
                         </p>
 
                         <p>
@@ -522,13 +582,6 @@
             @endforeach
 
         </div>
-
-    <!-- TITLE BAR -->
-    <div class="page-title-bar">
-        <h1>
-            Berdasarkan Profil Kamu, Berikut Merupakan Rekomendasi Magang Terbaik:
-        </h1>
-    </div>
 
 </body>
 
