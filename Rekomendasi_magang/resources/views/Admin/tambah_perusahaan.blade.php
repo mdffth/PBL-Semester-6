@@ -305,23 +305,30 @@
 
                     <div class="form-group">
 
-                        <label>Internship Type</label>
 
-                        <select name="status_magang"
+                    <!-- BENEFIT -->
+
+                    <div class="form-group">
+
+                        <label>Benefit</label>
+
+                        <select name="benefit"
                                 class="select"
                                 required>
 
                             <option value="Paid"
-                                {{ old('status_magang') == 'Paid' ? 'selected' : '' }}>
+                                {{ old('benefit', $perusahaan->benefit ?? '') == 'Paid' ? 'selected' : '' }}>
                                 Paid
                             </option>
 
                             <option value="Unpaid"
-                                {{ old('status_magang') == 'Unpaid' ? 'selected' : '' }}>
+                                {{ old('benefit', $perusahaan->benefit ?? '') == 'Unpaid' ? 'selected' : '' }}>
                                 Unpaid
                             </option>
 
                         </select>
+
+                    </div>
 
                     </div>
 

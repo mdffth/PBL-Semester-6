@@ -17,7 +17,7 @@ class DashboardController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function index()
+    public function index(Request $request)
     {
         $totalPerusahaan = Perusahaan::count();
 
@@ -31,8 +31,20 @@ class DashboardController extends Controller
             'Nonactive'
         )->count();
 
-        $perusahaan = Perusahaan::latest()
-            ->paginate(10);
+        $query = Perusahaan::query();
+
+        if ($request->filter == 'active') {
+            $query->where('status_magang', 'Active');
+        }
+
+        if ($request->filter == 'nonactive') {
+            $query->where('status_magang', 'Nonactive');
+        }
+
+        $perusahaan = $query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.dashboard', compact(
             'totalPerusahaan',
@@ -95,15 +107,13 @@ class DashboardController extends Controller
 
             'job_description' => 'nullable|string',
 
-            'status_magang' => 'required|in:Active,Nonactive',
+             'benefit' => 'required|in:Paid, Unpaid',
 
             'duration_months' => 'nullable|integer|min:1|max:12',
 
             'min_ipk' => 'nullable|numeric|min:0|max:4',
 
             'kota' => 'nullable|string|max:255',
-            'provinsi' => 'nullable|string|max:255',
-            'alamat' => 'nullable|string',
 
             /*
             |--------------------------------------------------------------------------
@@ -159,15 +169,13 @@ class DashboardController extends Controller
 
             'job_description' => $request->job_description,
 
-            'status_magang' => $request->status_magang,
+            'benefit' => $request->benefit,
 
             'duration_months' => $request->duration_months,
 
             'min_ipk' => $request->min_ipk,
 
-            'kota'      => $request->kota,
-            'provinsi'  => $request->provinsi,
-            'alamat'    => $request->alamat,
+            'kota' => $request->kota,
 
             'logo' => $logoPath,
         ]);
@@ -281,7 +289,7 @@ class DashboardController extends Controller
             'tipe_industri' => 'required|string|max:255',
             
             // 'posisi_magang' => 'required|exsist:minat_bidang,id',
-            'status_magang' => 'required|in:Active,Nonactive',
+            'benefit' => 'required|in:Paid,Unpaid',
 
             'profile_perusahaan' => 'nullable|string',
             'job_description' => 'nullable|string',
@@ -289,8 +297,6 @@ class DashboardController extends Controller
             'duration_months' => 'nullable|integer|min:1|max:12',
             'min_ipk' => 'nullable|numeric|min:0|max:4',
             'kota' => 'nullable|string|max:255',
-            'provinsi' => 'nullable|string|max:255',
-            'alamat' => 'nullable|string',
 
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
 
@@ -312,11 +318,9 @@ class DashboardController extends Controller
             'tipe_industri' => $request->tipe_industri,
             'profile_perusahaan' => $request->profile_perusahaan,
             'posisi_magang' => '-',
-            'status_magang' => $request->status_magang,
+            'benefit' => $request->benefit,
             'min_ipk' => $request->min_ipk,
-            'kota'      => $request->kota,
-            'provinsi'  => $request->provinsi,
-            'alamat'    => $request->alamat,
+            'kota' => $request->kota,
             'duration_months' => $request->duration_months ?? $perusahaan->duration_months,
             'job_description' => $request->job_description ?? $perusahaan->job_description,
         ]);
@@ -326,9 +330,9 @@ class DashboardController extends Controller
         $perusahaan->technologies()->sync($request->technology_id ?? []);
         $perusahaan->minatBidang()->sync($request->minat_id ?? []);
 
-        return redirect()
-            ->route('dashboard.index')
-            ->with('success', 'Perusahaan berhasil diupdate');
+        return redirect()->route('dashboard.index', [
+            'page' => $request->page
+        ])->with('success', 'Data berhasil diperbarui');
     }
 
     // ==============================
@@ -343,22 +347,5 @@ class DashboardController extends Controller
         ])->findOrFail($id);
 
         return view('Admin.detail_perusahaan', compact('perusahaan'));
-    }
-
-    public function destroy($id)
-    {
-        try {
-            $perusahaan = Perusahaan::findOrFail($id);
-
-            $perusahaan->delete();
-
-            return redirect()
-                ->back()
-                ->with('success', 'Data perusahaan berhasil dihapus.');
-        } catch (\Exception $e) {
-            return redirect()
-                ->back()
-                ->with('error', 'Data perusahaan gagal dihapus.');
-        }
     }
 }
