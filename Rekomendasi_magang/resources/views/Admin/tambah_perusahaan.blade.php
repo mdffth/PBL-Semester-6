@@ -54,6 +54,8 @@
         @method('PUT')
     @endif
 
+        <input type="hidden" name="page" value="{{ request('page', 1) }}">
+
         <div class="content-grid">
 
             <!-- LEFT -->

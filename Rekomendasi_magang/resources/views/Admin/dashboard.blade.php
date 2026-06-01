@@ -102,6 +102,7 @@
                                 <th>PROFILE</th>
                                 <th>INDUSTRI</th>
                                 <th>POSISI</th>
+                                <th>PAID/UNPAID</th>
                                 <th style="text-align:center" >DURASI</th>
                                 <th>STATUS</th>
                                 <th style="text-align:center" >AKSI</th>
@@ -117,13 +118,6 @@
                                 <tr>
                                     <td>
                                         <div class="company">
-                                            <div class="company-logo">
-                                                @if($item->logo)
-                                                    <img src="{{ asset('storage/' . $item->logo) }}" alt="Logo">
-                                                @else
-                                                    {{ strtoupper(substr($item->name, 0, 1)) }}
-                                                @endif
-                                            </div>
                                             <div>
                                                 <strong>{{ $item->name }}</strong>
                                             </div>
@@ -161,7 +155,11 @@
                                             @endif
 
                                         </div>
-                                    </td>                                 
+                                    </td>
+                                    
+                                    <td style="text-align:center" >
+                                        {{ ($item->status_magang) }}
+                                    </td>
 
                                     <td style="text-align:center" >
                                         {{ $item->duration_months }} bulan
@@ -184,11 +182,12 @@
 
                                     <td>
                                         <div class="action-buttons">
-                                            <a href="{{ route('dashboard.edit', $item->id) }}"
-                                                class="action-btn edit">
-
+                                            <a href="{{ route('dashboard.edit', [
+                                                'id' => $item->id,
+                                                'page' => request('page', 1)
+                                            ]) }}"
+                                            class="action-btn edit">
                                                 <i class="fa-solid fa-pen"></i>
-
                                             </a>
 
                                             <form
@@ -237,14 +236,12 @@
 
                                 <span class="page-btn disabled">
                                     Previous
-                                    {{-- <i class="fa-solid fa-chevron-left"></i> --}}
                                 </span>
 
                             @else
 
                                 <a href="{{ $perusahaan->previousPageUrl() }}" class="page-btn">
                                     Previous
-                                    {{-- <i class="fa-solid fa-chevron-left"></i> --}}
                                 </a>
 
                             @endif
@@ -264,14 +261,12 @@
 
                                 <a href="{{ $perusahaan->nextPageUrl() }}" class="page-btn">
                                     Next
-                                    {{-- <i class="fa-solid fa-chevron-right"></i> --}}
                                 </a>
 
                             @else
 
                                 <span class="page-btn disabled">
                                     Next
-                                    {{-- <i class="fa-solid fa-chevron-right"></i> --}}
                                 </span>
 
                             @endif

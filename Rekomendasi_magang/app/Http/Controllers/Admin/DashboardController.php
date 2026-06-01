@@ -318,9 +318,9 @@ class DashboardController extends Controller
         $perusahaan->technologies()->sync($request->technology_id ?? []);
         $perusahaan->minatBidang()->sync($request->minat_id ?? []);
 
-        return redirect()
-            ->route('dashboard.index')
-            ->with('success', 'Perusahaan berhasil diupdate');
+        return redirect()->route('dashboard.index', [
+            'page' => $request->page
+        ])->with('success', 'Data berhasil diperbarui');
     }
 
     // ==============================
@@ -335,22 +335,5 @@ class DashboardController extends Controller
         ])->findOrFail($id);
 
         return view('Admin.detail_perusahaan', compact('perusahaan'));
-    }
-
-    public function destroy($id)
-    {
-        try {
-            $perusahaan = Perusahaan::findOrFail($id);
-
-            $perusahaan->delete();
-
-            return redirect()
-                ->back()
-                ->with('success', 'Data perusahaan berhasil dihapus.');
-        } catch (\Exception $e) {
-            return redirect()
-                ->back()
-                ->with('error', 'Data perusahaan gagal dihapus.');
-        }
     }
 }
