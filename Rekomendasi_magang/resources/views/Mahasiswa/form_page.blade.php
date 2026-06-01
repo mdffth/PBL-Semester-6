@@ -239,7 +239,7 @@
                            placeholder="Ketik minat bidang lalu tekan Enter">
                 </div>
 
-                <div id="minat-hidden-input"></div>
+    <div id="minat-hidden-input"></div>
 
                 <datalist id="list_minat_bidang">
                     @foreach ($minat_bidang as $minat)
@@ -261,7 +261,7 @@
                            placeholder="Ketik tools lalu tekan Enter">
                 </div>
 
-                <div id="technology-hidden-input"></div>
+    <div id="technology-hidden-input"></div>
 
                 <datalist id="list_tools">
                     @foreach ($technologies as $tech)
