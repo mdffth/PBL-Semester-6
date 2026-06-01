@@ -9,34 +9,163 @@
         rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f4f6fb;
+        * {
             margin: 0;
-            color: #111827;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
+        body {
+            background: #F5F7FB;
+            color: #1E1E1E;
+        }
+
+        /* NAVBAR */
         .navbar {
             background: #1a1a6e;
-            padding: 18px 5%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            color: white;
+            justify-content: space-between;
+            padding: .9rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .navbar a {
-            color: white;
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
             text-decoration: none;
-            margin-left: 25px;
+        }
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            background: #fff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #1a1a6e;
+            font-size: .85rem;
+        }
+
+        .brand-name {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: .9rem;
+            font-weight: 500;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+        }
+
+        .nav-btn {
+            background: #3b3bdb;
+            color: #fff !important;
+            padding: .5rem 1.3rem;
+            border-radius: 8px;
+            font-weight: 600 !important;
+        }
+
+        .nav-btn:hover {
+            background: #2d2db8 !important;
+        }
+
+        /* TITLE BAR */
+        .page-title-bar {
+            background: #fff;
+            border-bottom: 1px solid #e8e8f0;
+            padding: 1.5rem 5%;
+        }
+
+        .page-title-bar h1 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        /* FILTER BAR */
+        .filter-bar {
+            background: #fff;
+            border-bottom: 1px solid #e8e8f0;
+            padding: .9rem 5%;
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-icon {
+            color: #3b3bdb;
+            font-size: 1rem;
+        }
+
+        .filter-select-wrap {
+            position: relative;
+        }
+
+        .filter-select {
+            appearance: none;
+            background: #fff;
+            border: 1.5px solid #d0d0e8;
+            border-radius: 20px;
+            padding: .45rem 2rem .45rem 1rem;
+            font-size: .85rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            cursor: pointer;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-select-wrap::after {
+            content: '▾';
+            position: absolute;
+            right: .7rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: .8rem;
+            pointer-events: none;
+        }
+
+        .btn-reset-filter {
+            background: #fff;
+            border: 1.5px solid #d0d0e8;
+            border-radius: 20px;
+            padding: .45rem 1rem;
+            text-decoration: none;
+            color: #555;
+            font-size: .85rem;
             font-weight: 600;
         }
 
-        .brand {
-            font-size: 20px;
-            font-weight: 800;
+        .btn-reset-filter:hover {
+            border-color: #3b3bdb;
+            color: #3b3bdb;
         }
 
+        /* CONTENT WRAP */
         .content-wrap {
             padding: 40px 5%;
         }
@@ -53,17 +182,24 @@
             font-size: 15px;
         }
 
+        /* RESULT INFO */
         .result-info {
             margin-bottom: 30px;
             font-size: 16px;
         }
 
+        .result-info strong {
+            color: #3b3bdb;
+        }
+
+        /* RESULT GRID */
         .result-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 28px;
         }
 
+        /* RESULT CARD */
         .result-card {
             background: white;
             border-radius: 16px;
@@ -76,6 +212,7 @@
             justify-content: space-between;
             gap: 15px;
             align-items: flex-start;
+            margin-bottom: 12px;
         }
 
         .result-header h3 {
@@ -84,62 +221,101 @@
         }
 
         .result-header p {
-            font-size: 14px;
+            font-size: 13px;
             margin: 0;
             color: #4b5563;
         }
 
-        .score-box {
-            min-width: 62px;
-            height: 62px;
-            border-radius: 50%;
-            background: #1a1a6e;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 14px;
-        }
-
-        .company-info,
-        .score-section,
-        .detail-section {
-            margin-top: 18px;
-            font-size: 14px;
+        .company-info {
+            margin: 15px 0;
+            font-size: 13px;
+            border-top: 1px solid #eef2f6;
+            padding-top: 12px;
         }
 
         .company-info p {
-            margin: 8px 0;
+            margin: 6px 0;
+        }
+
+        .score-section {
+            margin: 15px 0;
         }
 
         .score-item {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .score-top {
             display: flex;
             justify-content: space-between;
-            font-size: 13px;
+            font-size: 12px;
             margin-bottom: 4px;
+            color: #4b5563;
         }
 
         .progress {
             background: #e5e7eb;
-            height: 8px;
+            height: 6px;
             border-radius: 10px;
             overflow: hidden;
         }
 
         .progress-bar {
             height: 100%;
-            background: #1d4ed8;
+            background: #1a1a6e;
+            border-radius: 10px;
         }
 
-        .detail-section {
-            border-top: 1px solid #e5e7eb;
-            padding-top: 15px;
-            line-height: 1.6;
+        .btn-detail {
+            display: block;
+            text-align: center;
+            background: #1a1a6e;
+            color: #fff;
+            padding: .7rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: .85rem;
+            font-weight: 600;
+            margin-top: 16px;
+            transition: background 0.2s;
+        }
+
+        .btn-detail:hover {
+            background: #3b3bdb;
+        }
+
+        /* PAGINATION */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: .5rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination a,
+        .pagination span {
+            padding: .5rem .9rem;
+            border-radius: 8px;
+            font-size: .85rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1.5px solid #e0e0ea;
+            color: #555;
+            background: #fff;
+            transition: all .2s;
+        }
+
+        .pagination a:hover,
+        .pagination .active {
+            background: #1a1a6e;
+            color: #fff;
+            border-color: #1a1a6e;
+        }
+
+        .pagination .disabled {
+            color: #ccc;
+            pointer-events: none;
         }
 
         .btn-detail {
@@ -347,6 +523,11 @@
 
         </div>
 
+    <!-- TITLE BAR -->
+    <div class="page-title-bar">
+        <h1>
+            Berdasarkan Profil Kamu, Berikut Merupakan Rekomendasi Magang Terbaik:
+        </h1>
     </div>
 
 </body>

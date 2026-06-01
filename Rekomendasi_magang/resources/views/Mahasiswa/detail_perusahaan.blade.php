@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Perusahaan</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         *{
             margin: 0;
@@ -21,49 +24,21 @@
         }
 
         /* NAVBAR */
-        .navbar{
-            width: 100%;
-            background: #FFFFFF;
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px dashed #0242C4;
-        }
+        .navbar { background: #1a1a6e; display: flex; align-items: center; justify-content: space-between; padding: .9rem 5%; position: sticky; top: 0; z-index: 100; }
+        .navbar-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+        .brand-logo { width: 36px; height: 36px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1a1a6e; font-size: .85rem; }
+        .brand-name { color: #fff; font-weight: 700; font-size: 1.1rem; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .2s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .nav-btn { background: #3b3bdb; color: #fff !important; padding: .5rem 1.3rem; border-radius: 8px; font-weight: 600 !important; }
+        .nav-btn:hover { background: #2d2db8 !important; }
+        .nav-avatar { width: 34px; height: 34px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .9rem; cursor: pointer; }
 
-        .logo{
-            font-size: 24px;
-            font-weight: bold;
-            color: #0242C4;
-        }
-
-        .nav-menu{
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav-menu a{
-            text-decoration: none;
-            color: #7C8299;
-            font-size: 14px;
-        }
-
-        .btn-login{
-            padding: 8px 20px;
-            border: 1px solid #0242C4;
-            border-radius: 8px;
-            color: #0242C4 !important;
-            font-weight: 600;
-        }
-
-        .btn-primary{
-            background: #0242C4;
-            color: white !important;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-        }
+         /* SECTION */
+        section { padding: 5rem 5%; }
+        .sec-title { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: #1a1a2e; margin-bottom: .5rem; }
+        .sec-sub { color: #666; font-size: .93rem; line-height: 1.65; }
 
         /* CONTAINER */
         .container{
@@ -282,10 +257,22 @@
 <body>
 
     <!-- NAVBAR -->
-    <div class="navbar">
+<nav class="navbar">
+    <a href="{{ route('landing') }}" class="navbar-brand">
+        <div class="brand-logo">RI</div>
+        <span class="brand-name">RekomIn</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="{{ route('landing') }}" class="active">Home</a></li>
+        <li><a href="{{ route('rekomendasi') }}">Perusahaan</a></li>
 
-        <div class="logo">
-            InternPath
+        <a href="{{ route('recommendation.index') }}" class="nav-btn">
+            Start Rekomendasi
+        </a>
+
+        {{-- <li>
+        <div class="nav-avatar">
+            <i class="fas fa-user"></i>
         </div>
 
         <div class="nav-menu">
@@ -570,46 +557,15 @@
     </div>
 
     <!-- FOOTER -->
-    <footer>
+<footer style="background:#1a1a2e; padding:1.5rem 5%; margin-top:3rem;">
+    
+    <div style="display:flex; justify-content:center; align-items:center;">
+        <p style="font-size:.85rem; color:rgba(255,255,255,0.5); margin:0; text-align:center;">
+            &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
+        </p>
+    </div>
 
-        <div>
-
-            <h3>
-                InternPath
-            </h3>
-
-            <p>
-                © 2024 InternPath.
-                Bridging academic life and professional careers.
-            </p>
-
-        </div>
-
-        <div class="footer-links">
-
-            <a href="#">
-                About Us
-            </a>
-
-            <a href="#">
-                Privacy
-            </a>
-
-            <a href="#">
-                Terms
-            </a>
-
-            <a href="#">
-                Help Center
-            </a>
-
-            <a href="#">
-                Contacts
-            </a>
-
-        </div>
-
-    </footer>
+</footer>
 
 </body>
 </html>
