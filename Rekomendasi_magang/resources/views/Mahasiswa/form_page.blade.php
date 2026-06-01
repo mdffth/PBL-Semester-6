@@ -1,5 +1,3 @@
-<!-- resources/views/mahasiswa/form_page.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +29,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
-        /* HEADER */
         .step-header {
             display: flex;
             justify-content: space-between;
@@ -66,7 +63,6 @@
             border-radius: 20px;
         }
 
-        /* CARD */
         .card {
             border: 1px solid #E5E7EB;
             border-radius: 14px;
@@ -85,7 +81,6 @@
             margin-bottom: 30px;
         }
 
-        /* FORM */
         .form-group {
             margin-bottom: 25px;
         }
@@ -113,7 +108,6 @@
             box-shadow: 0 0 0 3px rgba(2, 66, 196, 0.12);
         }
 
-        /* TAG INPUT */
         .tag-box {
             display: flex;
             flex-wrap: wrap;
@@ -148,7 +142,6 @@
             font-weight: bold;
         }
 
-        /* BUTTON */
         .btn-submit {
             width: 100%;
             background: #0242C4;
@@ -181,7 +174,6 @@
             .card-title {
                 font-size: 22px;
             }
-
         }
     </style>
 </head>
@@ -193,6 +185,10 @@
     <div class="step-header">
         <div class="step-title">
             STEP 1 OF 2: YOUR PROFILE
+        </div>
+
+        <div class="step-percent">
+            50% Complete
         </div>
     </div>
 
@@ -222,104 +218,82 @@
         <form action="{{ route('recommendation.process') }}" method="POST">
             @csrf
 
+            <!-- IPK -->
             <div class="form-group">
                 <label>IPK (GPA)</label>
-                <input type="text" name="ipk" class="form-control" placeholder="Contoh: 3.80" required>
+
+                <input type="text"
+                       name="ipk"
+                       class="form-control"
+                       placeholder="Contoh: 3.80"
+                       required>
             </div>
 
-            <div class="step-percent">
-                50% Complete
-            </div>
+            <!-- MINAT BIDANG -->
+            <div class="form-group">
+                <label>MINAT BIDANG</label>
 
-        </div>
-
-        <!-- PROGRESS -->
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
-
-        <!-- CARD -->
-        <div class="card">
-
-            <div class="card-title">
-                Lengkapi Data Diri Anda
-            </div>
-
-            <div class="card-subtitle">
-                Informasi ini membantu sistem mencocokkan Anda
-                dengan magang yang paling sesuai.
-            </div>
-
-            <form action="{{ route('recommendation.process') }}" method="POST">
-                @csrf
-
-                <!-- IPK -->
-                <div class="form-group">
-
-                    <label>IPK (GPA)</label>
-
-                    <input type="text" name="ipk" class="form-control" placeholder="Contoh: 3.80">
-
+                <div class="tag-box" id="minat-bidang-container">
+                    <input type="text"
+                           id="minat-bidang-input"
+                           list="list_minat_bidang"
+                           placeholder="Ketik minat bidang lalu tekan Enter">
                 </div>
 
-                <!-- MINAT BIDANG -->
-                <div class="form-group">
+                <div id="minat-hidden-input"></div>
 
-                    <label>Minat Bidang Anda</label>
+                <datalist id="list_minat_bidang">
+                    @foreach ($minat_bidang as $minat)
+                        <option value="{{ $minat->name }}"
+                                data-id="{{ $minat->id }}">
+                        </option>
+                    @endforeach
+                </datalist>
+            </div>
 
+            <!-- TOOLS -->
+            <div class="form-group">
+                <label>TOOLS YANG DIKUASAI</label>
+
+                <div class="tag-box" id="tools-container">
+                    <input type="text"
+                           id="tools-input"
+                           list="list_tools"
+                           placeholder="Ketik tools lalu tekan Enter">
+                </div>
+
+                <div id="technology-hidden-input"></div>
+
+                <datalist id="list_tools">
+                    @foreach ($technologies as $tech)
+                        <option value="{{ $tech->name }}"
+                                data-id="{{ $tech->id }}">
+                        </option>
+                    @endforeach
+                </datalist>
+            </div>
+
+            <!-- SKILLS -->
             <div class="form-group">
                 <label>KEAHLIAN (SKILLS)</label>
 
                 <div class="tag-box" id="skills-container">
-                    <input type="text" id="skills-input" list="list_skills"
-                        placeholder="Ketik skill lalu tekan Enter">
+                    <input type="text"
+                           id="skills-input"
+                           list="list_skills"
+                           placeholder="Ketik skill lalu tekan Enter">
                 </div>
 
                 <div id="skill-hidden-input"></div>
 
-                    <label>TOOLS YANG DIKUASAI</label>
-
-                    <div class="tag-box" id="tools-container">
-
-                        <input type="text" id="tools-input" list="list_tools"
-                            placeholder="Ketik tools lalu tekan Enter">
-
-                    </div>
-                    <div id="technology-hidden-input"></div>
-
-                    <datalist id="list_tools">
-                        @foreach ($technologies as $tech)
-                            <option value="{{ $tech->name }}" data-id="{{ $tech->id }}">
-                        @endforeach
-                    </datalist>
-                </div>
-
-                <!-- SKILLS -->
-                <div class="form-group">
-
-                    <label>KEAHLIAN (SKILLS)</label>
-
-                    <div class="tag-box" id="skills-container">
-
-                        <input type="text" id="skills-input" list="list_skills"
-                            placeholder="Ketik skill lalu tekan Enter">
-                    </div>
-                    <div id="skill-hidden-input"></div>
-
-                    <datalist id="list_skills">
-                        @foreach ($skills as $skill)
-                            <option value="{{ $skill->name }}" data-id="{{ $skill->id }}">
-                        @endforeach
-                    </datalist>
-
-                </div>
-
-                <!-- BUTTON -->
-                <button type="submit" class="btn-submit">
-                    Lihat Hasil Rekomendasi
-                </button>
-
-            </form>
+                <datalist id="list_skills">
+                    @foreach ($skills as $skill)
+                        <option value="{{ $skill->name }}"
+                                data-id="{{ $skill->id }}">
+                        </option>
+                    @endforeach
+                </datalist>
+            </div>
 
             <button type="submit" class="btn-submit">
                 Lihat Hasil Rekomendasi
@@ -330,120 +304,120 @@
     </div>
 
 </div>
+
 <script>
-        function createTagInput(inputId, containerId, datalistId, hiddenContainerId, inputName) {
 
-            const input = document.getElementById(inputId);
-            const container = document.getElementById(containerId);
-            const datalist = document.getElementById(datalistId);
-            const hiddenContainer = document.getElementById(hiddenContainerId);
+    function createTagInput(
+        inputId,
+        containerId,
+        datalistId,
+        hiddenContainerId,
+        inputName
+    ) {
 
-            input.addEventListener("keydown", function(e) {
+        const input = document.getElementById(inputId);
+        const container = document.getElementById(containerId);
+        const datalist = document.getElementById(datalistId);
+        const hiddenContainer = document.getElementById(hiddenContainerId);
 
-                if (e.key === "Enter") {
+        input.addEventListener("keydown", function(e) {
 
-                    e.preventDefault();
+            if (e.key === "Enter") {
 
-                    const value = input.value.trim();
+                e.preventDefault();
 
-                    if (value === "") return;
+                const value = input.value.trim();
 
-                    // CEK DUPLIKAT
-                    const existingTags = container.querySelectorAll(".tag");
+                if (value === "") return;
 
-                    let isDuplicate = false;
+                const existingTags = container.querySelectorAll(".tag");
 
-                    existingTags.forEach(tag => {
+                let isDuplicate = false;
 
-                        const tagText = tag.firstChild.textContent
-                            .trim()
-                            .toLowerCase();
+                existingTags.forEach(tag => {
 
-                        if (tagText === value.toLowerCase()) {
-                            isDuplicate = true;
-                        }
+                    const tagText = tag.firstChild.textContent
+                        .trim()
+                        .toLowerCase();
 
-                    });
-
-                    if (isDuplicate) {
-
-                        input.value = "";
-                        return;
-
+                    if (tagText === value.toLowerCase()) {
+                        isDuplicate = true;
                     }
+                });
 
-                    // CARI OPTION DI DATALIST
-                    const option = [...datalist.options]
-                        .find(opt => opt.value === value);
-
-                    if (!option) {
-
-                        alert("Data tidak tersedia!");
-                        return;
-
-                    }
-
-                    const id = option.dataset.id;
-
-                    // BUAT TAG
-                    const tag = document.createElement("div");
-
-                    tag.classList.add("tag");
-
-                    tag.innerHTML = `
-                ${value}
-                <span>&times;</span>
-            `;
-
-                    // HIDDEN INPUT
-                    const hiddenInput = document.createElement("input");
-
-                    hiddenInput.type = "hidden";
-                    hiddenInput.name = inputName + "[]";
-                    hiddenInput.value = id;
-
-                    hiddenContainer.appendChild(hiddenInput);
-
-                    // HAPUS TAG
-                    tag.querySelector("span").addEventListener("click", function() {
-
-                        tag.remove();
-                        hiddenInput.remove();
-
-                    });
-
-                    container.insertBefore(tag, input);
+                if (isDuplicate) {
 
                     input.value = "";
-
+                    return;
                 }
 
-            });
+                const option = [...datalist.options]
+                    .find(opt => opt.value === value);
 
-        }
-        createTagInput(
-            "tools-input",
-            "tools-container",
-            "list_tools",
-            "technology-hidden-input",
-            "technology_id"
-        );
-        createTagInput(
-            "skills-input",
-            "skills-container",
-            "list_skills",
-            "skill-hidden-input",
-            "skill_id"
-        );
-        createTagInput(
-            "minat-bidang-input",
-            "minat-bidang-container",
-            "list_minat_bidang",
-            "minat-hidden-input",
-            "minat_id"
-        );
-    </script>
+                if (!option) {
+
+                    alert("Data tidak tersedia!");
+                    return;
+                }
+
+                const id = option.dataset.id;
+
+                const tag = document.createElement("div");
+
+                tag.classList.add("tag");
+
+                tag.innerHTML = `
+                    ${value}
+                    <span>&times;</span>
+                `;
+
+                const hiddenInput = document.createElement("input");
+
+                hiddenInput.type = "hidden";
+                hiddenInput.name = inputName + "[]";
+                hiddenInput.value = id;
+
+                hiddenContainer.appendChild(hiddenInput);
+
+                tag.querySelector("span").addEventListener("click", function() {
+
+                    tag.remove();
+                    hiddenInput.remove();
+                });
+
+                container.insertBefore(tag, input);
+
+                input.value = "";
+            }
+        });
+    }
+
+    createTagInput(
+        "tools-input",
+        "tools-container",
+        "list_tools",
+        "technology-hidden-input",
+        "technology_id"
+    );
+
+    createTagInput(
+        "skills-input",
+        "skills-container",
+        "list_skills",
+        "skill-hidden-input",
+        "skill_id"
+    );
+
+    createTagInput(
+        "minat-bidang-input",
+        "minat-bidang-container",
+        "list_minat_bidang",
+        "minat-hidden-input",
+        "minat_id"
+    );
+
+</script>
 
 </body>
-
 </html>
+```

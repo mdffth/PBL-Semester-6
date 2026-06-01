@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Hasil Rekomendasi</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <style>
         body {
@@ -39,33 +41,20 @@
             padding: 40px 5%;
         }
 
-        .profile-summary {
-            background: white;
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        .page-title {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 10px;
         }
 
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .summary-label {
+        .page-subtitle {
             color: #6b7280;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .summary-value {
-            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 15px;
         }
 
         .result-info {
-            margin: 24px 0;
+            margin-bottom: 30px;
             font-size: 16px;
         }
 
@@ -79,7 +68,7 @@
             background: white;
             border-radius: 16px;
             padding: 22px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
 
         .result-header {
@@ -153,19 +142,32 @@
             line-height: 1.6;
         }
 
+        .btn-detail {
+            display: block;
+            text-align: center;
+            background: #1a1a6e;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .btn-detail:hover {
+            background: #15155c;
+        }
+
         @media (max-width: 1024px) {
             .result-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .summary-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .result-grid,
-            .summary-grid {
+            .result-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -173,143 +175,180 @@
                 flex-direction: column;
                 gap: 12px;
             }
+
+            .page-title {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<nav class="navbar">
-    <div class="brand">RekomIn</div>
+    <nav class="navbar">
 
-    <div>
-        <a href="{{ route('landing') }}">Home</a>
-        <a href="{{ route('rekomendasi') }}">Perusahaan</a>
-        <a href="{{ route('recommendation.index') }}">Start Rekomendasi</a>
-    </div>
-</nav>
+        <div class="brand">
+            RekomIn
+        </div>
 
-<div class="content-wrap">
+        <div>
+            <a href="{{ route('landing') }}">Home</a>
+            <a href="{{ route('rekomendasi') }}">Perusahaan</a>
+            <a href="{{ route('recommendation.index') }}">Start Rekomendasi</a>
+        </div>
 
-    <div class="profile-summary">
-        <div class="summary-grid">
+    </nav>
 
-            <div class="summary-item">
-                <div class="summary-label">IPK</div>
-                <div class="summary-value">{{ $user->ipk }}</div>
-            </div>
+    <div class="content-wrap">
 
-            <div class="summary-item">
-                <div class="summary-label">Skill</div>
-                <div class="summary-value">{{ $user->skills->pluck('name')->join(', ') ?: '-' }}</div>
-            </div>
+        <div class="page-title">
+            Hasil Rekomendasi Magang
+        </div>
 
-            <div class="summary-item">
-                <div class="summary-label">Teknologi</div>
-                <div class="summary-value">{{ $user->technologies->pluck('name')->join(', ') ?: '-' }}</div>
-            </div>
+        <div class="page-subtitle">
+            Berikut perusahaan yang paling sesuai dengan profil dan minatmu.
+        </div>
 
-            <div class="summary-item">
-                <div class="summary-label">Minat Bidang</div>
-                <div class="summary-value">{{ $user->minatBidang->pluck('name')->join(', ') ?: '-' }}</div>
-            </div>
+        <p class="result-info">
+            Menampilkan
+            <strong>{{ $results->count() }}</strong>
+            hasil rekomendasi terbaik untukmu.
+        </p>
+
+        <div class="result-grid">
+
+            @foreach ($results as $result)
+
+                @php
+                    $company = $result->perusahaan;
+                @endphp
+
+                <div class="result-card">
+
+                    <div class="result-header">
+
+                        <div>
+                            <h3>
+                                #{{ $result->ranking }}
+                                {{ $company->name }}
+                            </h3>
+
+                            <p>
+                                {{ $company->posisi_magang }}
+                            </p>
+                        </div>
+
+                        <div class="score-box">
+                            {{ number_format($result->final_score * 100, 1) }}%
+                        </div>
+
+                    </div>
+
+                    <div class="company-info">
+
+                        <p>
+                            <strong>Tipe Industri:</strong>
+                            {{ $company->tipe_industri ?? '-' }}
+                        </p>
+
+                        <p>
+                            <strong>Status Magang:</strong>
+                            {{ $company->status_magang ?? '-' }}
+                        </p>
+
+                        <p>
+                            <strong>Minimal IPK:</strong>
+                            {{ $company->min_ipk ?? '-' }}
+                        </p>
+
+                        <p>
+                            <strong>Durasi:</strong>
+                            {{ $company->duration_months ?? '-' }} bulan
+                        </p>
+
+                    </div>
+
+                    <div class="score-section">
+
+                        <div class="score-item">
+
+                            <div class="score-top">
+                                <span>Skill</span>
+                                <span>{{ number_format($result->score_skill * 100, 0) }}%</span>
+                            </div>
+
+                            <div class="progress">
+                                <div class="progress-bar"
+                                    style="width: {{ $result->score_skill * 100 }}%">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="score-item">
+
+                            <div class="score-top">
+                                <span>Teknologi</span>
+                                <span>{{ number_format($result->score_technology * 100, 0) }}%</span>
+                            </div>
+
+                            <div class="progress">
+                                <div class="progress-bar"
+                                    style="width: {{ $result->score_technology * 100 }}%">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="score-item">
+
+                            <div class="score-top">
+                                <span>Minat</span>
+                                <span>{{ number_format($result->score_minat * 100, 0) }}%</span>
+                            </div>
+
+                            <div class="progress">
+                                <div class="progress-bar"
+                                    style="width: {{ $result->score_minat * 100 }}%">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="score-item">
+
+                            <div class="score-top">
+                                <span>IPK</span>
+                                <span>{{ number_format($result->score_ipk * 100, 0) }}%</span>
+                            </div>
+
+                            <div class="progress">
+                                <div class="progress-bar"
+                                    style="width: {{ $result->score_ipk * 100 }}%">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="detail-section">
+
+                        <a href="{{ route('detail.perusahaan', $company->id) }}"
+                            class="btn-detail">
+                            Lihat Detail →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            @endforeach
 
         </div>
-    </div>
-
-    <p class="result-info">
-        Menampilkan <strong>{{ $results->count() }}</strong>
-        hasil rekomendasi perusahaan terbaik untuk profilmu.
-    </p>
-
-    <div class="result-grid">
-
-        @foreach ($results as $result)
-
-            @php
-                $company = $result->perusahaan;
-            @endphp
-
-            <div class="result-card">
-
-                <div class="result-header">
-                    <div>
-                        <h3>#{{ $result->ranking }} {{ $company->name }}</h3>
-                        <p>{{ $company->posisi_magang }}</p>
-                    </div>
-
-                    <div class="score-box">
-                        {{ number_format($result->final_score * 100, 1) }}%
-                    </div>
-                </div>
-
-                <div class="company-info">
-                    <p><strong>Tipe Industri:</strong> {{ $company->tipe_industri ?? '-' }}</p>
-                    <p><strong>Status Magang:</strong> {{ $company->status_magang ?? '-' }}</p>
-                    <p><strong>Minimal IPK:</strong> {{ $company->minimal_ipk ?? '-' }}</p>
-                    <p><strong>Durasi:</strong> {{ $company->duration_months ?? '-' }} bulan</p>
-                </div>
-
-                <div class="score-section">
-
-                    <div class="score-item">
-                        <div class="score-top">
-                            <span>Skill</span>
-                            <span>{{ number_format($result->score_skill * 100, 0) }}%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: {{ $result->score_skill * 100 }}%"></div>
-                        </div>
-                    </div>
-
-                    <div class="score-item">
-                        <div class="score-top">
-                            <span>Teknologi</span>
-                            <span>{{ number_format($result->score_technology * 100, 0) }}%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: {{ $result->score_technology * 100 }}%"></div>
-                        </div>
-                    </div>
-
-                    <div class="score-item">
-                        <div class="score-top">
-                            <span>Minat</span>
-                            <span>{{ number_format($result->score_minat * 100, 0) }}%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: {{ $result->score_minat * 100 }}%"></div>
-                        </div>
-                    </div>
-
-                    <div class="score-item">
-                        <div class="score-top">
-                            <span>IPK</span>
-                            <span>{{ number_format($result->score_ipk * 100, 0) }}%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: {{ $result->score_ipk * 100 }}%"></div>
-                        </div>
-                    </div>
-
-                </div>
-
-            <div class="detail-section">
-                <a href="{{ route('detail.perusahaan', $company->id) }}" 
-                style="display:block; text-align:center; background:#1a1a6e; color:#fff; 
-                        padding:.6rem; border-radius:8px; text-decoration:none; 
-                        font-size:.83rem; font-weight:600; margin-top:10px;">
-                    Lihat Detail →
-                </a>
-            </div>
-
-            </div>
-
-        @endforeach
 
     </div>
-
-</div>
 
 </body>
+
 </html>
