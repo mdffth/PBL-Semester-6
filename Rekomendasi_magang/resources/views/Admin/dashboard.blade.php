@@ -158,7 +158,7 @@
                                     </td>
                                     
                                     <td style="text-align:center" >
-                                        {{ ($item->status_magang) }}
+                                        {{ ($item->benefit) }}
                                     </td>
 
                                     <td style="text-align:center" >
