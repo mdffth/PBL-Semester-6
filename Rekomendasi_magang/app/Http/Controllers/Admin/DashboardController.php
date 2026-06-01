@@ -91,7 +91,7 @@ class DashboardController extends Controller
             |--------------------------------------------------------------------------
             */
 
-            'posisi_magang' => 'required|string|max:255',
+            // 'posisi_magang' => 'required|exsist:minat_bidang,id',
 
             'job_description' => 'nullable|string',
 
@@ -122,6 +122,7 @@ class DashboardController extends Controller
             'technology_id' => 'required|array',
 
             'minat_id' => 'required|array',
+
         ]);
 
         /*
@@ -152,7 +153,7 @@ class DashboardController extends Controller
 
             'profile_perusahaan' => $request->profile_perusahaan,
 
-            'posisi_magang' => $request->posisi_magang,
+            'posisi_magang' => '-',
 
             'job_description' => $request->job_description,
 
@@ -209,13 +210,130 @@ class DashboardController extends Controller
     {
         $perusahaan = Perusahaan::findOrFail($id);
 
-        $perusahaan->status_magang =
-            $perusahaan->status_magang == 'Paid'
+        $perusahaan->status_magang = $perusahaan->status_magang === 'Paid'
             ? 'Unpaid'
             : 'Paid';
 
         $perusahaan->save();
 
-        return back();
+        return response()->json([
+            'success' => true,
+            'status' => $perusahaan->status_magang
+        ]);
+    }
+
+    // ==============================
+    // EDIT
+    // ==============================
+    public function edit($id)
+    {
+        $perusahaan = Perusahaan::with([
+            'technologies',
+            'skills',
+            'minatBidang'
+        ])->findOrFail($id);
+
+        $technologies = Technology::all();
+        $skills = Skill::all();
+        $minatBidang = MinatBidang::all();
+
+        // =========================
+        // FORMAT TAG DATA (SAFE)
+        // =========================
+
+        $selectedTools = $perusahaan->technologies->map(fn($t) => [
+            'id' => $t->id,
+            'name' => $t->name
+        ]);
+
+        $selectedSkills = $perusahaan->skills->map(fn($s) => [
+            'id' => $s->id,
+            'name' => $s->name
+        ]);
+
+        $selectedMinat = $perusahaan->minatBidang->map(fn($m) => [
+            'id' => $m->id,
+            'name' => $m->name
+        ]);
+
+        return view('Admin.tambah_perusahaan', compact(
+            'perusahaan',
+            'technologies',
+            'skills',
+            'minatBidang',
+            'selectedTools',
+            'selectedSkills',
+            'selectedMinat'
+        ));
+    }
+
+    // ==============================
+    // UPDATE
+    // ==============================
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'tipe_industri' => 'required|string|max:255',
+            
+            // 'posisi_magang' => 'required|exsist:minat_bidang,id',
+            'status_magang' => 'required|in:Paid,Unpaid',
+
+            'profile_perusahaan' => 'nullable|string',
+            'job_description' => 'nullable|string',
+
+            'duration_months' => 'nullable|integer|min:1|max:12',
+            'min_ipk' => 'nullable|numeric|min:0|max:4',
+            'kota' => 'nullable|string|max:255',
+
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+
+            'skill_id' => 'nullable|array',
+            'technology_id' => 'nullable|array',
+            'minat_id' => 'nullable|array',
+        ]);
+
+        $perusahaan = Perusahaan::findOrFail($id);
+
+        /* UPDATE LOGO (JIKA ADA) */
+        if ($request->hasFile('logo')) {
+            $perusahaan->logo = $request->file('logo')
+                ->store('logo_perusahaan', 'public');
+        }
+
+        $perusahaan->update([
+            'name' => $request->name,
+            'tipe_industri' => $request->tipe_industri,
+            'profile_perusahaan' => $request->profile_perusahaan,
+            'posisi_magang' => '-',
+            'status_magang' => $request->status_magang,
+            'min_ipk' => $request->min_ipk,
+            'kota' => $request->kota,
+            'duration_months' => $request->duration_months ?? $perusahaan->duration_months,
+            'job_description' => $request->job_description ?? $perusahaan->job_description,
+        ]);
+
+        /* SYNC RELASI */
+        $perusahaan->skills()->sync($request->skill_id ?? []);
+        $perusahaan->technologies()->sync($request->technology_id ?? []);
+        $perusahaan->minatBidang()->sync($request->minat_id ?? []);
+
+        return redirect()
+            ->route('dashboard.index')
+            ->with('success', 'Perusahaan berhasil diupdate');
+    }
+
+    // ==============================
+    // SHOW
+    // ==============================
+    public function show($id)
+    {
+        $perusahaan = Perusahaan::with([
+            'skills',
+            'technologies',
+            'minatBidang'
+        ])->findOrFail($id);
+
+        return view('Admin.detail_perusahaan', compact('perusahaan'));
     }
 }

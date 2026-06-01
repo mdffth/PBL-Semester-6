@@ -8,7 +8,6 @@
     <title>Detail Perusahaan</title>
 
     <style>
-
         *{
             margin: 0;
             padding: 0;
@@ -256,7 +255,6 @@
         }
 
         @media(max-width: 992px){
-
             .container{
                 grid-template-columns: 1fr;
             }
@@ -277,7 +275,6 @@
                 flex-direction: column;
                 gap: 15px;
             }
-
         }
 
     </style>
@@ -297,7 +294,6 @@
             <a href="#" class="btn-login">Login</a>
             <a href="#" class="btn-primary">Mulai Rekomendasi</a>
         </div>
-
     </div>
 
     <!-- CONTENT -->
@@ -345,7 +341,6 @@
 
             <!-- PROFILE -->
             <div class="card">
-
                 <div class="section-title">
                     Profil Perusahaan
                 </div>
@@ -358,7 +353,6 @@
 
             <!-- JOB DESCRIPTION -->
             <div class="card">
-
                 <div class="section-title">
                     Detailed Job Description
                 </div>
@@ -561,7 +555,6 @@
                 <p>
                     Visit Help Center
                 </p>
-
             </div>
 
         </div>

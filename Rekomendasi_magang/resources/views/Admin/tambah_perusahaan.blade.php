@@ -4,6 +4,21 @@
 
 @section('content')
 
+<div class="page-header">
+    <div>
+        <div class="page-title">
+            {{ isset($perusahaan) ? 'Edit Perusahaan Mitra' : 'Tambah Perusahaan Mitra' }}
+        </div>
+        <div class="page-subtitle">
+            @isset($perusahaan)
+                Perbarui informasi data mitra, posisi lowongan magang, serta kualifikasi mahasiswa untuk {{ $perusahaan->name }}.
+            @else
+                Daftarkan perusahaan mitra baru beserta info lowongan, teknologi, dan kualifikasi bidang minat magang.
+            @endisset
+        </div>
+    </div>
+</div>
+
 <div class="container">
 
     {{-- ALERT VALIDASI --}}
@@ -26,11 +41,18 @@
 
     @endif
 
-    <form action="{{ route('dashboard.store') }}"
-          method="POST"
-          enctype="multipart/form-data">
+<form action="{{ isset($perusahaan)
+        ? route('dashboard.update', $perusahaan->id)
+        : route('dashboard.store') }}"
+        
+      method="POST"
+      enctype="multipart/form-data">
 
-        @csrf
+    @csrf
+
+    @if(isset($perusahaan))
+        @method('PUT')
+    @endif
 
         <div class="content-grid">
 
@@ -58,7 +80,7 @@
                             <input type="text"
                                    name="name"
                                    class="input"
-                                   value="{{ old('name') }}"
+                                   value="{{ old('name', $perusahaan->name ?? '') }}"
                                    placeholder="Contoh: PT Teknologi Masa Depan"
                                    required>
 
@@ -79,17 +101,17 @@
                                 </option>
 
                                 <option value="Technology"
-                                    {{ old('tipe_industri') == 'Technology' ? 'selected' : '' }}>
+                                    {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Technology' ? 'selected' : '' }}>                                    
                                     Technology
                                 </option>
 
                                 <option value="Finance"
-                                    {{ old('tipe_industri') == 'Finance' ? 'selected' : '' }}>
+                                    {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Finance' ? 'selected' : '' }}>
                                     Finance
                                 </option>
 
                                 <option value="Education"
-                                    {{ old('tipe_industri') == 'Education' ? 'selected' : '' }}>
+                                    {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Education' ? 'selected' : '' }}>
                                     Education
                                 </option>
 
@@ -108,7 +130,7 @@
                         <textarea name="profile_perusahaan"
                                   class="input"
                                   rows="6"
-                                  placeholder="Tuliskan profil perusahaan...">{{ old('profile_perusahaan') }}</textarea>
+                                  placeholder="Tuliskan profil perusahaan...">{{ old('profile_perusahaan', $perusahaan->profile_perusahaan ?? '') }}</textarea>
 
                     </div>
 
@@ -132,7 +154,7 @@
                         <textarea name="job_description"
                                   class="input"
                                   rows="8"
-                                  placeholder="Tuliskan deskripsi pekerjaan, requirement, dan benefit...">{{ old('job_description') }}</textarea>
+                                  placeholder="Tuliskan deskripsi pekerjaan, requirement, dan benefit...">{{ old('job_description', $perusahaan->job_description ?? '') }}</textarea>
 
                     </div>
 
@@ -279,21 +301,6 @@
                         Detail Lowongan
                     </div>
 
-                    <!-- POSITION -->
-
-                    <div class="form-group">
-
-                        <label>Position</label>
-
-                        <input type="text"
-                               name="posisi_magang"
-                               class="input"
-                               value="{{ old('posisi_magang') }}"
-                               placeholder="Contoh: UI/UX Designer Intern"
-                               required>
-
-                    </div>
-
                     <!-- STATUS -->
 
                     <div class="form-group">
@@ -329,7 +336,7 @@
                                class="input"
                                min="1"
                                max="12"
-                               value="{{ old('duration_months') }}"
+                               value="{{ old('duration_months', $perusahaan->duration_months ?? '') }}"
                                placeholder="Contoh: 6">
 
                     </div>
@@ -346,8 +353,9 @@
                                max="4"
                                name="min_ipk"
                                class="input"
-                               value="{{ old('min_ipk') }}"
-                               placeholder="3.50">
+                               value="{{ old('min_ipk', $perusahaan->min_ipk ?? '') }}"
+                               placeholder="3.50"
+                               required>
 
                     </div>
 
@@ -360,7 +368,7 @@
                         <input type="text"
                                name="kota"
                                class="input"
-                               value="{{ old('kota') }}"
+                               value="{{ old('kota', $perusahaan->kota ?? '') }}"
                                placeholder="Jakarta / Remote">
 
                     </div>
@@ -389,15 +397,16 @@
             <button type="submit"
                     class="btn btn-primary">
 
-                Publish Vacancy
+                {{-- Publish Vacancy --}}
+                {{ isset($perusahaan) ? 'Update Vacancy' : 'Publish Vacancy' }}
 
             </button>
 
         </div>
 
-    </form>
+</form>
 
-</div>
+
 
 {{-- STYLE TAG INPUT --}}
 
@@ -462,6 +471,37 @@
         const datalist = document.getElementById(datalistId);
 
         const hiddenContainer = document.getElementById(hiddenContainerId);
+
+        const form = input.closest('form');
+
+        input.setAttribute('required', 'required');
+
+        function checkValidityStatus() {
+            const totalTags = hiddenContainer.querySelectorAll('input[type="hidden"]').length;
+            if (totalTags > 0) {
+                input.removeAttribute('required');
+                input.setCustomValidity('');
+            } else {
+                input.setAttribute('required', 'required');
+            }
+        }
+
+        if (form) {
+            form.addEventListener("submit", function(e) {
+                const totalTags = hiddenContainer.querySelectorAll('input[type="hidden"]').length;
+                if (totalTags === 0) {
+                    e.preventDefault(); 
+                    input.setCustomValidity('Please fill in this field.');
+                    input.reportValidity(); 
+                } else {
+                    input.setCustomValidity('');
+                }
+            });
+        }
+
+        input.addEventListener('input', function() {
+            input.setCustomValidity('');
+        });
 
         input.addEventListener("keydown", function(e) {
 
@@ -544,6 +584,7 @@
 
                         tag.remove();
                         hiddenInput.remove();
+                        checkValidityStatus();
 
                     });
 
@@ -551,11 +592,109 @@
 
                 input.value = "";
 
+                checkValidityStatus();
+
             }
 
         });
 
     }
+
+    // =========================
+    // LOAD EXISTING TAGS (EDIT + OLD INPUT SAFE)
+    // =========================
+
+    function loadExistingTags(
+        data,
+        containerId,
+        hiddenContainerId,
+        inputName,
+        inputId
+    ) {
+
+        const container = document.getElementById(containerId);
+
+        const hiddenContainer = document.getElementById(hiddenContainerId);
+
+        const input = document.getElementById(inputId);
+
+        if (!data || data.length === 0) return;
+
+        data.forEach(item => {
+
+            // CEK DUPLIKAT
+            if(!item || !item.id || !item.name) return;
+
+            const existingTags = container.querySelectorAll(".tag");
+
+            let isDuplicate = false;
+
+            existingTags.forEach(tag => {
+
+                const tagText = tag.firstChild.textContent
+                    .trim()
+                    .toLowerCase();
+
+                if (tagText === item.name.toLowerCase()) {
+
+                    isDuplicate = true;
+
+                }
+
+            });
+
+            if (isDuplicate) return;
+
+            // BUAT TAG
+
+            const tag = document.createElement("div");
+
+            tag.classList.add("tag");
+
+            tag.innerHTML = `
+                ${item.name}
+                <span>&times;</span>
+            `;
+
+            // HIDDEN INPUT
+
+            const hiddenInput = document.createElement("input");
+
+            hiddenInput.type = "hidden";
+
+            hiddenInput.name = inputName + "[]";
+
+            hiddenInput.value = item.id;
+
+            hiddenContainer.appendChild(hiddenInput);
+
+            // HAPUS TAG
+
+            tag.querySelector("span")
+                .addEventListener("click", function() {
+
+                    tag.remove();
+                    hiddenInput.remove();
+
+                    const totalTags = hiddenContainer.querySelectorAll('input[type="hidden"]').length;
+                    if (totalTags === 0 && input) {
+                        input.setAttribute('required', 'required');
+                    }    
+
+                });
+
+            container.insertBefore(
+                tag,
+                container.querySelector("input")
+            );
+
+        });
+
+        if (input) {
+            input.removeAttribute('required');
+        }
+
+    }    
 
     // TOOLS
 
@@ -586,6 +725,37 @@
         "minat-hidden-input",
         "minat_id"
     );
+
+    // =========================
+    // LOAD EXISTING TAGS (EDIT + OLD INPUT SAFE)
+    // =========================
+
+    loadExistingTags(
+        @json($selectedTools ?? []),
+        "tools-container",
+        "technology-hidden-input",
+        "technology_id",
+        "tools-input"
+    );
+
+    // LOAD SKILLS
+
+    loadExistingTags(
+        @json($selectedSkills ?? []),
+        "skills-container",
+        "skill-hidden-input",
+        "skill_id",
+        "skills-input"
+    );
+
+        // LOAD MINAT
+    loadExistingTags(
+        @json($selectedMinat ?? []),
+        "minat-container",
+        "minat-hidden-input",
+        "minat_id",
+        "minat-input"
+    );   
 
 </script>
 

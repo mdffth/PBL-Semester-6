@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 use App\Models\Perusahaan;
 
@@ -8,6 +9,32 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\Admin\DashboardController;
+
+
+// ================= ROUTE UMUM / MAHASISWA =================
+Route::get('/', function () {
+    return view('admin.login');
+});
+
+Route::get('/detail-perusahaan', function () {
+    return view('mahasiswa.detail_perusahaan');
+});
+
+Route::get('/form-page', function () {
+    return view('mahasiswa.form_page');
+});
+
+Route::post('/login', function (Request $request) {
+    $email = $request->email;
+    $password = $request->password;
+
+    if ($email == 'admin@gmail.com' && $password == '123456') {
+        // TIPS: Jika login admin sukses, diarahkan ke dashboard admin
+        return redirect()->route('dashboard.index');
+    }
+
+    return back()->with('error', 'Email atau Password salah');
+})->name('login');
 
 /*
 |--------------------------------------------------------------------------
@@ -110,9 +137,7 @@ Route::middleware('auth')
         |--------------------------------------------------------------------------
         */
 
-        Route::patch('/toggle_status/{id}',
-            [DashboardController::class, 'toggleStatus'])
-            ->name('toggle_status');
+        Route::post('/toggle_status/{id}', [DashboardController::class, 'toggleStatus']);
 
     });
 
