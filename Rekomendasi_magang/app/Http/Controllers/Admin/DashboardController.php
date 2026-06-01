@@ -336,4 +336,21 @@ class DashboardController extends Controller
 
         return view('Admin.detail_perusahaan', compact('perusahaan'));
     }
+
+    public function destroy($id)
+    {
+        try {
+            $perusahaan = Perusahaan::findOrFail($id);
+
+            $perusahaan->delete();
+
+            return redirect()
+                ->back()
+                ->with('success', 'Data perusahaan berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->with('error', 'Data perusahaan gagal dihapus.');
+        }
+    }
 }
