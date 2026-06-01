@@ -19,61 +19,71 @@
                 </div>
 
                 <!-- STATS -->
-
                 <div class="stats">
-                    <div class="card stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon blue">
-                                <i class="fa-solid fa-building"></i>
+                    {{-- TOTAL PERUSAHAAN --}}
+                    <a href="{{ route('dashboard.index') }}" class="stat-link">
+                        <div class="card stat-card {{ request('filter') == null ? 'active-card' : '' }}">
+                            <div class="stat-header">
+                                <div class="stat-icon blue">
+                                    <i class="fa-solid fa-building"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-label">
+                                        TOTAL PERUSAHAAN
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <div class="stat-label">
-                                    TOTAL PERUSAHAAN
+                            <div class="stat-footer">
+                                <div class="stat-number">
+                                    {{ $totalPerusahaan }}
                                 </div>
                             </div>
                         </div>
-                        <div class="stat-footer">
-                            <div class="stat-number">
-                                {{ $totalPerusahaan }}
-                            </div>
-                        </div>
-                    </div>
+                    </a>
 
-                    <div class="card stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon green">
-                                <i class="fa-solid fa-briefcase"></i>
+                    {{-- LOWONGAN AKTIF --}}
+                    <a href="{{ route('dashboard.index', ['filter' => 'active']) }}"
+                    class="stat-link">
+                        <div class="card stat-card {{ request('filter') == 'active' ? 'active-card' : '' }}">
+                            <div class="stat-header">
+                                <div class="stat-icon green">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-label">
+                                        LOWONGAN AKTIF
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <div class="stat-label">
-                                    LOWONGAN AKTIF
+                            <div class="stat-footer">
+                                <div class="stat-number">
+                                    {{ $lowonganAktif }}
                                 </div>
                             </div>
                         </div>
-                        <div class="stat-footer">
-                            <div class="stat-number">
-                                {{ $lowonganAktif }}
-                            </div>
-                        </div>
-                    </div>
+                    </a>
 
-                    <div class="card stat-card">
-                        <div class="stat-header">
-                            <div class="stat-icon red">
-                                <i class="fa-solid fa-xmark"></i>
+                    {{-- LOWONGAN TUTUP --}}
+                    <a href="{{ route('dashboard.index', ['filter' => 'nonactive']) }}"
+                    class="stat-link">
+                        <div class="card stat-card {{ request('filter') == 'nonactive' ? 'active-card' : '' }}">
+                            <div class="stat-header">
+                                <div class="stat-icon red">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-label">
+                                        LOWONGAN TUTUP
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <div class="stat-label">
-                                    LOWONGAN TUTUP
+                            <div class="stat-footer">
+                                <div class="stat-number">
+                                    {{ $lowonganTutup }}
                                 </div>
                             </div>
                         </div>
-                        <div class="stat-footer">
-                            <div class="stat-number">
-                                {{ $lowonganTutup }}
-                            </div>
-                        </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- TABLE -->

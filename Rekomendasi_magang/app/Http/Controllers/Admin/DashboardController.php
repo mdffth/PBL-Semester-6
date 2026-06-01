@@ -17,7 +17,7 @@ class DashboardController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function index()
+    public function index(Request $request)
     {
         $totalPerusahaan = Perusahaan::count();
 
@@ -31,8 +31,20 @@ class DashboardController extends Controller
             'Nonactive'
         )->count();
 
-        $perusahaan = Perusahaan::latest()
-            ->paginate(10);
+        $query = Perusahaan::query();
+
+        if ($request->filter == 'active') {
+            $query->where('status_magang', 'Active');
+        }
+
+        if ($request->filter == 'nonactive') {
+            $query->where('status_magang', 'Nonactive');
+        }
+
+        $perusahaan = $query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.dashboard', compact(
             'totalPerusahaan',
@@ -277,7 +289,7 @@ class DashboardController extends Controller
             'tipe_industri' => 'required|string|max:255',
             
             // 'posisi_magang' => 'required|exsist:minat_bidang,id',
-            'status_magang' => 'required|in:Active,Nonactive',
+            'benefit' => 'required|in:Paid,Unpaid',
 
             'profile_perusahaan' => 'nullable|string',
             'job_description' => 'nullable|string',
@@ -306,7 +318,7 @@ class DashboardController extends Controller
             'tipe_industri' => $request->tipe_industri,
             'profile_perusahaan' => $request->profile_perusahaan,
             'posisi_magang' => '-',
-            'status_magang' => $request->status_magang,
+            'benefit' => $request->benefit,
             'min_ipk' => $request->min_ipk,
             'kota' => $request->kota,
             'duration_months' => $request->duration_months ?? $perusahaan->duration_months,

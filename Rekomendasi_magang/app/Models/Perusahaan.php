@@ -22,6 +22,7 @@ class Perusahaan extends Model
         'job_description',
         'duration_months',
         'status_magang',
+        'benefit',
         'logo',
         'kota',
     ];
