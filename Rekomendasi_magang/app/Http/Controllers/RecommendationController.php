@@ -39,33 +39,34 @@ class RecommendationController extends Controller
 
         $pythonPath = base_path('ml/recommendML.py');
 
-        $python = config('ml.python_path');
+        $python = config('ml.python_path') ?: 'python';
 
-        $command = "\"{$python}\" \"{$pythonPath}\" "
-            . escapeshellarg($user->id);
+        $command = '"' . $python . '" "' . $pythonPath . '" '
+    . escapeshellarg($user->id);
 
         $output = [];
         $code = 0;
 
         exec($command . " 2>&1", $output, $code);
 
-        // DEBUG DULU
-        // dd([
-        //     'command' => $command,
-        //     'output' => $output,
-        //     'code' => $code,
-        // ]);
-
-        if ($code !== 0) {
-
-            $user->delete();
-
-            return back()
-                ->withInput()
-                ->withErrors([
-                    'ml_error' => 'Terjadi kesalahan saat memproses rekomendasi.'
+            if ($code !== 0) {
+                dd([
+                    'command' => $command,
+                    'output' => $output,
+                    'code' => $code,
                 ]);
-        }
+            }
+
+        // if ($code !== 0) {
+
+        //     $user->delete();
+
+        //     return back()
+        //         ->withInput()
+        //         ->withErrors([
+        //             'ml_error' => 'Terjadi kesalahan saat memproses rekomendasi.'
+        //         ]);
+        // }
 
         return redirect()->route(
             'recommendation.result',

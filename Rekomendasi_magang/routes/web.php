@@ -62,6 +62,32 @@ Route::get('/rekomendasi', [MahasiswaController::class, 'rekomendasi'])->name('r
 Route::get('/detail-perusahaan', function () {
     return view('mahasiswa.detail_perusahaan');
 });
+//form page
+// Route::get('/form-page', [RecommendationController::class, 'getdata']);
+// Route::post('/form-page', [RecommendationController::class, 'process'])->name('recommendation.process');
+Route::controller(RecommendationController::class)->group(function () {
+    Route::get('/form-page',                  'getdata')->name('recommendation.index');
+    Route::post('/process',          'process')->name('recommendation.process');
+    Route::get('/result/{uuid}',     'result')->name('recommendation.result');
+});
+
+
+//Login
+Route::post('/login', function (Request $request) {
+
+    $email = $request->email;
+    $password = $request->password;
+
+    // dummy login sementara
+    if ($email == 'admin@gmail.com' && $password == '123456') {
+
+        return redirect()->route('dashboard.index');
+
+    }
+
+    return back()->with('error', 'Email atau Password salah');
+
+})->name('login');
 
 
 /*
@@ -132,6 +158,15 @@ Route::middleware('auth')
 |--------------------------------------------------------------------------
 */
 
+# form rekomendasi magang
+// Route::get('/form-page', function () {
+
+//     return view('mahasiswa.form_page');
+
+// })->name('form.page');
+
+
+# detail perusahaan
 Route::get('/detail-perusahaan/{id}', function ($id) {
 
     $perusahaan = Perusahaan::findOrFail($id);

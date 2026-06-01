@@ -185,14 +185,18 @@
 
 <!-- NAVBAR -->
 <nav class="navbar">
-    <a href="/" class="navbar-brand">
+    <a href="{{ route('landing') }}" class="navbar-brand">
         <div class="brand-logo">RI</div>
         <span class="brand-name">RekomIn</span>
     </a>
     <ul class="nav-links">
-        <li><a href="/" class="active">Home</a></li>
+        <li><a href="{{ route('landing') }}" class="active">Home</a></li>
         <li><a href="#perusahaan">Perusahaan</a></li>
-        <li><a href="{{ route('rekomendasi') }}" class="nav-btn">Start Rekomendasi</a></li>
+        <li>
+    <a href="{{ route('recommendation.index') }}" class="nav-btn">
+        Start Rekomendasi
+    </a>
+</li>
         @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
