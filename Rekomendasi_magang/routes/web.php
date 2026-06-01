@@ -54,7 +54,6 @@ Route::controller(RecommendationController::class)->group(function () {
 
     Route::get('/hasil-rekomendasi', 'result')
         ->name('recommendation.result');
-
 });
 
 

@@ -258,7 +258,7 @@
 
                         <p>
                             <strong>Minimal IPK:</strong>
-                            {{ $company->minimal_ipk ?? '-' }}
+                            {{ $company->min_ipk ?? '-' }}
                         </p>
 
                         <p>
