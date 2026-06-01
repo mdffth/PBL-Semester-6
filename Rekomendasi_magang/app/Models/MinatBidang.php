@@ -14,7 +14,7 @@ class MinatBidang extends Model
 
     public function Perusahaan(): BelongsToMany
     {
-        return $this->belongsToMany(Perusahaan::class, 'perusahaan_minat');
+        return $this->belongsToMany(Perusahaan::class,'perusahaan_posisi');
     }
 
     public function UserInput(): BelongsToMany

@@ -10,7 +10,6 @@ use App\Models\UserInput;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-
 class RecommendationController extends Controller
 {
     public function getdata()
@@ -19,7 +18,10 @@ class RecommendationController extends Controller
         $skills = Skill::all();
         $minat_bidang = MinatBidang::all();
 
-        return view('mahasiswa.form_page', compact('technologies', 'skills', 'minat_bidang'));
+        return view(
+            'mahasiswa.form_page',
+            compact('technologies', 'skills', 'minat_bidang')
+        );
     }
 
     public function process(Request $request)
@@ -32,9 +34,7 @@ class RecommendationController extends Controller
         ]);
 
         $user->skills()->sync($request->skill_id ?? []);
-
         $user->technologies()->sync($request->technology_id ?? []);
-
         $user->minatBidang()->sync($request->minat_id ?? []);
 
         $pythonPath = base_path('ml/recommendML.py');
@@ -53,12 +53,8 @@ class RecommendationController extends Controller
 
         exec($command . " 2>&1", $output, $code);
 
-        $output = [];
-        $code = 0;
-
-        exec($command . " 2>&1", $output, $code);
-
         if ($code !== 0) {
+
             dd([
                 'command' => $command,
                 'output' => $output,
@@ -66,59 +62,46 @@ class RecommendationController extends Controller
             ]);
         }
 
-        // if ($code !== 0) {
+        session([
+            'recommendation_uuid' => $uuid
+        ]);
 
-        //     $user->delete();
-
-        //     return back()
-        //         ->withInput()
-        //         ->withErrors([
-        //             'ml_error' => 'Terjadi kesalahan saat memproses rekomendasi.'
-        //         ]);
-        // }
-
-        return redirect()->route(
-            'recommendation.result',
-            ['uuid' => $uuid]
-        );
+        return redirect()->route('recommendation.result');
     }
 
-    public function result(Request $request, string $uuid)
+    public function result()
     {
+        $uuid = session('recommendation_uuid');
+
+        if (!$uuid) {
+            return redirect()->route('recommendation.index');
+        }
+
         $user = UserInput::with([
             'skills',
             'technologies',
             'minatBidang',
-        ])->where('session_uuid', $uuid)->firstOrFail();
+        ])
+        ->where('session_uuid', $uuid)
+        ->firstOrFail();
 
         $results = RecommendationResult::with('perusahaan')
             ->where('user_input_id', $user->id)
-
-            // Filter lokasi
-            ->when($request->lokasi, function ($query) use ($request) {
-                $query->whereHas('perusahaan', function ($q) use ($request) {
-                    $q->where('kota', 'like', '%' . $request->lokasi . '%')
-                        ->orWhere('provinsi', 'like', '%' . $request->lokasi . '%');
-                });
-            })
-
-            // Filter status magang
-            ->when($request->status_magang, function ($query) use ($request) {
-                $query->whereHas('perusahaan', function ($q) use ($request) {
-                    $q->where('status_magang', $request->status_magang);
-                });
-            })
-
             ->orderBy('ranking')
             ->get();
 
         if ($results->isEmpty()) {
-            return redirect()->route('recommendation.index')
+
+            return redirect()
+                ->route('recommendation.index')
                 ->withErrors([
-                    'ml_error' => 'Tidak ada hasil rekomendasi. Silahkan coba lagi'
+                    'ml_error' => 'Tidak ada hasil rekomendasi.'
                 ]);
         }
 
-        return view('mahasiswa.result', compact('user', 'results'));
+        return view(
+            'mahasiswa.result',
+            compact('results')
+        );
     }
 }
