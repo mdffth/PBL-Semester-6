@@ -23,7 +23,10 @@ class Perusahaan extends Model
         'duration_months',
         'status_magang',
         'logo',
+        // lokasi
         'kota',
+        'provinsi',
+        'alamat',
     ];
 
     protected $casts = [
