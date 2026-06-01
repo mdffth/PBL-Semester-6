@@ -174,7 +174,7 @@
                                                 type="checkbox"
                                                 class="toggle-status"
                                                 data-id="{{ $item->id }}"
-                                                {{ $item->status_magang == 'Paid' ? 'checked' : '' }}
+                                                {{ $item->status_magang == 'Active' ? 'checked' : '' }}
                                             >
 
                                             <span class="switch-slider"></span>
@@ -339,7 +339,7 @@
 
             .then(data => {
 
-                // this.checked = data.status === 'Paid';
+                // this.checked = data.status === 'Active';
                 location.reload();
 
             })

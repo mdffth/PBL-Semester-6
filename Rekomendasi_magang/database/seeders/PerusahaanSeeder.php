@@ -21,7 +21,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'IT/System Development Intern',
                 'min_ipk' => 3.00,
                 'job_description' => 'Membantu pengembangan dan pemeliharaan sistem informasi internal perusahaan (plant 1, Nganjuk). Terlibat dalam analisis kebutuhan sistem, implementasi fitur, dan dokumentasi teknis.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'Pengembangan SIPP - PT Link Apisindo Media & Dinas LH Kota Batu',
@@ -30,7 +30,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Backend Engineer / Frontend Engineer / AI Engineer / System Analyst',
                 'min_ipk' => 3.00,
                 'job_description' => 'Backend: pengembangan API, integrasi data, pengelolaan database. Frontend: pengembangan UI dashboard. AI: pengolahan data, pipeline AI/LLM. System Analyst: analisis kebutuhan, penyusunan SRS.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'Pengembangan Platform Satu Peta Jatim - PT Link Apisindo Media & Dinas Kominfo Jatim',
@@ -39,7 +39,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Data Engineer / Backend Developer / Frontend Developer / AI & Data Engineer / DevOps Engineer',
                 'min_ipk' => 3.00,
                 'job_description' => 'Data: ETL data spasial, PostGIS. Backend: endpoint API, integrasi GIS. Frontend: dashboard peta interaktif, WebGIS. AI: model AI/LLM. DevOps: deployment, cloud (AWS), CI/CD.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT ARM Solusi',
@@ -48,7 +48,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Blockchain Engineer / Backend Developer / Data Engineer / Frontend Engineer / AI Engineer / Full-stack / DevOps',
                 'min_ipk' => 3.00,
                 'job_description' => 'Blockchain: Hyperledger Fabric. Backend: REST API. Data: preprocessing log transaksi. AI: pipeline ML, LLM. DevOps: deployment, Docker, AWS.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'Pengembangan Platform Satu Peta Jatim - Batch 2',
@@ -57,7 +57,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Data Engineer / Backend Developer / Frontend Developer / AI & Data Engineer / DevOps Engineer',
                 'min_ipk' => 3.00,
                 'job_description' => 'Data: ETL data spasial, manajemen PostGIS. Backend: API endpoint, FastAPI. Frontend: dashboard WebGIS. AI: prediksi geospasial. DevOps: cloud AWS, containerization.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'Sarastya Agility Innovations',
@@ -66,7 +66,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Backend / Frontend / Full Stack / DevOps / Data Analyst / Business Analyst / Network Engineer',
                 'min_ipk' => 3.00,
                 'job_description' => 'Pengembangan sistem ERP-BPM, deployment server, analisis data client, analisis keputusan bisnis, implementasi e-governance, dan pemeliharaan keamanan jaringan.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT Time Door Indonesia',
@@ -75,7 +75,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Frontend Developer / QA Tester / AI Engineer / DevOps Engineer',
                 'min_ipk' => 3.00,
                 'job_description' => 'Frontend: UI responsif. QA: testing fungsional & otomatis. AI: modul ML. DevOps: deployment dan manajemen infrastruktur cloud.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT Maxchat Inovasi Indonesia',
@@ -84,7 +84,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Mobile Developer (Flutter) / Backend Developer / QA Automation',
                 'min_ipk' => 3.00,
                 'job_description' => 'Mobile: aplikasi cross-platform. Backend: layanan API. QA: pengujian otomatis dan dokumentasi bug produk Maxchat.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'Politeknik Batu',
@@ -93,7 +93,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Programmer / Quality Assurance (QA) / Tester',
                 'min_ipk' => 3.00,
                 'job_description' => 'Programmer: fitur baru & bugfix Flutter/Web. Tester: pengujian fungsional dan dokumentasi hasil testing.',
-                'status_magang' => 'Unpaid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'Ariverse Studio (PT Studio Karya Semesta)',
@@ -102,7 +102,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Game Programmer / Full Stack Developer / Frontend Developer Intern',
                 'min_ipk' => 3.00,
                 'job_description' => 'Game: gameplay & Unity debugging. Fullstack: app Flutter/React/Laravel. Frontend: UI responsif web/mobile.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'Humas POLINEMA',
@@ -111,7 +111,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Data Analyst / Social Media Analyst',
                 'min_ipk' => 3.00,
                 'job_description' => 'Analisis data Google Analytics & social media. Visualisasi insight strategi komunikasi dan laporan berbasis data.',
-                'status_magang' => 'Unpaid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT Alfath Corporation',
@@ -120,7 +120,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Fullstack Developer (AI & Automation)',
                 'min_ipk' => 3.00,
                 'job_description' => 'Pengembangan aplikasi fullstack terintegrasi n8n (automation), WebSocket (real-time), dan AI chatbot.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT UTERO KREATIF INDONESIA',
@@ -129,7 +129,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Fullstack JS Developer / Software Engineer',
                 'min_ipk' => 3.00,
                 'job_description' => 'Pengembangan solusi web/mobile skalabel. Terlibat analisis kebutuhan bisnis dan problem solving berbasis data.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'The Himana Hotel & Mall Malang City Point',
@@ -138,7 +138,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Magang Perhotelan (OJT) - berbagai departemen',
                 'min_ipk' => 0.00,
                 'job_description' => 'Operasional harian di Front Office, Housekeeping, atau F&B. Melayani tamu dan belajar standar hotel.',
-                'status_magang' => 'Unpaid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'Wakil Direktur 4 Politeknik Negeri Malang',
@@ -147,7 +147,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Web Developer / Data Engineer / Data Analyst',
                 'min_ipk' => 3.00,
                 'job_description' => 'Web: modifikasi sistem kerjasama. Data Eng: storage dokumen. Analyst: pengolahan data kerjasama.',
-                'status_magang' => 'Unpaid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT Rekaindo Global Jasa',
@@ -156,7 +156,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Frontend Developer / Backend Developer / UI/UX Designer',
                 'min_ipk' => 3.00,
                 'job_description' => 'Digitalisasi proses bisnis: pengembangan antarmuka, API, database, normalisasi tabel, dan desain UI/UX.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT JST Indonesia',
@@ -165,7 +165,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'IT Staff / AI & Digitalization Intern',
                 'min_ipk' => 3.00,
                 'job_description' => 'Mendukung otomasi proses, solusi AI/ML, pembuatan dashboard, dan modernisasi sistem IT produksi.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT Green Energi Utama',
@@ -174,7 +174,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Magang Teknologi Informasi / Engineering',
                 'min_ipk' => 3.00,
                 'job_description' => 'Mendukung operasional teknis sesuai bidang kompetensi akademik mahasiswa di perusahaan.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'UPA Bahasa Polinema',
@@ -183,7 +183,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Web Developer / Content Creator',
                 'min_ipk' => 3.00,
                 'job_description' => 'Pengembangan web kursus & pembelajaran mandiri. Pembuatan konten digital & company profile.',
-                'status_magang' => 'Unpaid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT Peruri Wira Timur',
@@ -192,7 +192,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Backend/Fullstack Developer - Sistem Internal',
                 'min_ipk' => 3.00,
                 'job_description' => 'Pengembangan sistem internal fokus digitalisasi dokumen, Laravel, REST API, dan manajemen database.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT Sekuriti Siber Indonesia',
@@ -201,7 +201,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'SOC Analyst / IT Compliance',
                 'min_ipk' => 3.00,
                 'job_description' => 'Monitoring ancaman siber (SIEM), analisis insiden, deteksi respons, dan dokumentasi audit internal.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT PAL Indonesia (Persero)',
@@ -210,7 +210,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Cybersecurity / Infrastruktur TI / Pengembangan Aplikasi',
                 'min_ipk' => 3.00,
                 'job_description' => 'Keamanan info, manajemen server/jaringan, analisis kebutuhan, implementasi dan testing aplikasi.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT Industri Kereta Api / PT INKA (Persero)',
@@ -219,7 +219,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Software Developer / Data Analyst / IoT & AI Engineer',
                 'min_ipk' => 3.00,
                 'job_description' => 'Dev: sistem Laravel. Analyst: Looker Studio. IoT/AI: asset tracker, digital twin, dan simulasi layout.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'Atria Hotel Malang',
@@ -228,7 +228,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'IT Intern - Software / Network / Data Analyst',
                 'min_ipk' => 3.00,
                 'job_description' => 'Mendukung pemeliharaan sistem hotel, manajemen jaringan, dan pengolahan data operasional harian.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT Intelix Global Crossing',
@@ -237,7 +237,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Frontend / Backend / QA Tester / System Analyst',
                 'min_ipk' => 3.00,
                 'job_description' => 'Terlibat langsung dalam siklus pengembangan produk nyata: UI, backend dev, testing, dan analisis.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'PT Dutakom Wibawa Putra',
@@ -246,7 +246,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Fullstack / Backend / Frontend Programmer / IT Infra / Data Center Engineer',
                 'min_ipk' => 3.00,
                 'job_description' => 'R&D Dashboard OLT, prototipe REST/GraphQL, helpdesk IT, manajemen mutu ISO 27001, instalasi DC.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'CV Harsyad Utama (Harsyad Teknologi)',
@@ -255,7 +255,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Web Developer / Software Engineer',
                 'min_ipk' => 3.00,
                 'job_description' => 'Siklus penuh pengembangan web: analisis kebutuhan, perancangan, frontend-backend dev, dan testing.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'DOT Indonesia',
@@ -264,7 +264,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Backend / Frontend / AI Engineer / System Analyst / UI-UX Engineer',
                 'min_ipk' => 3.00,
                 'job_description' => 'Pengembangan API, UI interaktif, model AI/ML, dokumentasi teknis, dan desain pengalaman pengguna.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'Oyitok Group',
@@ -273,7 +273,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Data Analyst / System Administration',
                 'min_ipk' => 3.00,
                 'job_description' => 'Analisis data keputusan bisnis, pengembangan sistem administrasi digital, dan laporan visualisasi.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
             [
                 'name' => 'CV DB KLIK',
@@ -282,7 +282,7 @@ class PerusahaanSeeder extends Seeder
                 'posisi_magang' => 'Dev / UI-UX / System Analyst / Data Analyst / Website Developer',
                 'min_ipk' => 3.00,
                 'job_description' => 'Pengembangan fitur web, wireframe Figma, analisis tren data (Tableau), dan dokumentasi UML/BRD.',
-                'status_magang' => 'Paid',
+                'status_magang' => 'Active',
             ],
         ];
 
