@@ -23,12 +23,12 @@ class DashboardController extends Controller
 
         $lowonganAktif = Perusahaan::where(
             'status_magang',
-            'Paid'
+            'Active'
         )->count();
 
         $lowonganTutup = Perusahaan::where(
             'status_magang',
-            'Unpaid'
+            'Nonactive'
         )->count();
 
         $perusahaan = Perusahaan::latest()
@@ -95,7 +95,7 @@ class DashboardController extends Controller
 
             'job_description' => 'nullable|string',
 
-            'status_magang' => 'required|in:Paid,Unpaid',
+            'status_magang' => 'required|in:Active,Nonactive',
 
             'duration_months' => 'nullable|integer|min:1|max:12',
 
@@ -214,9 +214,9 @@ class DashboardController extends Controller
     {
         $perusahaan = Perusahaan::findOrFail($id);
 
-        $perusahaan->status_magang = $perusahaan->status_magang === 'Paid'
-            ? 'Unpaid'
-            : 'Paid';
+        $perusahaan->status_magang = $perusahaan->status_magang === 'Active'
+            ? 'Nonactive'
+            : 'Active';
 
         $perusahaan->save();
 
@@ -281,7 +281,7 @@ class DashboardController extends Controller
             'tipe_industri' => 'required|string|max:255',
             
             // 'posisi_magang' => 'required|exsist:minat_bidang,id',
-            'status_magang' => 'required|in:Paid,Unpaid',
+            'status_magang' => 'required|in:Active,Nonactive',
 
             'profile_perusahaan' => 'nullable|string',
             'job_description' => 'nullable|string',
