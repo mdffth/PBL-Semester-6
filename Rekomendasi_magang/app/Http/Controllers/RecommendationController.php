@@ -41,21 +41,30 @@ class RecommendationController extends Controller
 
         $python = config('ml.python_path') ?: 'python';
 
+        $pythonPath = base_path('ml/recommendML.py');
+
+        $python = config('ml.python_path') ?: 'python';
+
         $command = '"' . $python . '" "' . $pythonPath . '" '
-    . escapeshellarg($user->id);
+            . escapeshellarg($user->id);
 
         $output = [];
         $code = 0;
 
         exec($command . " 2>&1", $output, $code);
 
-            if ($code !== 0) {
-                dd([
-                    'command' => $command,
-                    'output' => $output,
-                    'code' => $code,
-                ]);
-            }
+        $output = [];
+        $code = 0;
+
+        exec($command . " 2>&1", $output, $code);
+
+        if ($code !== 0) {
+            dd([
+                'command' => $command,
+                'output' => $output,
+                'code' => $code,
+            ]);
+        }
 
         // if ($code !== 0) {
 
@@ -74,7 +83,7 @@ class RecommendationController extends Controller
         );
     }
 
-    public function result(string $uuid)
+    public function result(Request $request, string $uuid)
     {
         $user = UserInput::with([
             'skills',
@@ -84,12 +93,30 @@ class RecommendationController extends Controller
 
         $results = RecommendationResult::with('perusahaan')
             ->where('user_input_id', $user->id)
+
+            // Filter lokasi
+            ->when($request->lokasi, function ($query) use ($request) {
+                $query->whereHas('perusahaan', function ($q) use ($request) {
+                    $q->where('kota', 'like', '%' . $request->lokasi . '%')
+                        ->orWhere('provinsi', 'like', '%' . $request->lokasi . '%');
+                });
+            })
+
+            // Filter status magang
+            ->when($request->status_magang, function ($query) use ($request) {
+                $query->whereHas('perusahaan', function ($q) use ($request) {
+                    $q->where('status_magang', $request->status_magang);
+                });
+            })
+
             ->orderBy('ranking')
             ->get();
 
         if ($results->isEmpty()) {
             return redirect()->route('recommendation.index')
-                ->withErrors(['ml_error' => 'Tidak ada hasil rekomendasi. Silahkan coba lagi']);
+                ->withErrors([
+                    'ml_error' => 'Tidak ada hasil rekomendasi. Silahkan coba lagi'
+                ]);
         }
 
         return view('mahasiswa.result', compact('user', 'results'));

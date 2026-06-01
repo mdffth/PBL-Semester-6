@@ -154,4 +154,4 @@ Route::controller(MahasiswaController::class)->group(function () {
 Route::get('/landing', [MahasiswaController::class, 'landing'])->name('landing');
 
 // Page Rekomendasi + Filter
-Route::get('/rekomendasi', [MahasiswaController::class, 'rekomendasi'])->name('rekomendasi');
+Route::get('/result', [MahasiswaController::class, 'rekomendasi'])->name('rekomendasi');
