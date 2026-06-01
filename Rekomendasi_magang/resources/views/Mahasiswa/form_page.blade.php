@@ -222,44 +222,50 @@
         <form action="{{ route('recommendation.process') }}" method="POST">
             @csrf
 
-            <div class="form-group">
-                <label>IPK (GPA)</label>
-                <input type="text" name="ipk" class="form-control" placeholder="Contoh: 3.80" required>
-            </div>
+           <div class="form-group">
+    <label>IPK (GPA)</label>
+    <input type="text" name="ipk" class="form-control" placeholder="Contoh: 3.80" required>
+</div>
 
-            <div class="form-group">
-                <label>MINAT BIDANG</label>
+<div class="form-group">
+    <label>MINAT BIDANG</label>
 
-                <div class="tag-box" id="minat-bidang-container">
-                    <input type="text" id="minat-bidang-input" list="list_minat_bidang"
-                        placeholder="Ketik minat bidang lalu tekan Enter">
-                </div>
+    <div class="tag-box" id="minat-bidang-container">
+        <input type="text"
+               id="minat-bidang-input"
+               list="datalist_minat_bidang"
+               autocomplete="off"
+               placeholder="Ketik minat bidang lalu tekan Enter">
+    </div>
 
-                <div id="minat-hidden-input"></div>
+    <div id="minat-hidden-input"></div>
 
-                <datalist id="list_minat_bidang">
-                    @foreach ($minat_bidang as $minat)
-                        <option value="{{ $minat->name }}" data-id="{{ $minat->id }}"></option>
-                    @endforeach
-                </datalist>
-            </div>
+    <datalist id="datalist_minat_bidang">
+        @foreach ($minat_bidang as $minat)
+            <option value="{{ $minat->name }}" data-id="{{ $minat->id }}"></option>
+        @endforeach
+    </datalist>
+</div>
 
-            <div class="form-group">
-                <label>TOOLS YANG DIKUASAI</label>
+<div class="form-group">
+    <label>TOOLS YANG DIKUASAI</label>
 
-                <div class="tag-box" id="tools-container">
-                    <input type="text" id="tools-input" list="list_tools"
-                        placeholder="Ketik tools lalu tekan Enter">
-                </div>
+    <div class="tag-box" id="tools-container">
+        <input type="text"
+               id="tools-input"
+               list="datalist_tools"
+               autocomplete="off"
+               placeholder="Ketik tools lalu tekan Enter">
+    </div>
 
-                <div id="technology-hidden-input"></div>
+    <div id="technology-hidden-input"></div>
 
-                <datalist id="list_tools">
-                    @foreach ($technologies as $tech)
-                        <option value="{{ $tech->name }}" data-id="{{ $tech->id }}"></option>
-                    @endforeach
-                </datalist>
-            </div>
+    <datalist id="datalist_tools">
+        @foreach ($technologies as $tech)
+            <option value="{{ $tech->name }}" data-id="{{ $tech->id }}"></option>
+        @endforeach
+    </datalist>
+</div>
 
             <div class="form-group">
                 <label>KEAHLIAN (SKILLS)</label>
@@ -381,7 +387,7 @@
         createTagInput(
             "tools-input",
             "tools-container",
-            "list_tools",
+            "datalist_tools",
             "technology-hidden-input",
             "technology_id"
         );
@@ -395,7 +401,7 @@
         createTagInput(
             "minat-bidang-input",
             "minat-bidang-container",
-            "list_minat_bidang",
+            "datalist_minat_bidang",
             "minat-hidden-input",
             "minat_id"
         );

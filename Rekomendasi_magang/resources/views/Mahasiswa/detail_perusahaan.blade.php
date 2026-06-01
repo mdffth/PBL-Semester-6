@@ -541,9 +541,17 @@
 
                 </div>
 
-                <button class="apply-btn">
+                @php
+                    $googleFormBase = 'https://docs.google.com/forms/d/e/1FAIpQLScVNUm4Nit-0VnPf7CbuzrDDEAL2nr2mL9IhYSQjNeeTA06tw/viewform?usp=pp_url';
+                    $entryPerusahaan = 'entry.600353513'; // ganti dengan entry dari Google Form kamu
+                @endphp
+
+                <a href="{{ $googleFormBase }}&{{ $entryPerusahaan }}={{ urlencode($perusahaan->name) }}"
+                target="_blank"
+                class="apply-btn"
+                style="display:block; text-align:center; text-decoration:none;">
                     Daftar / Apply →
-                </button>
+                </a>
 
             </div>
 

@@ -197,7 +197,7 @@
         Start Rekomendasi
     </a>
 </li>
-        @if (Route::has('login'))
+        <!-- @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
                     <li>
@@ -228,7 +228,7 @@
                         @endif
                     @endauth
                 </nav>
-            @endif
+            @endif -->
         {{-- <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li> --}}
     </ul>
 </nav>
