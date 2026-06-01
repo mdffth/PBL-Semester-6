@@ -472,41 +472,6 @@
     @if($perusahaan->count() > 0)
 
     @php
-
-        $fotoPerusahaan = [
-            'Ariverse Studio (PT Studio Karya Semesta)' => 'Ariverse.jpg',
-            'Atria Hotel Malang' => 'Atria.jpg',
-            'CV DB KLIK' => 'Db Klik.jpg',
-            'CV Harsyad Utama (Harsyad Teknologi)' => 'Harsyad.jpg',
-            'DOT Indonesia' => 'dot.jpg',
-            'Humas POLINEMA' => 'Humas.jpg',
-            'Oyitok Group' => 'Oyi.jpg',
-            'Pengembangan Platform Satu Peta Jatim - Batch 2' => 'Peta.jpg',
-            'Pengembangan Platform Satu Peta Jatim - PT Link Apisindo Media & Dinas Kominfo Jatim' => 'Peta.jpg',
-            'Pengembangan SIPP - PT Link Apisindo Media & Dinas LH Kota Batu' => 'DLH.jpg',
-            'Politeknik Batu' => 'PoltekBatu.jpg',
-            'PT Alfath Corporation' => 'Alfath.jpg',
-            'PT ARM Solusi' => 'ARM.jpg',
-            'PT Dutakom Wibawa Putra' => 'd-net.jpg',
-            'PT Green Energi Utama' => 'Green.jpg',
-            'PT Indoprima Gemilang' => 'PT Indo.jpg',
-            'PT Industri Kereta Api / PT INKA (Persero)' => 'inka.jpg',
-            'PT Intelix Global Crossing' => 'Intelix.jpg',
-            'PT JST Indonesia' => 'JST.jpg',
-            'PT Maxchat Inovasi Indonesia' => 'MaxChat.jpg',
-            'PT PAL Indonesia (Persero)' => 'PAL.jpg',
-            'PT Peruri Wira Timur' => 'Peruri.jpg',
-            'PT Rekaindo Global Jasa' => 'Reka.jpg',
-            'PT Sekuriti Siber Indonesia' => 'Siber.jpg',
-            'PT Time Door Indonesia' => 'Time.jpg',
-            'PT UTERO KREATIF INDONESIA' => 'Utero.jpg',
-            'Sarastya Agility Innovations' => 'Sarastya.jpg',
-            'The Himana Hotel & Mall Malang City Point' => 'Hotel.jpg',
-            'UPA Bahasa Polinema' => 'UPA.jpg',
-            'Wakil Direktur 4 Politeknik Negeri Malang' => 'Wadir4.jpg',
-
-        ];
-
         $gradients = [
             'linear-gradient(135deg,#1a1a6e,#3b3bdb)',
             'linear-gradient(135deg,#0f4c75,#1b6ca8)',
@@ -526,11 +491,11 @@
 
         @php
 
-            $score = $matchScores[$i] ?? 70;
+            // $score = $matchScores[$i] ?? 70;
 
             $grad = $gradients[$i % count($gradients)];
 
-            $foto = $fotoPerusahaan[$p->name] ?? null;
+            // $foto = $fotoPerusahaan[$p->name] ?? null;
 
             $lokasi = 'Malang';
 
@@ -551,31 +516,18 @@
 
         @endphp
 
-        <div class="r-card">
+<div class="r-card">
 
-            {{-- MATCH --}}
-            <div class="r-card-match">
-                <div class="pct">{{ $score }}%</div>
-                <div class="lbl">Match</div>
+    {{-- IMAGE --}}
+    <div class="r-card-img" style="background: {{ $grad }}">
+        @if($p->logo)
+            <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}">
+        @else
+            <div class="img-placeholder">
+                <i class="fas fa-building"></i>
             </div>
-
-            {{-- IMAGE --}}
-            <div class="r-card-img" style="background: {{ $grad }}">
-
-                @if($foto)
-
-                    <img src="{{ asset('img/perusahaan/' . $foto) }}"
-                         alt="{{ $p->name }}">
-
-                @else
-
-                    <div class="img-placeholder">
-                        <i class="fas fa-building"></i>
-                    </div>
-
-                @endif
-
-            </div>
+        @endif
+    </div>
 
             {{-- BODY --}}
             <div class="r-card-body">
@@ -584,10 +536,10 @@
                     {{ $p->name }}
                 </div>
 
-                <div class="r-card-row">
+                <!-- <div class="r-card-row">
                     <span>Fokus :</span>
                     {{ Str::limit($p->posisi_magang, 55) }}
-                </div>
+                </div> -->
 
                 <div class="r-card-row">
                     <span>Lokasi :</span>

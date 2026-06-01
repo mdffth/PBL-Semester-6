@@ -154,6 +154,13 @@
         /* Samakan tinggi kartu & dorong tombol ke bawah */
         .p-card { display: flex; flex-direction: column; }
         .p-card-body { display: flex; flex-direction: column; flex: 1; padding: 1.2rem; }
+        .p-card-name { font-size: .95rem; font-weight: 700; color: #1a1a2e; margin-bottom: .6rem; }
+        .p-card-meta { display: flex; flex-direction: column; gap: .3rem; font-size: .82rem; color: #4b5563; flex: 1; margin-bottom: .9rem; }
+        .p-card-meta strong { color: #111827; 
+        }
+        /* Samakan tinggi kartu & dorong tombol ke bawah */
+        .p-card { display: flex; flex-direction: column; }
+        .p-card-body { display: flex; flex-direction: column; flex: 1; padding: 1.2rem; }
         .p-card-desc { flex: 1; font-size: .8rem; color: #666; line-height: 1.55; margin-bottom: 1rem; }
         .p-card-name { font-size: .95rem; font-weight: 700; color: #1a1a2e; margin-bottom: .5rem; }
         .p-card-badges { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .7rem; }
@@ -312,50 +319,39 @@
         </div>
         <a href="{{ route('rekomendasi') }}" class="btn-lihat-semua">Lihat Semua</a>
     </div>
-            <div class="perusahaan-grid">
-                @forelse($perusahaanList ?? [] as $p)
-                <div class="p-card">
-                    <div class="p-card-img">
-            @if($loop->index == 0)
-                <img src="{{ asset('img/perusahaan/PT Indo.jpg') }}" alt="{{ $p->name }}">
-            @elseif($loop->index == 1)
-                <img src="{{ asset('img/perusahaan/DLH.jpg') }}" alt="{{ $p->name }}">
-            @elseif($loop->index == 2)
-                <img src="{{ asset('img/perusahaan/Peta.jpg') }}" alt="{{ $p->name }}">
-            @elseif($loop->index == 3)
-                <img src="{{ asset('img/perusahaan/ARM.jpg') }}" alt="{{ $p->name }}">
-            @elseif($loop->index == 4)
-                <img src="{{ asset('img/perusahaan/Peta.jpg') }}" alt="{{ $p->name }}">
-            @elseif($loop->index == 5)
-                <img src="{{ asset('img/perusahaan/Sarastya.jpg') }}" alt="{{ $p->name }}">
+           <div class="perusahaan-grid">
+    @forelse($perusahaanList ?? [] as $p)
+    <div class="p-card">
+        <div class="p-card-img">
+            @if($p->logo)
+                <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}">
             @else
                 <i class="fas fa-building"></i>
             @endif
         </div>
-            <div class="p-card-body">
-                <div class="p-card-name">{{ $p->name }}</div>
-                <div class="p-card-badges">
-                    @foreach(array_slice(explode(' / ', $p->posisi_magang), 0, 2) as $pos)
-                        <span class="badge b-blue">{{ trim($pos) }}</span>
-                    @endforeach
-                    <span class="badge {{ $p->status_magang === 'Paid' ? 'b-green' : 'b-red' }}">{{ $p->status_magang }}</span>
-                </div>
-                <p class="p-card-desc">{{ Str::limit($p->profile_perusahaan ?? $p->job_description, 90) }}</p>
-                <a href="{{ route('rekomendasi') }}" class="btn-detail">Lihat Detail</a>
+        <div class="p-card-body">
+            <div class="p-card-name">{{ $p->name }}</div>
+            <div class="p-card-meta">
+                <span><strong>Lokasi :</strong> {{ $p->kota ?? 'Malang' }}</span>
+                <span><strong>Tipe Magang :</strong> Onsite &bull; {{ $p->status_magang }}</span>
             </div>
+            <a href="{{ route('detail.perusahaan', $p->id) }}" class="btn-detail">Lihat Detail</a>
         </div>
-        @empty
-        <div class="p-card">
-            <div class="p-card-img"><i class="fas fa-building"></i></div>
-            <div class="p-card-body">
-                <div class="p-card-name">PT Indoprima Gemilang</div>
-                <div class="p-card-badges"><span class="badge b-blue">IT Engineer</span><span class="badge b-green">Paid</span></div>
-                <p class="p-card-desc">Perusahaan manufaktur komponen otomotif yang membuka kesempatan magang di bidang IT.</p>
-                <a href="{{ route('rekomendasi') }}" class="btn-detail">Lihat Detail</a>
-            </div>
-        </div>
-        @endforelse
     </div>
+    @empty
+    <div class="p-card">
+        <div class="p-card-img"><i class="fas fa-building"></i></div>
+        <div class="p-card-body">
+            <div class="p-card-name">PT Indoprima Gemilang</div>
+            <div class="p-card-meta">
+                <span><strong>Lokasi :</strong> Malang</span>
+                <span><strong>Tipe Magang :</strong> Onsite &bull; Paid</span>
+            </div>
+            <a href="#" class="btn-detail">Lihat Detail</a>
+        </div>
+    </div>
+    @endforelse
+</div>
 </section>
 <!-- ========== TESTIMONIALS ========== -->
 <section id="testimonials" class="py-16 lg:py-24 px-[5%] bg-[#f4f6fb]">

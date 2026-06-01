@@ -81,7 +81,7 @@ class RecommendationController extends Controller
         ->where('session_uuid', $uuid)
         ->firstOrFail();
 
-        $results = RecommendationResult::with('perusahaan')
+        $results = RecommendationResult::with('perusahaan.minatBidang')
             ->where('user_input_id', $user->id)
             ->orderBy('ranking')
             ->get();
@@ -95,9 +95,9 @@ class RecommendationController extends Controller
                 ]);
         }
 
-        return view(
-            'mahasiswa.result',
-            compact('results')
-        );
+            return view(
+        'mahasiswa.result',
+        compact('results', 'user')  // tambah 'user'
+    );
     }
 }
