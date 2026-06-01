@@ -102,6 +102,8 @@ class DashboardController extends Controller
             'min_ipk' => 'nullable|numeric|min:0|max:4',
 
             'kota' => 'nullable|string|max:255',
+            'provinsi' => 'nullable|string|max:255',
+            'alamat' => 'nullable|string',
 
             /*
             |--------------------------------------------------------------------------
@@ -163,7 +165,9 @@ class DashboardController extends Controller
 
             'min_ipk' => $request->min_ipk,
 
-            'kota' => $request->kota,
+            'kota'      => $request->kota,
+            'provinsi'  => $request->provinsi,
+            'alamat'    => $request->alamat,
 
             'logo' => $logoPath,
         ]);
@@ -285,6 +289,8 @@ class DashboardController extends Controller
             'duration_months' => 'nullable|integer|min:1|max:12',
             'min_ipk' => 'nullable|numeric|min:0|max:4',
             'kota' => 'nullable|string|max:255',
+            'provinsi' => 'nullable|string|max:255',
+            'alamat' => 'nullable|string',
 
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
 
@@ -308,7 +314,9 @@ class DashboardController extends Controller
             'posisi_magang' => '-',
             'status_magang' => $request->status_magang,
             'min_ipk' => $request->min_ipk,
-            'kota' => $request->kota,
+            'kota'      => $request->kota,
+            'provinsi'  => $request->provinsi,
+            'alamat'    => $request->alamat,
             'duration_months' => $request->duration_months ?? $perusahaan->duration_months,
             'job_description' => $request->job_description ?? $perusahaan->job_description,
         ]);
