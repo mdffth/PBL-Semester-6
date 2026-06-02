@@ -130,7 +130,6 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Batu',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jalan Sawahan Bawah no 20',
-                'status_magang' => 'Unpaid',
                 'logo' => 'img/perusahaan/PoltekBatu.jpg',
             ],
             [
@@ -157,7 +156,6 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'JL Sukarno Hatta 9',
-                'status_magang' => 'Unpaid',
                 'logo' => 'img/perusahaan/Polinema.jpg.jpeg',
             ],
             [
@@ -197,7 +195,6 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Terusan Dieng No.31-32, Kel. Pisang Candi, Sukun, Kota Malang',
-                'status_magang' => 'Unpaid',
                 'logo' => 'img/perusahaan/Hotel.jpg',
             ],
             [
@@ -211,7 +208,6 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Soekarno Hatta No.09 Malang',
-                'status_magang' => 'Unpaid',
                 'logo' => 'img/perusahaan/Polinema.jpg.jpeg',
                 
             ],
@@ -266,7 +262,6 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Soekarno Hatta No.09 Malang',
-                'status_magang' => 'Unpaid',
                 'logo' => 'img/perusahaan/Polinema.jpg.jpeg',
             ],
             [
