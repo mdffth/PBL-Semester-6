@@ -324,7 +324,7 @@
     <div class="p-card">
         <div class="p-card-img">
             @if($p->logo)
-                <img src="{{ asset('storage/' . $p->logo) }}" alt="{{ $p->name }}">
+                <img src="{{ asset($p->logo) }}" alt="{{ $p->name }}">
             @else
                 <i class="fas fa-building"></i>
             @endif

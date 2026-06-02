@@ -135,8 +135,10 @@ class DashboardController extends Controller
 
         if ($request->hasFile('logo')) {
 
-            $logoPath = $request->file('logo')
-                ->store('logo_perusahaan', 'public');
+            $file = $request->file('logo');
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('img/perusahaan'), $filename);
+            $logoPath = 'img/perusahaan/' . $filename;
         }
 
         /*
@@ -297,8 +299,11 @@ class DashboardController extends Controller
 
         /* UPDATE LOGO (JIKA ADA) */
         if ($request->hasFile('logo')) {
-            $perusahaan->logo = $request->file('logo')
-                ->store('logo_perusahaan', 'public');
+            $file = $request->file('logo');
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('img/perusahaan'), $filename);
+            $perusahaan->logo = 'img/perusahaan/' . $filename;
+            $perusahaan->save();
         }
 
         $perusahaan->update([
