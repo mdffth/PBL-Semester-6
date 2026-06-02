@@ -87,7 +87,9 @@ class RecommendationController extends Controller
         ->firstOrFail();
 
         $statusMagang = $request->status_magang;
+        $provinsi = $request->provinsi;
         $kota = $request->kota;
+        
 
         $query = RecommendationResult::with('perusahaan')
             ->where('user_input_id', $user->id);
@@ -103,19 +105,31 @@ class RecommendationController extends Controller
                 $q->where('kota', $kota);
             });
         }
+        if ($provinsi) {
+            $query->whereHas('perusahaan', function ($q) use ($provinsi) {
+                $q->where('provinsi', $provinsi);
+            });
+        }
 
         $results = $query
         ->orderBy('ranking')
         ->get();
 
+        $provinsiList = Perusahaan::select('provinsi')
+        ->whereNotNull('provinsi')
+        ->distinct()
+        ->orderBy('provinsi')
+        ->pluck('provinsi');
+
         $kotaList = Perusahaan::select('kota')
+        ->whereNotNull('kota')
         ->distinct()
         ->orderBy('kota')
         ->pluck('kota');
 
         return view(
             'mahasiswa.result',
-            compact('results', 'kotaList')
+            compact('results', 'provinsiList', 'kotaList')
         );
     }
 }

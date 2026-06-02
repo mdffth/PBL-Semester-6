@@ -106,15 +106,92 @@
 
         /* FILTER BAR */
         .filter-bar {
-            background: #fff;
-            border-bottom: 1px solid #e8e8f0;
-            padding: .9rem 5%;
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: .8rem;
+            gap: 20px;
             flex-wrap: wrap;
+            box-shadow: 0 8px 25px rgba(0,0,0,.06);
+            border: 1px solid #eef2ff;
         }
 
+        .filter-title {
+            min-width: 180px;
+        }
+
+        .filter-title h3 {
+            color: #1a1a6e;
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .filter-title p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .filter-select {
+            min-width: 200px;
+            height: 48px;
+            border-radius: 14px;
+            border: 1.5px solid #dbe2ff;
+            padding: 0 16px;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            transition: .2s;
+        }
+
+        .filter-select:hover {
+            border-color: #4f46e5;
+        }
+
+        .filter-select:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 4px rgba(79,70,229,.15);
+        }
+
+        .btn-reset-filter {
+            height: 48px;
+            padding: 0 22px;
+            border-radius: 14px;
+            background: #eef2ff;
+            color: #4338ca;
+            border: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: .2s;
+        }
+
+        .btn-reset-filter:hover {
+            background: #4338ca;
+            color: white;
+        }
+
+        .result-info-box {
+            background: #f8f7ff;
+            border: 1px solid #ebe8ff;
+            padding: 14px 18px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+        }
         .filter-icon {
             color: #3b3bdb;
             font-size: 1rem;
@@ -387,64 +464,92 @@
 
         <form method="GET" action="{{ route('recommendation.result') }}">
 
-    <div class="filter-bar">
+            <div class="filter-bar">
 
-        {{-- Filter Status --}}
-        <div class="filter-select-wrap">
-            <select name="status_magang"
-                class="filter-select"
-                onchange="this.form.submit()">
+                <div class="filter-title">
+                    <h3>🔍 Filter Pencarian</h3>
+                    <p>Temukan perusahaan yang paling sesuai</p>
+                </div>
 
-                <option value="">Semua Status</option>
+                <div class="filter-group">
+                    <label>Status Magang</label>
+                    <select name="status_magang"
+                            class="filter-select"
+                            onchange="this.form.submit()">
 
-                <option value="Paid"
-                    {{ request('status_magang') == 'Paid' ? 'selected' : '' }}>
-                    Paid
-                </option>
+                        <option value="">Semua Status</option>
 
-                <option value="Unpaid"
-                    {{ request('status_magang') == 'Unpaid' ? 'selected' : '' }}>
-                    Unpaid
-                </option>
+                        <option value="Paid"
+                            {{ request('status_magang') == 'Paid' ? 'selected' : '' }}>
+                            Paid
+                        </option>
 
-            </select>
-        </div>
+                        <option value="Unpaid"
+                            {{ request('status_magang') == 'Unpaid' ? 'selected' : '' }}>
+                            Unpaid
+                        </option>
 
-        {{-- Filter Kota --}}
-        <div class="filter-select-wrap">
-            <select name="kota"
-                class="filter-select"
-                onchange="this.form.submit()">
+                    </select>
+                </div>
 
-                <option value="">Semua Kota</option>
+                <div class="filter-group">
+                    <label>Provinsi</label>
 
-                @foreach($kotaList as $kota)
-                    <option value="{{ $kota }}"
-                        {{ request('kota') == $kota ? 'selected' : '' }}>
-                        {{ $kota }}
-                    </option>
-                @endforeach
+                    <select name="provinsi"
+                            class="filter-select"
+                            onchange="this.form.submit()">
 
-            </select>
-        </div>
+                        <option value="">Semua Provinsi</option>
 
-        {{-- Reset --}}
-        <a href="{{ route('recommendation.result') }}"
-            class="btn-reset-filter">
-            Reset Filter
-        </a>
+                        @foreach($provinsiList as $provinsi)
+                            <option value="{{ $provinsi }}"
+                                {{ request('provinsi') == $provinsi ? 'selected' : '' }}>
+                                {{ $provinsi }}
+                            </option>
+                        @endforeach
 
-    </div>
+                    </select>
 
-</form>
+                </div>
 
+                <div class="filter-group">
+                    <label>Kota</label>
 
+                    <select name="kota"
+                            class="filter-select"
+                            onchange="this.form.submit()">
+
+                        <option value="">Semua Kota</option>
+
+                        @foreach($kotaList as $kota)
+                            <option value="{{ $kota }}"
+                                {{ request('kota') == $kota ? 'selected' : '' }}>
+                                {{ $kota }}
+                            </option>
+                        @endforeach
+
+                    </select>
+
+                </div>
+
+                <a href="{{ route('recommendation.result') }}"
+                class="btn-reset-filter">
+                    Reset Filter
+                </a>
+
+            </div>
+
+        </form>
+
+        <div class="result-info-box">
 
         <p class="result-info">
             Menampilkan
             <strong>{{ $results->count() }}</strong>
             hasil rekomendasi terbaik untukmu.
         </p>
+
+    </div>
 
         <div class="result-grid">
 
@@ -485,6 +590,11 @@
                         <p>
                             <strong>Status Magang:</strong>
                             {{ $company->status_magang ?? '-' }}
+                        </p>
+
+                        <p>
+                            <strong>Provinsi:</strong>
+                            {{ $company->provinsi ?? '-' }}
                         </p>
 
                         <p>
