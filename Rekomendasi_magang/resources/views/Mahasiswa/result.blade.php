@@ -216,12 +216,6 @@
             grid-template-columns: 1fr;
         }
 
-        body {
-            background: #F5F7FB;
-            color: #1E1E1E;
-        }
-
-        /* NAVBAR */
         .navbar {
             flex-direction: column;
             gap: 12px;
@@ -249,6 +243,7 @@
     font-weight: 600;
     text-transform: capitalize;
 }
+
 </style>
 </head>
 
@@ -313,94 +308,11 @@
             Berikut perusahaan yang paling sesuai dengan profil dan minatmu.
         </div>
 
-        <form method="GET" action="{{ route('recommendation.result') }}">
-
-            <div class="filter-bar">
-
-                <div class="filter-title">
-                    <h3>🔍 Filter Pencarian</h3>
-                    <p>Temukan perusahaan yang paling sesuai</p>
-                </div>
-
-                <div class="filter-group">
-                    <label>Status Magang</label>
-                    <select name="status_magang"
-                            class="filter-select"
-                            onchange="this.form.submit()">
-
-                        <option value="">Semua Status</option>
-
-                        <option value="Paid"
-                            {{ request('status_magang') == 'Paid' ? 'selected' : '' }}>
-                            Paid
-                        </option>
-
-                        <option value="Unpaid"
-                            {{ request('status_magang') == 'Unpaid' ? 'selected' : '' }}>
-                            Unpaid
-                        </option>
-
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>Provinsi</label>
-
-                    <select name="provinsi"
-                            class="filter-select"
-                            onchange="this.form.submit()">
-
-                        <option value="">Semua Provinsi</option>
-
-                        @foreach($provinsiList as $provinsi)
-                            <option value="{{ $provinsi }}"
-                                {{ request('provinsi') == $provinsi ? 'selected' : '' }}>
-                                {{ $provinsi }}
-                            </option>
-                        @endforeach
-
-                    </select>
-
-                </div>
-
-                <div class="filter-group">
-                    <label>Kota</label>
-
-                    <select name="kota"
-                            class="filter-select"
-                            onchange="this.form.submit()">
-
-                        <option value="">Semua Kota</option>
-
-                        @foreach($kotaList as $kota)
-                            <option value="{{ $kota }}"
-                                {{ request('kota') == $kota ? 'selected' : '' }}>
-                                {{ $kota }}
-                            </option>
-                        @endforeach
-
-                    </select>
-
-                </div>
-
-                <a href="{{ route('recommendation.result') }}"
-                class="btn-reset-filter">
-                    Reset Filter
-                </a>
-
-            </div>
-
-        </form>
-
-        <div class="result-info-box">
-
         <p class="result-info">
             Menampilkan
             <strong>{{ $results->count() }}</strong>
             hasil rekomendasi terbaik untukmu.
         </p>
-
-    </div>
 
         <div class="result-grid">
 
@@ -467,49 +379,6 @@
 
                         <div class="score-section">
 
-                    </div>
-
-                    <div class="company-info">
-
-                        <p>
-                            <strong>Tipe Industri:</strong>
-                            {{ $company->tipe_industri ?? '-' }}
-                        </p>
-
-                        <p>
-                            <strong>Status Magang:</strong>
-                            {{ $company->status_magang ?? '-' }}
-                        </p>
-
-                        <p>
-                            <strong>Provinsi:</strong>
-                            {{ $company->provinsi ?? '-' }}
-                        </p>
-
-                        <p>
-                            <strong>Kota:</strong>
-                            {{ $company->kota ?? '-' }}
-                        </p>
-
-                        <p>
-                            <strong>Minimal IPK:</strong>
-                            {{ $company->min_ipk ?? '-' }}
-                        </p>
-
-                        <p>
-                            <strong>Durasi:</strong>
-                            {{ $company->duration_months ?? '-' }} bulan
-                        </p>
-
-                    </div>
-
-                    <div class="score-section">
-
-                        <div class="score-item">
-
-                            <div class="score-top">
-                                <span>Skill</span>
-                                <span>{{ number_format($result->score_skill * 100, 0) }}%</span>
                             <div class="score-item">
                                 <div class="score-top">
                                     <span>Skill</span>
@@ -565,6 +434,8 @@
             @endforeach
 
         </div>
+
+    </div>
 
 </body>
 
