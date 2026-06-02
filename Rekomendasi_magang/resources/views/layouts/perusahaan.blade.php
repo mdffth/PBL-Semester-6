@@ -613,7 +613,6 @@
                 <div class="sidebar-top">
                     <div class="sidebar-brand-box">
                         <div class="sidebar-logo-title">
-                            <div class="logo-icon-sm">IP</div>
                             <span class="logo-text-sm">RekomIn</span>
                         </div>
                         <!-- Tombol toggle tetap di dalam sidebar brand box -->
