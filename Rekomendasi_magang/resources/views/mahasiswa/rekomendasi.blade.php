@@ -22,7 +22,7 @@
             color: #1a1a2e;
         }
 
-        /* NAVBAR */
+/* NAVBAR */
         .navbar { background: #1a1a6e; display: flex; align-items: center; justify-content: space-between; padding: .9rem 5%; position: sticky; top: 0; z-index: 100; }
         .navbar-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
         .brand-logo { width: 36px; height: 36px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1a1a6e; font-size: .85rem; }
@@ -33,7 +33,6 @@
         .nav-btn { background: #3b3bdb; color: #fff !important; padding: .5rem 1.3rem; border-radius: 8px; font-weight: 600 !important; }
         .nav-btn:hover { background: #2d2db8 !important; }
         .nav-avatar { width: 34px; height: 34px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .9rem; cursor: pointer; }
-
         /* TITLE */
         .page-title-bar {
             background: #fff;
@@ -327,6 +326,118 @@
         </ul>
 
     </nav>
+<nav class="navbar">
+    <a href="{{ route('landing') }}" class="navbar-brand">
+        <div class="brand-logo">RI</div>
+        <span class="brand-name">RekomIn</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="{{ route('landing') }}" class="active">Home</a></li>
+        <li><a href="#perusahaan">Perusahaan</a></li>
+        <li>
+    <a href="{{ route('recommendation.index') }}" class="nav-btn">
+        Start Rekomendasi
+    </a>
+</li>
+        <!-- @if (Route::has('login'))
+                <nav class="flex items-center justify-end gap-4">
+                    @auth
+                    <li>
+                        <a
+                            href="{{ url('/dashboard') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                        >
+                            Dashboard
+                        </a>
+                    </li>
+                    @else
+                    <li>
+                        <a
+                            href="{{ route('login') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                        >
+                            Log in
+                        </a>
+                    </li>
+                        @if (Route::has('register'))
+                        <li>
+                            <a
+                                href="{{ route('register') }}"
+                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                Register
+                            </a>
+                        </li>
+                        @endif
+                    @endauth
+                </nav>
+            @endif -->
+        {{-- <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li> --}}
+    </ul>
+</nav>
+
+<div class="page-title-bar">
+    <h1>
+        Berdasarkan Profil Kamu, Berikut Merupakan Rekomendasi Magang Terbaik:
+    </h1>
+</div>
+
+<form method="GET" action="{{ route('rekomendasi') }}">
+
+    <div class="filter-bar">
+
+        <i class="fas fa-filter filter-icon"></i>
+
+        {{-- FILTER JENIS --}}
+        <div class="filter-select-wrap">
+
+            <select name="status_magang"
+                    class="filter-select"
+                    onchange="this.form.submit()">
+
+                <option value="">Jenis</option>
+
+                <option value="Paid"
+                    {{ request('status_magang') == 'Paid' ? 'selected' : '' }}>
+                    Paid
+                </option>
+
+                <option value="Unpaid"
+                    {{ request('status_magang') == 'Unpaid' ? 'selected' : '' }}>
+                    Unpaid
+                </option>
+
+            </select>
+
+        </div>
+
+        {{-- FILTER LOKASI --}}
+        <div class="filter-select-wrap">
+
+            <select name="tipe_industri"
+                    class="filter-select"
+                    onchange="this.form.submit()">
+
+                <option value="">Lokasi</option>
+
+                @foreach($tipeIndustri ?? [] as $tipe)
+
+                    <option value="{{ $tipe }}"
+                        {{ request('tipe_industri') == $tipe ? 'selected' : '' }}>
+
+                        {{ Str::limit($tipe, 30) }}
+
+                    </option>
+
+                @endforeach
+
+            </select>
+
+        </div>
+
+        {{-- RESET --}}
+        <a href="{{ route('rekomendasi') }}" class="btn-reset-filter">
+            Reset
+        </a>
 
     <div class="page-title-bar">
         <h1>
@@ -354,6 +465,15 @@
                     <option value="Unpaid" {{ request('status_magang') == 'Unpaid' ? 'selected' : '' }}>
                         Unpaid
                     </option>
+    @php
+        $gradients = [
+            'linear-gradient(135deg,#1a1a6e,#3b3bdb)',
+            'linear-gradient(135deg,#0f4c75,#1b6ca8)',
+            'linear-gradient(135deg,#1a5276,#2980b9)',
+            'linear-gradient(135deg,#154360,#1a5276)',
+            'linear-gradient(135deg,#212f3c,#2e4057)',
+            'linear-gradient(135deg,#0d1b2a,#1b3a5c)',
+        ];
 
                 </select>
 
@@ -562,8 +682,128 @@
                 @else
                     <span class="disabled">Next ›</span>
                 @endif
+    @endphp
+
+    <div class="cards-grid">
+
+        @foreach($perusahaan as $i => $p)
+
+        @php
+
+            // $score = $matchScores[$i] ?? 70;
+
+            $grad = $gradients[$i % count($gradients)];
+
+            // $foto = $fotoPerusahaan[$p->name] ?? null;
+
+            $lokasi = 'Malang';
+
+            $ti = strtolower($p->tipe_industri ?? '');
+
+            if(str_contains($ti,'jakarta')){
+                $lokasi = 'Jakarta';
+            }
+            elseif(str_contains($ti,'surabaya')){
+                $lokasi = 'Surabaya';
+            }
+            elseif(str_contains($ti,'bali')){
+                $lokasi = 'Bali';
+            }
+            elseif(str_contains($ti,'bandung')){
+                $lokasi = 'Bandung';
+            }
+
+        @endphp
+
+<div class="r-card">
+
+    {{-- IMAGE --}}
+    <div class="r-card-img" style="background: {{ $grad }}">
+        @if($p->logo)
+            <img src="{{ asset($p->logo) }}" alt="{{ $p->name }}">
+        @else
+            <div class="img-placeholder">
+                <i class="fas fa-building"></i>
+            </div>
+        @endif
+    </div>
+
+            {{-- BODY --}}
+            <div class="r-card-body">
+
+                <div class="r-card-name">
+                    {{ $p->name }}
+                </div>
+
+                <!-- <div class="r-card-row">
+                    <span>Fokus :</span>
+                    {{ Str::limit($p->posisi_magang, 55) }}
+                </div> -->
+
+                <div class="r-card-row">
+                    <span>Lokasi :</span>
+                    {{ $lokasi }}
+                </div>
+
+                <div class="r-card-row" style="margin-bottom:.8rem">
+                    <span>Tipe Magang :</span>
+
+                    {{ $p->status_magang === 'Paid' ? 'Onsite' : 'Remote' }}
+                    •
+                    {{ $p->status_magang }}
+                </div>
+
+                <a href="{{ route('detail.perusahaan', $p->id) }}"
+                class="btn-r-detail">
+                    Lihat Detail
+                </a>
 
             </div>
+
+        </div>
+
+        @endforeach
+
+    </div>
+
+    {{-- PAGINATION --}}
+    <div class="pagination">
+
+        {{-- PREV --}}
+        @if($perusahaan->onFirstPage())
+
+            <span class="disabled">‹ Prev</span>
+
+        @else
+
+            <a href="{{ $perusahaan->previousPageUrl() }}">
+                ‹ Prev
+            </a>
+
+        @endif
+
+        {{-- NUMBER --}}
+        @for($i = 1; $i <= $perusahaan->lastPage(); $i++)
+
+            <a href="{{ $perusahaan->url($i) }}"
+               class="{{ $i == $perusahaan->currentPage() ? 'active' : '' }}">
+
+                {{ $i }}
+
+            </a>
+
+        @endfor
+
+        {{-- NEXT --}}
+        @if($perusahaan->hasMorePages())
+
+            <a href="{{ $perusahaan->nextPageUrl() }}">
+                Next ›
+            </a>
+
+        @else
+
+            <span class="disabled">Next ›</span>
 
         @endif
 

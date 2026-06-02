@@ -24,7 +24,7 @@
             color: #1E1E1E;
         }
 
-        /* NAVBAR */
+ /* NAVBAR */
         .navbar { background: #1a1a6e; display: flex; align-items: center; justify-content: space-between; padding: .9rem 5%; position: sticky; top: 0; z-index: 100; }
         .navbar-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
         .brand-logo { width: 36px; height: 36px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1a1a6e; font-size: .85rem; }
@@ -35,12 +35,6 @@
         .nav-btn { background: #3b3bdb; color: #fff !important; padding: .5rem 1.3rem; border-radius: 8px; font-weight: 600 !important; }
         .nav-btn:hover { background: #2d2db8 !important; }
         .nav-avatar { width: 34px; height: 34px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .9rem; cursor: pointer; }
-
-         /* SECTION */
-        section { padding: 5rem 5%; }
-        .sec-title { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: #1a1a2e; margin-bottom: .5rem; }
-        .sec-sub { color: #666; font-size: .93rem; line-height: 1.65; }
-
         /* CONTAINER */
         .container{
             width: 95%;
@@ -203,7 +197,7 @@
             line-height: 1.7;
         }
 
-        footer{
+        /* footer{
             background: white;
             padding: 30px 50px;
             margin-top: 50px;
@@ -228,7 +222,7 @@
         .footer-links{
             display: flex;
             gap: 20px;
-        }
+        } */
 
          @media(max-width: 900px) {
             .hero-right { display: none; }
@@ -250,17 +244,45 @@
     </a>
     <ul class="nav-links">
         <li><a href="{{ route('landing') }}" class="active">Home</a></li>
-        <li><a href="{{ route('rekomendasi') }}">Perusahaan</a></li>
-
-        <a href="{{ route('recommendation.index') }}" class="nav-btn">
-            Start Rekomendasi
-        </a>
-
-        {{-- <li>
-        <div class="nav-avatar">
-            <i class="fas fa-user"></i>
-        </div>
-    </li> --}}
+        <li><a href="#perusahaan">Perusahaan</a></li>
+        <li>
+    <a href="{{ route('recommendation.index') }}" class="nav-btn">
+        Start Rekomendasi
+    </a>
+</li>
+        <!-- @if (Route::has('login'))
+                <nav class="flex items-center justify-end gap-4">
+                    @auth
+                    <li>
+                        <a
+                            href="{{ url('/dashboard') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                        >
+                            Dashboard
+                        </a>
+                    </li>
+                    @else
+                    <li>
+                        <a
+                            href="{{ route('login') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                        >
+                            Log in
+                        </a>
+                    </li>
+                        @if (Route::has('register'))
+                        <li>
+                            <a
+                                href="{{ route('register') }}"
+                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                Register
+                            </a>
+                        </li>
+                        @endif
+                    @endauth
+                </nav>
+            @endif -->
+        {{-- <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li> --}}
     </ul>
 </nav>
 
@@ -275,7 +297,7 @@
 
                 {{-- LOGO DINAMIS --}}
                 <img
-                    src="{{ $perusahaan->logo ? asset('storage/' . $perusahaan->logo) : asset('images/reka.png') }}"
+                    src="{{ $perusahaan->logo ? asset($perusahaan->logo) : asset('images/reka.png') }}"
                     class="company-image"
                 >
 
@@ -532,15 +554,11 @@
 
     </div>
 
-    <!-- FOOTER -->
-<footer style="background:#1a1a2e; padding:1.5rem 5%; margin-top:3rem;">
-    
-    <div style="display:flex; justify-content:center; align-items:center;">
-        <p style="font-size:.85rem; color:rgba(255,255,255,0.5); margin:0; text-align:center;">
-            &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
-        </p>
-    </div>
-
+<!-- FOOTER -->
+<footer style="background:#1a1a2e; padding:1.5rem 5%; text-align:center; margin-top:3rem;">
+    <p style="font-size:.85rem; color:rgba(255,255,255,0.5);">
+        &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
+    </p>
 </footer>
 
 </body>

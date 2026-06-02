@@ -78,4 +78,12 @@ class Perusahaan extends Model
     {
         return $this->minatBidang->pluck('id')->toArray();
     }
+
+    // Di app/Models/Perusahaan.php
+public function getLogoUrlAttribute(): string
+{
+    return $this->logo
+        ? asset('storage/' . $this->logo)
+        : null;
+}
 }
