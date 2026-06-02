@@ -17,6 +17,8 @@ class perusahaan_skillpvtSeeder extends Seeder
             ['perusahaan_id' => 1, 'skill_id' => 1],
             ['perusahaan_id' => 1, 'skill_id' => 2],
             ['perusahaan_id' => 1, 'skill_id' => 3],
+            ['perusahaan_id' => 1, 'skill_id' => 34],
+            ['perusahaan_id' => 1, 'skill_id' => 35],
 
             ['perusahaan_id' => 2, 'skill_id' => 7],
             ['perusahaan_id' => 2, 'skill_id' => 6],
@@ -26,6 +28,8 @@ class perusahaan_skillpvtSeeder extends Seeder
             ['perusahaan_id' => 2, 'skill_id' => 16],
             ['perusahaan_id' => 2, 'skill_id' => 9],
             ['perusahaan_id' => 2, 'skill_id' => 11],
+            ['perusahaan_id' => 2, 'skill_id' => 34],
+            ['perusahaan_id' => 2, 'skill_id' => 35],
 
             ['perusahaan_id' => 3, 'skill_id' => 20],
             ['perusahaan_id' => 3, 'skill_id' => 7],
@@ -35,6 +39,8 @@ class perusahaan_skillpvtSeeder extends Seeder
             ['perusahaan_id' => 3, 'skill_id' => 18],
             ['perusahaan_id' => 3, 'skill_id' => 16],
             ['perusahaan_id' => 3, 'skill_id' => 25],
+            ['perusahaan_id' => 3, 'skill_id' => 34],
+            ['perusahaan_id' => 3, 'skill_id' => 35],
 
             ['perusahaan_id' => 4, 'skill_id' => 14],
             ['perusahaan_id' => 4, 'skill_id' => 41],
@@ -48,6 +54,7 @@ class perusahaan_skillpvtSeeder extends Seeder
             ['perusahaan_id' => 4, 'skill_id' => 16],
             ['perusahaan_id' => 4, 'skill_id' => 25],
             ['perusahaan_id' => 4, 'skill_id' => 49],
+            ['perusahaan_id' => 4, 'skill_id' => 35],
 
             ['perusahaan_id' => 5, 'skill_id' => 20],
             ['perusahaan_id' => 5, 'skill_id' => 42],
@@ -58,6 +65,8 @@ class perusahaan_skillpvtSeeder extends Seeder
             ['perusahaan_id' => 5, 'skill_id' => 16],
             ['perusahaan_id' => 5, 'skill_id' => 25],
             ['perusahaan_id' => 5, 'skill_id' => 49],
+            ['perusahaan_id' => 5, 'skill_id' => 34],
+
 
             ['perusahaan_id' => 6, 'skill_id' => 1],
             ['perusahaan_id' => 6, 'skill_id' => 12],
@@ -70,6 +79,8 @@ class perusahaan_skillpvtSeeder extends Seeder
             ['perusahaan_id' => 6, 'skill_id' => 23],
             ['perusahaan_id' => 6, 'skill_id' => 24],
             ['perusahaan_id' => 6, 'skill_id' => 25],
+            ['perusahaan_id' => 6, 'skill_id' => 34],
+
 
             // Frontend (HTML/CSS/JS/React)
             ['perusahaan_id' => 7, 'skill_id' => 1],  // Pemrograman Dasar
