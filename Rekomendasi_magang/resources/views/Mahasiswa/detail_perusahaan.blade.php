@@ -20,51 +20,17 @@
             color: #1E1E1E;
         }
 
-        /* NAVBAR */
-        .navbar{
-            width: 100%;
-            background: #FFFFFF;
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px dashed #0242C4;
-        }
-
-        .logo{
-            font-size: 24px;
-            font-weight: bold;
-            color: #0242C4;
-        }
-
-        .nav-menu{
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav-menu a{
-            text-decoration: none;
-            color: #7C8299;
-            font-size: 14px;
-        }
-
-        .btn-login{
-            padding: 8px 20px;
-            border: 1px solid #0242C4;
-            border-radius: 8px;
-            color: #0242C4 !important;
-            font-weight: 600;
-        }
-
-        .btn-primary{
-            background: #0242C4;
-            color: white !important;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-
+ /* NAVBAR */
+        .navbar { background: #1a1a6e; display: flex; align-items: center; justify-content: space-between; padding: .9rem 5%; position: sticky; top: 0; z-index: 100; }
+        .navbar-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+        .brand-logo { width: 36px; height: 36px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1a1a6e; font-size: .85rem; }
+        .brand-name { color: #fff; font-weight: 700; font-size: 1.1rem; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .2s; }
+        .nav-links a:hover, .nav-links a.active { color: #fff; }
+        .nav-btn { background: #3b3bdb; color: #fff !important; padding: .5rem 1.3rem; border-radius: 8px; font-weight: 600 !important; }
+        .nav-btn:hover { background: #2d2db8 !important; }
+        .nav-avatar { width: 34px; height: 34px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .9rem; cursor: pointer; }
         /* CONTAINER */
         .container{
             width: 95%;
@@ -227,7 +193,7 @@
             line-height: 1.7;
         }
 
-        footer{
+        /* footer{
             background: white;
             padding: 30px 50px;
             margin-top: 50px;
@@ -252,7 +218,7 @@
         .footer-links{
             display: flex;
             gap: 20px;
-        }
+        } */
 
         @media(max-width: 992px){
             .container{
@@ -282,19 +248,54 @@
 <body>
 
     <!-- NAVBAR -->
-    <div class="navbar">
-
-        <div class="logo">
-            InternPath
-        </div>
-
-        <div class="nav-menu">
-            <a href="#">Beranda</a>
-            <a href="#">Perusahaan</a>
-            <a href="#" class="btn-login">Login</a>
-            <a href="#" class="btn-primary">Mulai Rekomendasi</a>
-        </div>
-    </div>
+<nav class="navbar">
+    <a href="{{ route('landing') }}" class="navbar-brand">
+        <div class="brand-logo">RI</div>
+        <span class="brand-name">RekomIn</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="{{ route('landing') }}" class="active">Home</a></li>
+        <li><a href="#perusahaan">Perusahaan</a></li>
+        <li>
+    <a href="{{ route('recommendation.index') }}" class="nav-btn">
+        Start Rekomendasi
+    </a>
+</li>
+        <!-- @if (Route::has('login'))
+                <nav class="flex items-center justify-end gap-4">
+                    @auth
+                    <li>
+                        <a
+                            href="{{ url('/dashboard') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                        >
+                            Dashboard
+                        </a>
+                    </li>
+                    @else
+                    <li>
+                        <a
+                            href="{{ route('login') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                        >
+                            Log in
+                        </a>
+                    </li>
+                        @if (Route::has('register'))
+                        <li>
+                            <a
+                                href="{{ route('register') }}"
+                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                Register
+                            </a>
+                        </li>
+                        @endif
+                    @endauth
+                </nav>
+            @endif -->
+        {{-- <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li> --}}
+    </ul>
+</nav>
 
     <!-- CONTENT -->
     <div class="container">
@@ -307,7 +308,7 @@
 
                 {{-- LOGO DINAMIS --}}
                 <img
-                    src="{{ $perusahaan->logo ? asset('storage/' . $perusahaan->logo) : asset('images/reka.png') }}"
+                    src="{{ $perusahaan->logo ? asset($perusahaan->logo) : asset('images/reka.png') }}"
                     class="company-image"
                 >
 
@@ -569,47 +570,12 @@
 
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-
-        <div>
-
-            <h3>
-                InternPath
-            </h3>
-
-            <p>
-                © 2024 InternPath.
-                Bridging academic life and professional careers.
-            </p>
-
-        </div>
-
-        <div class="footer-links">
-
-            <a href="#">
-                About Us
-            </a>
-
-            <a href="#">
-                Privacy
-            </a>
-
-            <a href="#">
-                Terms
-            </a>
-
-            <a href="#">
-                Help Center
-            </a>
-
-            <a href="#">
-                Contacts
-            </a>
-
-        </div>
-
-    </footer>
+<!-- FOOTER -->
+<footer style="background:#1a1a2e; padding:1.5rem 5%; text-align:center; margin-top:3rem;">
+    <p style="font-size:.85rem; color:rgba(255,255,255,0.5);">
+        &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
+    </p>
+</footer>
 
 </body>
 </html>

@@ -25,6 +25,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Nganjuk',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl Raya Surabaya - Madiun Km 100 Plimping, Gebangkerep, Kec. Baron',
+                'logo' => 'img/perusahaan/PT Indo.jpg'
             ],
             [
                 'name' => 'Pengembangan SIPP - PT Link Apisindo Media & Dinas LH Kota Batu',
@@ -38,6 +39,7 @@ class PerusahaanSeeder extends Seeder
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Raya Kelampok Kawasan Ekonomi Khusus (KEK) Singhasari, A17, 18, Klampok, Singosari',
 
+                'logo' => 'img/perusahaan/DLH.jpg'
             ],
             [
                 'name' => 'Pengembangan Platform Satu Peta Jatim - PT Link Apisindo Media & Dinas Kominfo Jatim',
@@ -50,6 +52,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Raya Kelampok Kawasan Ekonomi Khusus (KEK) Singhasari, A17, 18, Klampok, Singosari',
+                'logo' => 'img/perusahaan/Peta.jpg'
             ],
             [
                 'name' => 'PT ARM Solusi',
@@ -62,6 +65,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Jakarta',
                 'provinsi' => 'DKI Jakarta',
                 'alamat' => 'Jl. H.R. Rasuna Said, Kawasan Epicentrum Utama Mall Epicentrum Walk, Office Suite A52, Jakarta, Indonesia',
+                'logo' => 'img/perusahaan/ARM.jpg',
             ],
             [
                 'name' => 'Pengembangan Platform Satu Peta Jatim - Batch 2',
@@ -74,6 +78,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Kawasan Ekonomi Khusus (KEK) Singhasari Blok D 17-18, Jl. Raya Klampok, Kecamatan Singosari',
+                'logo' => 'img/perusahaan/Peta.jpg',
             ],
             [
                 'name' => 'Sarastya Agility Innovations',
@@ -86,6 +91,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Trs.Candi Mendut No.9B, Mojolangu, Kec. Lowokwaru, Kota Malang, Jawa Timur 65142',
+                'logo' => 'img/perusahaan/Sarastya.jpg',
             ],
             [
                 'name' => 'PT Time Door Indonesia',
@@ -98,6 +104,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Denpasar',
                 'provinsi' => 'Bali',
                 'alamat' => 'Jl. Tukad Yeh Aya IX No.46, Renon, Denpasar Selatan, Kota Denpasar, Bali 80226',
+                'logo' => 'img/perusahaan/Time.jpg',
             ],
             [
                 'name' => 'PT Maxchat Inovasi Indonesia',
@@ -110,6 +117,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl Candi Sawentar E209 Lowokwaru Malang',
+                'logo' => 'img/perusahaan/MaxChat.jpg',
             ],
             [
                 'name' => 'Politeknik Batu',
@@ -122,6 +130,8 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Batu',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jalan Sawahan Bawah no 20',
+                'status_magang' => 'Unpaid',
+                'logo' => 'img/perusahaan/PoltekBatu.jpg',
             ],
             [
                 'name' => 'Ariverse Studio (PT Studio Karya Semesta)',
@@ -134,6 +144,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Karya Timur Dalam II No.Kav.6, Kota Malang, Jawa Timur 65122',
+                'logo' => 'img/perusahaan/Ariverse.jpg',
             ],
             [
                 'name' => 'Humas POLINEMA',
@@ -146,6 +157,8 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'JL Sukarno Hatta 9',
+                'status_magang' => 'Unpaid',
+                'logo' => 'img/perusahaan/Polinema.jpg.jpeg',
             ],
             [
                 'name' => 'PT Alfath Corporation',
@@ -158,6 +171,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl Anjasmoro no. 22 Klojen, Malang',
+                'logo' => 'img/perusahaan/Alfath.jpg',
             ],
             [
                 'name' => 'PT UTERO KREATIF INDONESIA',
@@ -170,6 +184,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jln. Bantaran 1, No.25, Tulusrejo, Kec. Lowokwaru, Kota Malang',
+                'logo' => 'img/perusahaan/Utero.jpg',
             ],
             [
                 'name' => 'The Himana Hotel & Mall Malang City Point',
@@ -182,6 +197,8 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Terusan Dieng No.31-32, Kel. Pisang Candi, Sukun, Kota Malang',
+                'status_magang' => 'Unpaid',
+                'logo' => 'img/perusahaan/Hotel.jpg',
             ],
             [
                 'name' => 'Wakil Direktur 4 Politeknik Negeri Malang',
@@ -194,6 +211,9 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Soekarno Hatta No.09 Malang',
+                'status_magang' => 'Unpaid',
+                'logo' => 'img/perusahaan/Polinema.jpg.jpeg',
+                
             ],
             [
                 'name' => 'PT Rekaindo Global Jasa',
@@ -206,6 +226,8 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Madiun',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Candi Sewu No. 30 , Madiun 63122',
+                'logo' => 'img/perusahaan/Reka.jpg',
+                
             ],
             [
                 'name' => 'PT JST Indonesia',
@@ -218,6 +240,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Bekasi',
                 'provinsi' => 'Jawa Barat',
                 'alamat' => 'Kawasan Industri MM2100 Blok GG-4, Cikarang Barat, Kabupaten Bekasi, Jawa Barat',
+                'logo' => 'img/perusahaan/JST.jpg',
             ],
             [
                 'name' => 'PT Green Energi Utama',
@@ -230,6 +253,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Pergudangan Tanrise K-Walk Blok A-2, Jl. Raya Karanglo No. 69',
+                'logo' => 'img/perusahaan/Green.jpg',
             ],
             [
                 'name' => 'UPA Bahasa Polinema',
@@ -242,6 +266,8 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Soekarno Hatta No.09 Malang',
+                'status_magang' => 'Unpaid',
+                'logo' => 'img/perusahaan/Polinema.jpg.jpeg',
             ],
             [
                 'name' => 'PT Peruri Wira Timur',
@@ -254,6 +280,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Surabaya',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Ahmad Yani No. 119A, Surabaya',
+                'logo' => 'img/perusahaan/Peruri.jpg',
             ],
             [
                 'name' => 'PT Sekuriti Siber Indonesia',
@@ -266,6 +293,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Bantul',
                 'provinsi' => 'DI Yogyakarta',
                 'alamat' => 'Ruang SOC Nemo Security, Universitas Teknologi Digital Indonesia. Jl. Raya Janti Jl. Majapahit No.143, Jaranan, Banguntapan, Kec. Banguntapan, Kabupaten Bantul, DI Yogyakarta, 55198',
+                'logo' => 'img/perusahaan/Siber.jpg',
             ],
             [
                 'name' => 'PT PAL Indonesia (Persero)',
@@ -278,6 +306,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Surabaya',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'QPWV+5HG, Jalan Ujung, Ujung, Kec. Semampir, Surabaya, Jawa Timur 60155',
+                'logo' => 'img/perusahaan/PAL.jpg',
             ],
             [
                 'name' => 'PT Industri Kereta Api / PT INKA (Persero)',
@@ -290,6 +319,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Madiun',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Yos Sudarso No. 71, Madiun, Jawa Timur',
+                'logo' => 'img/perusahaan/inka.jpg',
             ],
             [
                 'name' => 'Atria Hotel Malang',
@@ -302,6 +332,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Letjen S. Parman No. 87-89 Malang',
+                'logo' => 'img/perusahaan/Atria.jpg',
             ],
             [
                 'name' => 'PT Intelix Global Crossing',
@@ -314,6 +345,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Permata Jingga IV / 6 Malang',
+                'logo' => 'img/perusahaan/Intelix.jpg',
             ],
             [
                 'name' => 'PT Dutakom Wibawa Putra',
@@ -326,6 +358,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Surabaya',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Ciputra World Office Tower Lt. 30 Unit 3006, Jl. Mayjen Sungkono 89, Desa/Kelurahan Gunung Sari. Kec. Dukuh Pakis, Kota Surabaya, Provinsi Jawa Timur',
+                'logo' => 'img/perusahaan/d-net.jpg',
             ],
             [
                 'name' => 'CV Harsyad Utama (Harsyad Teknologi)',
@@ -338,6 +371,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Kapi Sraba Raya 12A 22 Malang',
+                'logo' => 'img/perusahaan/Harsyad.jpg',
             ],
             [
                 'name' => 'DOT Indonesia',
@@ -350,6 +384,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Permata Hijau A15 Tlogomas, Lowokwaru, Kota Malang',
+                'logo' => 'img/perusahaan/dot.jpg',
             ],
             [
                 'name' => 'Oyitok Group',
@@ -362,6 +397,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Villa bukit tidar blok A4 No.294, Kec. Lowokwaru Kota Malang',
+                'logo' => 'img/perusahaan/Oyi.jpg',
             ],
             [
                 'name' => 'CV DB KLIK',
@@ -374,6 +410,7 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Surabaya',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jln. Raya Tenggilis No. AA - 3, Klai Rungkut Kota Sby, Jawa Timur',
+                'logo' => 'img/perusahaan/Db Klik.jpg',
             ],
         ];
 
