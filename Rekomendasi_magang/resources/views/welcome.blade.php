@@ -90,22 +90,27 @@
         .hero-left p { color: rgba(255,255,255,0.8); font-size: .98rem; line-height: 1.75; margin-bottom: 2rem; max-width: 480px; }
         .btn-hero { display: inline-block; background: #3b3bdb; color: #fff; padding: .85rem 2rem; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 1rem; transition: all .2s; box-shadow: 0 4px 20px rgba(59,59,219,0.4); }
         .btn-hero:hover { background: #2d2db8; transform: translateY(-2px); }
-        .hero-right { flex: 1; display: flex; justify-content: center; }
-        .hero-card-demo { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 2rem; width: 340px; }
-        .demo-header { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.5rem; }
-        .demo-avatar { width: 44px; height: 44px; background: #3b3bdb; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; }
-        .demo-title { color: #fff; font-weight: 700; font-size: .95rem; }
-        .demo-sub { color: rgba(255,255,255,0.6); font-size: .78rem; }
-        .demo-match { text-align: center; margin-bottom: 1.5rem; }
-        .match-circle { width: 90px; height: 90px; background: #3b3bdb; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto .5rem; border: 3px solid rgba(255,255,255,0.3); }
-        .match-pct { color: #fff; font-size: 1.4rem; font-weight: 800; }
-        .match-lbl { color: rgba(255,255,255,0.7); font-size: .65rem; }
-        .match-name { color: #fff; font-weight: 700; font-size: .9rem; }
-        .match-type { color: rgba(255,255,255,0.6); font-size: .78rem; }
-        .demo-list { display: flex; flex-direction: column; gap: .6rem; }
-        .demo-item { background: rgba(255,255,255,0.1); border-radius: 8px; padding: .6rem .8rem; display: flex; justify-content: space-between; align-items: center; }
-        .demo-item-name { color: #fff; font-size: .8rem; font-weight: 600; }
-        .demo-item-pct { color: #7eb8ff; font-size: .8rem; font-weight: 700; }
+        .hero-right { flex: 1; display: flex; align-items: center; justify-content: center; }
+        .orbit-wrap { position: relative; width: 300px; height: 300px; }
+        .ring-outer { position: absolute; inset: 0; border-radius: 50%; border: 1px dashed rgba(126,184,255,0.2); animation: rotate-slow 20s linear infinite; }
+        .ring-mid { position: absolute; inset: 22px; border-radius: 50%; border: 1px solid rgba(126,184,255,0.25); animation: rotate-rev 15s linear infinite; }
+        .ring-inner { position: absolute; inset: 44px; border-radius: 50%; background: rgba(26,26,110,0.5); border: 1.5px solid rgba(126,184,255,0.3); }
+        .ring-center { position: absolute; inset: 80px; border-radius: 50%; background: #3b3bdb; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px rgba(59,59,219,0.6); font-size: 2.2rem; }
+        .orbit-dot { position: absolute; border-radius: 50%; background: #7eb8ff; }
+        .orbit-dot-top { top: -5px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; animation: pulse-dot 2s infinite; }
+        .orbit-dot-right { top: 50%; right: -5px; transform: translateY(-50%); width: 8px; height: 8px; opacity: 0.7; }
+        .orbit-dot-bottom { bottom: -5px; left: 50%; transform: translateX(-50%); width: 7px; height: 7px; opacity: 0.5; }
+        .orbit-dot-left { top: 50%; left: -5px; transform: translateY(-50%); width: 8px; height: 8px; opacity: 0.6; }
+        .orbit-badge { position: absolute; background: transparent; border: 1.5px solid rgba(126,184,255,0.5); border-radius: 10px; padding: 10px 16px; white-space: nowrap; color: #fff; font-size: 12px; font-weight: 600; display: flex; flex-direction: row; align-items: center; gap: 5px; box-shadow: none; }
+        .badge-val { color: #7eb8ff; font-size: 13px; font-weight: 800; }
+        .badge-top { top: -18px; left: 50%; transform: translateX(-50%); }
+        .badge-right { top: 50%; right: -90px; transform: translateY(-50%); }
+        .badge-bottom { bottom: -18px; left: 50%; transform: translateX(-50%); }
+        .badge-left { top: 50%; left: -90px; transform: translateY(-50%); }
+        .orbit-star { position: absolute; color: rgba(255,255,255,0.25); }
+        @keyframes rotate-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes rotate-rev { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+        @keyframes pulse-dot { 0%,100% { opacity: 0.6; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.4); } }
 
         /* SECTION */
         section { padding: 5rem 5%; }
@@ -249,39 +254,40 @@
             <a href="{{ route('recommendation.index') }}" class="btn-hero">Start Rekomendasi</a>
             <a href="#langkah" class="btn-hero" style="background:#fff; color:#1a1a2e; border:1.5px solid #d0d0e8; box-shadow:none; margin-left:.8rem;">Pelajari Sistem</a>
         </div>
-        {{-- <div class="hero-right">
-            <div class="hero-card-demo">
-                <div class="demo-header">
-                    <div class="demo-avatar">M</div>
-                    <div>
-                        <div class="demo-title">Rekomendasi Untukmu</div>
-                        <div class="demo-sub">Berdasarkan profil akademikmu</div>
-                    </div>
+
+        <div class="hero-right">
+            <div class="orbit-wrap">
+                <div class="ring-outer"></div>
+                <div class="ring-mid">
+                    <div class="orbit-dot orbit-dot-top"></div>
+                    <div class="orbit-dot orbit-dot-right"></div>
+                    <div class="orbit-dot orbit-dot-bottom"></div>
+                    <div class="orbit-dot orbit-dot-left"></div>
                 </div>
-                <div class="demo-match">
-                    <div class="match-circle">
-                        <div class="match-pct">98%</div>
-                        <div class="match-lbl">Match</div>
-                    </div>
-                    <div class="match-name">PT Indoprima Gemilang</div>
-                    <div class="match-type">IT System Development</div>
+                <div class="ring-inner"></div>
+                <div class="ring-center"></div>
+                <div class="orbit-badge badge-top">
+                    <div class="badge-val">98%</div>
+                    <div>Match Rate</div>
                 </div>
-                <div class="demo-list">
-                    <div class="demo-item">
-                        <span class="demo-item-name">PT ARM Solusi</span>
-                        <span class="demo-item-pct">95%</span>
-                    </div>
-                    <div class="demo-item">
-                        <span class="demo-item-name">PT Link Apisindo</span>
-                        <span class="demo-item-pct">90%</span>
-                    </div>
-                    <div class="demo-item">
-                        <span class="demo-item-name">Sarastya Innovations</span>
-                        <span class="demo-item-pct">87%</span>
-                    </div>
-                </div> --}}
+                <div class="orbit-badge badge-right">
+                    <div class="badge-val">30+</div>
+                    <div>Perusahaan</div>
+                </div>
+                <div class="orbit-badge badge-bottom">
+                    <div class="badge-val">DATA</div>
+                    <div>Driven</div>
+                </div>
+                <div class="orbit-badge badge-left">
+                    <div class="badge-val">FAST</div>
+                    <div>Result</div>
+                </div>
+                <span class="orbit-star" style="top:18px;right:14px;font-size:14px;">✦</span>
+                <span class="orbit-star" style="bottom:24px;left:12px;font-size:11px;color:rgba(126,184,255,0.4);">✦</span>
+                <span class="orbit-star" style="top:50px;left:4px;font-size:9px;">✦</span>
             </div>
         </div>
+
     </div>
 </section>
 
