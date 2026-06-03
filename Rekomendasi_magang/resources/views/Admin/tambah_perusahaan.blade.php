@@ -53,6 +53,9 @@
     @if(isset($perusahaan))
         @method('PUT')
     @endif
+    
+        <input type="hidden" name="page" value="{{ request('page', 1) }}">
+
 
         <div class="content-grid">
 
@@ -305,19 +308,17 @@
 
                     <div class="form-group">
 
-                        <label>Internship Type</label>
+                        <label>Benefit</label>
 
-                        <select name="status_magang"
-                                class="select"
-                                required>
+                        <select name="benefit" class="select" required>
 
                             <option value="Paid"
-                                {{ old('status_magang') == 'Paid' ? 'selected' : '' }}>
+                                {{ old('benefit', $perusahaan->benefit ?? '') == 'Paid' ? 'selected' : '' }}>
                                 Paid
                             </option>
 
                             <option value="Unpaid"
-                                {{ old('status_magang') == 'Unpaid' ? 'selected' : '' }}>
+                                {{ old('benefit', $perusahaan->benefit ?? '') == 'Unpaid' ? 'selected' : '' }}>
                                 Unpaid
                             </option>
 
@@ -359,25 +360,55 @@
 
                     </div>
 
-                    <!-- LOCATION -->
+ 
+
+                    <!-- KOTA -->
 
                     <div class="form-group">
 
-                        <label>Location</label>
+                    <label>Kota</label>
 
-                        <input type="text"
-                               name="kota"
-                               class="input"
-                               value="{{ old('kota', $perusahaan->kota ?? '') }}"
-                               placeholder="Jakarta / Remote">
+                    <input type="text"
+                            name="kota"
+                            class="input"
+                            value="{{ old('kota', $perusahaan->kota ?? '') }}"
+                            placeholder="Contoh: Malang">
 
                     </div>
 
-                </div>
+                    <!-- PROVINSI -->
 
-            </div>
+                    <div class="form-group">
 
-        </div>
+                        <label>Provinsi</label>
+
+                        <input type="text"
+                            name="provinsi"
+                            class="input"
+                            value="{{ old('provinsi', $perusahaan->provinsi ?? '') }}"
+                            placeholder="Contoh: Jawa Timur">
+
+                    </div>
+
+                    <!-- ALAMAT -->
+
+                    <div class="form-group">
+
+                        <label>Alamat Lengkap</label>
+
+                        <textarea
+                            name="alamat"
+                            class="input"
+                            rows="4"
+                            placeholder="Contoh: Jl. Soekarno Hatta No. 9, Lowokwaru, Malang">{{ old('alamat', $perusahaan->alamat ?? '') }}</textarea>
+
+                    </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
         <!-- BUTTON -->
 

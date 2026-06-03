@@ -298,11 +298,6 @@
                 transition:0.3s;
             }
 
-            .card:hover{
-                transform:translateY(-4px);
-                box-shadow:0 12px 28px rgba(0,0,0,0.08);
-            }
-
             .card-title{
                 display:flex;
                 align-items:center;
@@ -317,86 +312,97 @@
                 border-bottom:1px solid #ECECEC;
             }
 
-        /* ================= STATS ================= */
-            .stats{
-                display:grid;
-                grid-template-columns:repeat(3,1fr);
-                gap:22px;
+/* ================= STATS ================= */
 
-                margin-bottom:18px;
-            }
+.stats{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 18px;
+}
 
-            .stat-card{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                
-                padding: 16px;
-                gap: 5px;
-            }
+.stat-link{
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
 
-            .stat-header{
-                display:flex;
-                align-items:center;
-                gap:14px;
-            }
+.stat-card{
+    padding: 18px !important;
 
-            .stat-icon{
-                width:54px;
-                height:54px;
-                border-radius:18px;
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                font-size:20px;
-            }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
-            .blue{
-                background:#EEF2FF;
-                color:#4338CA;
-            }
+    gap: 5px;
+    cursor: pointer;
+}
 
-            .green{
-                background:#DCFCE7;
-                color:#16A34A;
-            }
+.stat-header{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
 
-            .red{
-                background:#FEE2E2;
-                color:#DC2626;
-            }
+.stat-icon{
+    width: 54px;
+    height: 54px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
 
-            .stat-label{
-                font-size:14px;
-                font-weight:700;
-                color:#767587;
-                letter-spacing:1px;
-            }
+.blue{
+    background: #EEF2FF;
+    color: #4338CA;
+}
 
-            .stat-number{
-                font-size:42px;
-                font-weight:800;
-            }
+.green{
+    background: #DCFCE7;
+    color: #16A34A;
+}
 
-            .stat-footer{
-                display:flex;
-                justify-content:space-between;
-                align-items:center;
-            }
+.red{
+    background: #FEE2E2;
+    color: #DC2626;
+}
 
-            .success{
-                color:#16A34A;
-                font-weight:600;
-                font-size:14px;
-            }
+.stat-label{
+    font-size: 14px;
+    font-weight: 700;
+    color: #767587;
+    letter-spacing: 1px;
+}
 
-            .warning {
-                color: #f39c12; /* Warna orange/kuning gelap */
-                font-weight: 600;
-                font-size:14px;
-            }
+.stat-number{
+    font-size: 42px;
+    font-weight: 800;
+}
+
+.stat-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* CARD YANG SEDANG AKTIF */
+
+.active-card{
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(30, 58, 138, 0.12);
+}
+
+.active-card .stat-label{
+    color: #1E3A8A;
+}
+
+.active-card .stat-number{
+    color: #1E3A8A;
+}
             
             /* ================= FORM ================= */
             .form-row{

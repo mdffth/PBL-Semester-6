@@ -216,14 +216,14 @@
                         </a>
                     </li>
                     @else
-                    <li>
+                    {{-- <li>
                         <a
                             href="{{ route('login') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
                         >
                             Log in
                         </a>
-                    </li>
+                    </li> --}}
                         @if (Route::has('register'))
                         <li>
                             <a
@@ -541,16 +541,16 @@
                     </a>
                     <a href="#" aria-label="GitHub"
                     class="w-10 h-10 bg-dark-800 rounded-xl flex items-center justify-center transition-colors hover:bg-[#6e40c9]">
-                        <i class="fab fa-github text-white text-base"></i>
+                    <i class="fab fa-github text-white text-base"></i>
                     </a>
                 </div>
             </div>
 
-            
-            <!-- Links 1 -->
-            <div>
-                <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Menu</h4>
-                <ul class="space-y-3">
+        
+        <!-- Links 1 -->
+        <div>
+            <h4 class="text-sm font-bold text-white mb-4 uppercase tracking-wider">Menu</h4>
+            <ul class="space-y-3">
                     <li><a href="#perusahaan" class="text-sm text-dark-400 hover:text-white transition-colors">Home</a></li>
                     <li><a href="{{ route('rekomendasi') }}" class="text-sm text-dark-400 hover:text-white transition-colors">Perusahaan</a></li>
                     <li><a href="#" class="text-sm text-dark-400 hover:text-white transition-colors">Tentang Kami</a></li>
