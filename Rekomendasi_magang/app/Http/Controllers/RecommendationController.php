@@ -86,7 +86,8 @@ class RecommendationController extends Controller
         ->where('session_uuid', $uuid)
         ->firstOrFail();
 
-        $statusMagang = $request->status_magang;
+        $tipeIndustri = $request->tipe_industri;
+        $benefit = $request->benefit;
         $provinsi = $request->provinsi;
         $kota = $request->kota;
         
@@ -94,42 +95,60 @@ class RecommendationController extends Controller
         $query = RecommendationResult::with('perusahaan')
             ->where('user_input_id', $user->id);
 
-        if ($statusMagang) {
-            $query->whereHas('perusahaan', function ($q) use ($statusMagang) {
-                $q->where('status_magang', $statusMagang);
+        if ($tipeIndustri) {
+            $query->whereHas('perusahaan', function ($q) use ($tipeIndustri) {
+                $q->where('tipe_industri', $tipeIndustri);
+            });
+        }
+
+        if ($benefit) {
+            $query->whereHas('perusahaan', function ($q) use ($benefit) {
+                $q->where('benefit', 'like', "%{$benefit}%");
             });
         }
         
-        if ($kota) {
-            $query->whereHas('perusahaan', function ($q) use ($kota) {
-                $q->where('kota', $kota);
-            });
-        }
         if ($provinsi) {
             $query->whereHas('perusahaan', function ($q) use ($provinsi) {
                 $q->where('provinsi', $provinsi);
             });
         }
 
-        $results = $query
-        ->orderBy('ranking')
-        ->get();
+        if ($kota) {
+            $query->whereHas('perusahaan', function ($q) use ($kota) {
+                $q->where('kota', $kota);
+            });
+        }
 
-        $provinsiList = Perusahaan::select('provinsi')
-        ->whereNotNull('provinsi')
-        ->distinct()
-        ->orderBy('provinsi')
-        ->pluck('provinsi');
+            $results = $query
+            ->orderBy('ranking')
+            ->get();
 
-        $kotaList = Perusahaan::select('kota')
-        ->whereNotNull('kota')
-        ->distinct()
-        ->orderBy('kota')
-        ->pluck('kota');
+            $tipeIndustriList = Perusahaan::select('tipe_industri')
+                ->whereNotNull('tipe_industri')
+                ->distinct()
+                ->orderBy('tipe_industri')
+                ->pluck('tipe_industri');
+
+            $benefitList = Perusahaan::select('benefit')
+                ->whereNotNull('benefit')
+                ->distinct()
+                ->pluck('benefit');
+
+            $provinsiList = Perusahaan::select('provinsi')
+            ->whereNotNull('provinsi')
+            ->distinct()
+            ->orderBy('provinsi')
+            ->pluck('provinsi');
+
+            $kotaList = Perusahaan::select('kota')
+            ->whereNotNull('kota')
+            ->distinct()
+            ->orderBy('kota')
+            ->pluck('kota');
 
         return view(
             'mahasiswa.result',
-            compact('results', 'provinsiList', 'kotaList')
+            compact('results', 'tipeIndustriList', 'benefitList','provinsiList', 'kotaList')
         );
     }
 }

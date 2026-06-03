@@ -9,10 +9,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+     <style>
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
 
-        body { font-family: 'Inter', sans-serif; background: #f4f6fb; color: #1a1a2e; }
+        html, body {
+            height: 100%;
+        }
+
+        body{
+            font-family:'Inter',sans-serif;
+            background:#f4f6fb;
+            color:#1a1a2e;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* WRAPPER untuk content yang flex */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
         /* NAVBAR */
         .navbar { background: #1a1a6e; display: flex; align-items: center; justify-content: space-between; padding: .9rem 5%; position: sticky; top: 0; z-index: 100; }
@@ -39,9 +61,20 @@
         .btn-reset-filter:hover { border-color: #3b3bdb; color: #3b3bdb; }
 
         /* CONTENT */
-        .content-wrap { padding: 1.5rem 5%; }
-        .result-info { font-size: .88rem; color: #555; margin-bottom: 1.5rem; }
-        .result-info strong { color: #3b3bdb; }
+        .content-wrap{
+            padding:1.5rem 5%;
+            flex: 1;
+        }
+
+        .result-info{
+            font-size:.88rem;
+            color:#555;
+            margin-bottom:1.5rem;
+        }
+
+        .result-info strong{
+            color:#3b3bdb;
+        }
 
         /* GRID */
         .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
@@ -74,6 +107,20 @@
         .pagination a:hover, .pagination .active { background: #1a1a6e; color: #fff; border-color: #1a1a6e; }
         .pagination .disabled { color: #ccc; pointer-events: none; }
 
+        /* FOOTER */
+        footer {
+            background: #1a1a2e;
+            padding: 1.5rem 5%;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: .85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
         @media(max-width:1000px) { .cards-grid { grid-template-columns: repeat(2,1fr); } }
         @media(max-width:640px)  { .cards-grid { grid-template-columns: 1fr; } }
     </style>
@@ -100,38 +147,78 @@
 
     {{-- TITLE --}}
     <div class="page-title-bar">
-        <h1>Berdasarkan Profil Kamu, Berikut Merupakan Rekomendasi Magang Terbaik:</h1>
+        <h1>Daftar Perusahaan yang Tersedia untuk Tempat Magang</h1>
     </div>
-
+    
     {{-- FILTER --}}
     <form method="GET" action="{{ route('rekomendasi') }}">
+        
         <div class="filter-bar">
-            <i class="fas fa-filter filter-icon"></i>
+        <i class="fas fa-filter filter-icon"></i>
 
-            {{-- Filter Jenis --}}
-            <div class="filter-select-wrap">
-                <select name="status_magang" class="filter-select" onchange="this.form.submit()">
-                    <option value="">Jenis</option>
-                    <option value="Paid"   {{ request('status_magang') == 'Paid'   ? 'selected' : '' }}>Paid</option>
-                    <option value="Unpaid" {{ request('status_magang') == 'Unpaid' ? 'selected' : '' }}>Unpaid</option>
-                </select>
-            </div>
+        {{-- Benefit --}}
+        <div class="filter-select-wrap">
+            <select name="benefit"
+                    class="filter-select"
+                    onchange="this.form.submit()">
 
-            {{-- Filter Lokasi --}}
-            <div class="filter-select-wrap">
-                <select name="tipe_industri" class="filter-select" onchange="this.form.submit()">
-                    <option value="">Lokasi</option>
-                    @foreach ($tipeIndustri ?? [] as $tipe)
-                        <option value="{{ $tipe }}" {{ request('tipe_industri') == $tipe ? 'selected' : '' }}>
-                            {{ Str::limit($tipe, 30) }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+                <option value="">Benefit</option>
 
-            <a href="{{ route('rekomendasi') }}" class="btn-reset-filter">Reset</a>
+                @foreach($benefitList as $benefit)
+                    <option value="{{ $benefit }}"
+                        {{ request('benefit') == $benefit ? 'selected' : '' }}>
+                        {{ $benefit }}
+                    </option>
+                @endforeach
+
+            </select>
         </div>
-    </form>
+
+        {{-- Provinsi --}}
+        <div class="filter-select-wrap">
+            <select name="provinsi"
+                    class="filter-select"
+                    onchange="this.form.submit()">
+
+                <option value="">Provinsi</option>
+
+                @foreach($provinsiList as $provinsi)
+                    <option value="{{ $provinsi }}"
+                        {{ request('provinsi') == $provinsi ? 'selected' : '' }}>
+                        {{ $provinsi }}
+                    </option>
+                @endforeach
+
+            </select>
+        </div>
+
+        {{-- Kota --}}
+        <div class="filter-select-wrap">
+            <select name="kota"
+                    class="filter-select"
+                    onchange="this.form.submit()">
+
+                <option value="">Kota</option>
+
+                @foreach($kotaList as $kota)
+                    <option value="{{ $kota }}"
+                        {{ request('kota') == $kota ? 'selected' : '' }}>
+                        {{ $kota }}
+                    </option>
+                @endforeach
+
+            </select>
+        </div>
+
+        {{-- Reset --}}
+        <a href="{{ route('rekomendasi') }}"
+            class="btn-reset-filter">
+            Reset
+        </a>
+
+    </div>
+
+</form>
 
     {{-- CONTENT --}}
     <div class="content-wrap">
@@ -232,20 +319,27 @@
                             <div class="r-card-name">{{ $p->name }}</div>
 
                             <div class="r-card-row">
-                                <span>Fokus :</span>
-                                {{ Str::limit($p->posisi_magang, 55) }}
+                                <span>Tipe Industri:</span>
+                                {{ Str::limit($p->tipe_industri, 55) }}
                             </div>
 
                             <div class="r-card-row">
-                                <span>Lokasi :</span>
-                                {{ $lokasi }}
+                                <span>Posisi :</span>
+                                {{ Str::limit($p->posisi_magang, 55) }}
                             </div>
-
-                            <div class="r-card-row" style="margin-bottom:.8rem">
-                                <span>Tipe Magang :</span>
-                                {{ $p->status_magang === 'Paid' ? 'Onsite' : 'Remote' }}
-                                •
-                                {{ $p->status_magang }}
+                            
+                            <div class="r-card-row">
+                                <span>Benefit :</span>
+                                {{ Str::limit($p->benefit, 55) }}
+                            </div>
+                            
+                            <div class="r-card-row">
+                                <span>Provinsi :</span>
+                                {{ Str::limit($p->provinsi, 55) }}
+                            </div>
+                            <div class="r-card-row">
+                                <span>Kota :</span>
+                                {{ Str::limit($p->kota, 55) }}
                             </div>
 
                             <a href="{{ route('detail.perusahaan', $p->id) }}" class="btn-r-detail">
