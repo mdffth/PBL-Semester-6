@@ -129,6 +129,7 @@ def get_all_companies(cursor) -> list:
     cursor.execute("""
         SELECT id, name, min_ipk
         FROM perusahaan
+        WHERE status_magang = 'Active'
         """)
     return [{'id': r[0], 'name': r[1], 'min_ipk': float(r[2] or 0)} for r in cursor.fetchall()]
 

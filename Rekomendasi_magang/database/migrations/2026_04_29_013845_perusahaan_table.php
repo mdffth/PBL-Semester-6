@@ -20,7 +20,8 @@ return new class extends Migration
             $table->decimal('min_ipk', 3, 2)->default(0.00);
             $table->text('job_description')->nullable();
             $table->string('duration_months')->nullable();
-            $table->enum('status_magang', ['Paid', 'Unpaid'])->default('Unpaid');
+            $table->enum('status_magang', ['Active', 'Nonactive'])->default('Nonactive');
+            $table->enum('benefit', ['Paid', 'Unpaid'])->default('Unpaid');
             $table->string('logo')->nullable();
             $table->string('kota')->nullable();
             $table->string('provinsi')->nullable();

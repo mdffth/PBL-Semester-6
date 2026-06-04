@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,20 +9,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <style>
+     <style>
         *{
             box-sizing:border-box;
             margin:0;
             padding:0;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body{
             font-family:'Inter',sans-serif;
             background:#f4f6fb;
             color:#1a1a2e;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-/* NAVBAR */
+        /* WRAPPER untuk content yang flex */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAVBAR */
         .navbar { background: #1a1a6e; display: flex; align-items: center; justify-content: space-between; padding: .9rem 5%; position: sticky; top: 0; z-index: 100; }
         .navbar-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
         .brand-logo { width: 36px; height: 36px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1a1a6e; font-size: .85rem; }
@@ -31,84 +46,24 @@
         .nav-links a:hover, .nav-links a.active { color: #fff; }
         .nav-btn { background: #3b3bdb; color: #fff !important; padding: .5rem 1.3rem; border-radius: 8px; font-weight: 600 !important; }
         .nav-btn:hover { background: #2d2db8 !important; }
-        .nav-avatar { width: 34px; height: 34px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .9rem; cursor: pointer; }
-        /* TITLE */
-        .page-title-bar{
-            background:#fff;
-            border-bottom:1px solid #e8e8f0;
-            padding:1.5rem 5%;
-        }
 
-        .page-title-bar h1{
-            font-size:1.15rem;
-            font-weight:800;
-            color:#1a1a2e;
-        }
+        /* TITLE */
+        .page-title-bar { background: #fff; border-bottom: 1px solid #e8e8f0; padding: 1.5rem 5%; }
+        .page-title-bar h1 { font-size: 1.15rem; font-weight: 800; color: #1a1a2e; }
 
         /* FILTER */
-        .filter-bar{
-            background:#fff;
-            border-bottom:1px solid #e8e8f0;
-            padding:.9rem 5%;
-            display:flex;
-            align-items:center;
-            gap:.8rem;
-            flex-wrap:wrap;
-        }
-
-        .filter-icon{
-            color:#3b3bdb;
-            font-size:1rem;
-        }
-
-        .filter-select-wrap{
-            position:relative;
-        }
-
-        .filter-select{
-            appearance:none;
-            background:#fff;
-            border:1.5px solid #d0d0e8;
-            border-radius:20px;
-            padding:.45rem 2rem .45rem 1rem;
-            font-size:.85rem;
-            font-weight:600;
-            color:#1a1a2e;
-            cursor:pointer;
-            outline:none;
-            font-family:'Inter',sans-serif;
-        }
-
-        .filter-select-wrap::after{
-            content:'▾';
-            position:absolute;
-            right:.7rem;
-            top:50%;
-            transform:translateY(-50%);
-            color:#888;
-            font-size:.8rem;
-            pointer-events:none;
-        }
-
-        .btn-reset-filter{
-            background:#fff;
-            border:1.5px solid #d0d0e8;
-            border-radius:20px;
-            padding:.45rem 1rem;
-            text-decoration:none;
-            color:#555;
-            font-size:.85rem;
-            font-weight:600;
-        }
-
-        .btn-reset-filter:hover{
-            border-color:#3b3bdb;
-            color:#3b3bdb;
-        }
+        .filter-bar { background: #fff; border-bottom: 1px solid #e8e8f0; padding: .9rem 5%; display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+        .filter-icon { color: #3b3bdb; font-size: 1rem; }
+        .filter-select-wrap { position: relative; }
+        .filter-select { appearance: none; background: #fff; border: 1.5px solid #d0d0e8; border-radius: 20px; padding: .45rem 2rem .45rem 1rem; font-size: .85rem; font-weight: 600; color: #1a1a2e; cursor: pointer; outline: none; font-family: 'Inter', sans-serif; }
+        .filter-select-wrap::after { content: '▾'; position: absolute; right: .7rem; top: 50%; transform: translateY(-50%); color: #888; font-size: .8rem; pointer-events: none; }
+        .btn-reset-filter { background: #fff; border: 1.5px solid #d0d0e8; border-radius: 20px; padding: .45rem 1rem; text-decoration: none; color: #555; font-size: .85rem; font-weight: 600; }
+        .btn-reset-filter:hover { border-color: #3b3bdb; color: #3b3bdb; }
 
         /* CONTENT */
         .content-wrap{
             padding:1.5rem 5%;
+            flex: 1;
         }
 
         .result-info{
@@ -122,296 +77,142 @@
         }
 
         /* GRID */
-        .cards-grid{
-            display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:1.5rem;
-        }
+        .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 
         /* CARD */
-        .r-card{
-            background:#fff;
-            border-radius:16px;
-            overflow:hidden;
-            border:1.5px solid #e8e8f0;
-            box-shadow:0 2px 10px rgba(0,0,0,0.05);
-            transition:.25s;
-            position:relative;
-            display:flex;
-            flex-direction:column;
-        }
+        .r-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1.5px solid #e8e8f0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: .25s; position: relative; display: flex; flex-direction: column; }
+        .r-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,26,110,0.12); border-color: #3b3bdb; }
 
-        .r-card:hover{
-            transform:translateY(-4px);
-            box-shadow:0 12px 32px rgba(26,26,110,0.12);
-            border-color:#3b3bdb;
-        }
-
-        /* MATCH */
-        .r-card-match{
-            position:absolute;
-            top:.8rem;
-            right:.8rem;
-            z-index:5;
-            width:52px;
-            height:52px;
-            border-radius:50%;
-            background:#1a1a6e;
-            border:3px solid #fff;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            box-shadow:0 2px 8px rgba(0,0,0,0.25);
-        }
-
-        .r-card-match .pct{
-            font-size:.78rem;
-            font-weight:800;
-            color:#fff;
-        }
-
-        .r-card-match .lbl{
-            font-size:.52rem;
-            color:rgba(255,255,255,0.8);
-        }
+        /* MATCH BADGE */
+        .r-card-match { position: absolute; top: .8rem; right: .8rem; z-index: 5; width: 52px; height: 52px; border-radius: 50%; background: #1a1a6e; border: 3px solid #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+        .r-card-match .pct { font-size: .78rem; font-weight: 800; color: #fff; }
+        .r-card-match .lbl { font-size: .52rem; color: rgba(255,255,255,0.8); }
 
         /* IMAGE */
-        .r-card-img{
-            width:100%;
-            height:160px;
-            min-height:160px;
-            max-height:160px;
-            overflow:hidden;
-            position:relative;
-            background:#1a1a6e;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-        }
-
-        .r-card-img img{
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            object-position:center;
-            display:block;
-        }
-
-        .img-placeholder{
-            width:100%;
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:3rem;
-            color:rgba(255,255,255,0.3);
-        }
+        .r-card-img { width: 100%; height: 160px; min-height: 160px; max-height: 160px; overflow: hidden; position: relative; background: #1a1a6e; display: flex; align-items: center; justify-content: center; }
+        .r-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+        .img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(255,255,255,0.3); }
 
         /* BODY */
-        .r-card-body{
-            padding:1rem 1.1rem 1.2rem;
-            flex:1;
-            display:flex;
-            flex-direction:column;
-        }
-
-        .r-card-name{
-            font-size:.92rem;
-            font-weight:700;
-            color:#1a1a2e;
-            margin-bottom:.5rem;
-            line-height:1.3;
-        }
-
-        .r-card-row{
-            font-size:.78rem;
-            color:#555;
-            margin-bottom:.3rem;
-        }
-
-        .r-card-row span{
-            font-weight:600;
-            color:#333;
-        }
-
-        .btn-r-detail{
-            display:block;
-            text-align:center;
-            background:#1a1a6e;
-            color:#fff;
-            padding:.6rem;
-            border-radius:8px;
-            text-decoration:none;
-            font-size:.83rem;
-            font-weight:600;
-            margin-top:auto;
-        }
-
-        .btn-r-detail:hover{
-            background:#3b3bdb;
-        }
+        .r-card-body { padding: 1rem 1.1rem 1.2rem; flex: 1; display: flex; flex-direction: column; }
+        .r-card-name { font-size: .92rem; font-weight: 700; color: #1a1a2e; margin-bottom: .5rem; line-height: 1.3; }
+        .r-card-row { font-size: .78rem; color: #555; margin-bottom: .3rem; }
+        .r-card-row span { font-weight: 600; color: #333; }
+        .btn-r-detail { display: block; text-align: center; background: #1a1a6e; color: #fff; padding: .6rem; border-radius: 8px; text-decoration: none; font-size: .83rem; font-weight: 600; margin-top: auto; }
+        .btn-r-detail:hover { background: #3b3bdb; }
 
         /* PAGINATION */
-        .pagination{
-            display:flex;
-            justify-content:center;
-            gap:.5rem;
-            margin-top:2.5rem;
-            flex-wrap:wrap;
+        .pagination { display: flex; justify-content: center; gap: .5rem; margin-top: 2.5rem; flex-wrap: wrap; }
+        .pagination a, .pagination span { padding: .5rem .9rem; border-radius: 8px; font-size: .85rem; font-weight: 600; text-decoration: none; border: 1.5px solid #e0e0ea; color: #555; background: #fff; transition: all .2s; }
+        .pagination a:hover, .pagination .active { background: #1a1a6e; color: #fff; border-color: #1a1a6e; }
+        .pagination .disabled { color: #ccc; pointer-events: none; }
+
+        /* FOOTER */
+        footer {
+            background: #1a1a2e;
+            padding: 1.5rem 5%;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
         }
 
-        .pagination a,
-        .pagination span{
-            padding:.5rem .9rem;
-            border-radius:8px;
-            font-size:.85rem;
-            font-weight:600;
-            text-decoration:none;
-            border:1.5px solid #e0e0ea;
-            color:#555;
-            background:#fff;
-            transition:all .2s;
+        footer p {
+            font-size: .85rem;
+            color: rgba(255,255,255,0.5);
         }
 
-        .pagination a:hover,
-        .pagination .active{
-            background:#1a1a6e;
-            color:#fff;
-            border-color:#1a1a6e;
-        }
-
-        .pagination .disabled{
-            color:#ccc;
-            pointer-events:none;
-        }
-
-        @media(max-width:1000px){
-            .cards-grid{
-                grid-template-columns:repeat(2,1fr);
-            }
-        }
-
-        @media(max-width:640px){
-            .cards-grid{
-                grid-template-columns:1fr;
-            }
-        }
+        @media(max-width:1000px) { .cards-grid { grid-template-columns: repeat(2,1fr); } }
+        @media(max-width:640px)  { .cards-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 
 <body>
 
-<nav class="navbar">
-    <a href="{{ route('landing') }}" class="navbar-brand">
-        <div class="brand-logo">RI</div>
-        <span class="brand-name">RekomIn</span>
-    </a>
-    <ul class="nav-links">
-        <li><a href="{{ route('landing') }}" class="active">Home</a></li>
-        <li><a href="#perusahaan">Perusahaan</a></li>
-        <li>
-    <a href="{{ route('recommendation.index') }}" class="nav-btn">
-        Start Rekomendasi
-    </a>
-</li>
-        <!-- @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
-                    @auth
-                    <li>
-                        <a
-                            href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Dashboard
-                        </a>
-                    </li>
-                    @else
-                    <li>
-                        <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
-                        </a>
-                    </li>
-                        @if (Route::has('register'))
-                        <li>
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
-                            </a>
-                        </li>
-                        @endif
-                    @endauth
-                </nav>
-            @endif -->
-        {{-- <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li> --}}
-    </ul>
-</nav>
+    {{-- NAVBAR --}}
+    <nav class="navbar">
+        <a href="{{ route('landing') }}" class="navbar-brand">
+            <div class="brand-logo">RI</div>
+            <span class="brand-name">RekomIn</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="{{ route('landing') }}">Home</a></li>
+            <li><a href="{{ route('rekomendasi') }}" class="active">Perusahaan</a></li>
+            <li>
+                <a href="{{ route('recommendation.index') }}" class="nav-btn">
+                    Start Rekomendasi
+                </a>
+            </li>
+        </ul>
+    </nav>
 
-<div class="page-title-bar">
-    <h1>
-        Berdasarkan Profil Kamu, Berikut Merupakan Rekomendasi Magang Terbaik:
-    </h1>
-</div>
-
-<form method="GET" action="{{ route('rekomendasi') }}">
-
-    <div class="filter-bar">
-
+    {{-- TITLE --}}
+    <div class="page-title-bar">
+        <h1>Daftar Perusahaan yang Tersedia untuk Tempat Magang</h1>
+    </div>
+    
+    {{-- FILTER --}}
+    <form method="GET" action="{{ route('rekomendasi') }}">
+        
+        <div class="filter-bar">
         <i class="fas fa-filter filter-icon"></i>
 
-        {{-- FILTER JENIS --}}
+        {{-- Benefit --}}
         <div class="filter-select-wrap">
-
-            <select name="status_magang"
+            <select name="benefit"
                     class="filter-select"
                     onchange="this.form.submit()">
 
-                <option value="">Jenis</option>
+                <option value="">Benefit</option>
 
-                <option value="Paid"
-                    {{ request('status_magang') == 'Paid' ? 'selected' : '' }}>
-                    Paid
-                </option>
-
-                <option value="Unpaid"
-                    {{ request('status_magang') == 'Unpaid' ? 'selected' : '' }}>
-                    Unpaid
-                </option>
-
-            </select>
-
-        </div>
-
-        {{-- FILTER LOKASI --}}
-        <div class="filter-select-wrap">
-
-            <select name="tipe_industri"
-                    class="filter-select"
-                    onchange="this.form.submit()">
-
-                <option value="">Lokasi</option>
-
-                @foreach($tipeIndustri ?? [] as $tipe)
-
-                    <option value="{{ $tipe }}"
-                        {{ request('tipe_industri') == $tipe ? 'selected' : '' }}>
-
-                        {{ Str::limit($tipe, 30) }}
-
+                @foreach($benefitList as $benefit)
+                    <option value="{{ $benefit }}"
+                        {{ request('benefit') == $benefit ? 'selected' : '' }}>
+                        {{ $benefit }}
                     </option>
-
                 @endforeach
 
             </select>
-
         </div>
 
-        {{-- RESET --}}
-        <a href="{{ route('rekomendasi') }}" class="btn-reset-filter">
+        {{-- Provinsi --}}
+        <div class="filter-select-wrap">
+            <select name="provinsi"
+                    class="filter-select"
+                    onchange="this.form.submit()">
+
+                <option value="">Provinsi</option>
+
+                @foreach($provinsiList as $provinsi)
+                    <option value="{{ $provinsi }}"
+                        {{ request('provinsi') == $provinsi ? 'selected' : '' }}>
+                        {{ $provinsi }}
+                    </option>
+                @endforeach
+
+            </select>
+        </div>
+
+        {{-- Kota --}}
+        <div class="filter-select-wrap">
+            <select name="kota"
+                    class="filter-select"
+                    onchange="this.form.submit()">
+
+                <option value="">Kota</option>
+
+                @foreach($kotaList as $kota)
+                    <option value="{{ $kota }}"
+                        {{ request('kota') == $kota ? 'selected' : '' }}>
+                        {{ $kota }}
+                    </option>
+                @endforeach
+
+            </select>
+        </div>
+
+        {{-- Reset --}}
+        <a href="{{ route('rekomendasi') }}"
+            class="btn-reset-filter">
             Reset
         </a>
 
@@ -419,165 +220,178 @@
 
 </form>
 
-<div class="content-wrap">
+    {{-- CONTENT --}}
+    <div class="content-wrap">
 
-    <p class="result-info">
-        Menampilkan
-        <strong>{{ $perusahaan->count() }}</strong>
-        dari
-        <strong>{{ $totalPerusahaan }}</strong>
-        hasil rekomendasi
-    </p>
+        <p class="result-info">
+            Menampilkan
+            <strong>{{ $perusahaan->count() }}</strong>
+            dari
+            <strong>{{ $totalPerusahaan }}</strong>
+            hasil rekomendasi
+        </p>
 
-    @if($perusahaan->count() > 0)
+        @if ($perusahaan->count() > 0)
 
-    @php
-        $gradients = [
-            'linear-gradient(135deg,#1a1a6e,#3b3bdb)',
-            'linear-gradient(135deg,#0f4c75,#1b6ca8)',
-            'linear-gradient(135deg,#1a5276,#2980b9)',
-            'linear-gradient(135deg,#154360,#1a5276)',
-            'linear-gradient(135deg,#212f3c,#2e4057)',
-            'linear-gradient(135deg,#0d1b2a,#1b3a5c)',
-        ];
+            @php
+                $fotoPerusahaan = [
+                    'Ariverse Studio (PT Studio Karya Semesta)'                                          => 'Ariverse.jpg',
+                    'Atria Hotel Malang'                                                                  => 'Atria.jpg',
+                    'CV DB KLIK'                                                                          => 'Db Klik.jpg',
+                    'CV Harsyad Utama (Harsyad Teknologi)'                                               => 'Harsyad.jpg',
+                    'DOT Indonesia'                                                                       => 'dot.jpg',
+                    'Humas POLINEMA'                                                                      => 'polinema.jpg',
+                    'Oyitok Group'                                                                        => 'Oyi.jpg',
+                    'Pengembangan Platform Satu Peta Jatim - Batch 2'                                    => 'Peta.jpg',
+                    'Pengembangan Platform Satu Peta Jatim - PT Link Apisindo Media & Dinas Kominfo Jatim' => 'Peta.jpg',
+                    'Pengembangan SIPP - PT Link Apisindo Media & Dinas LH Kota Batu'                   => 'DLH.jpg',
+                    'Politeknik Batu'                                                                     => 'PoltekBatu.jpg',
+                    'PT Alfath Corporation'                                                               => 'Alfath.jpg',
+                    'PT ARM Solusi'                                                                       => 'ARM.jpg',
+                    'PT Dutakom Wibawa Putra'                                                             => 'd-net.jpg',
+                    'PT Green Energi Utama'                                                               => 'Green.jpg',
+                    'PT Indoprima Gemilang'                                                               => 'PT Indo.jpg',
+                    'PT Industri Kereta Api / PT INKA (Persero)'                                         => 'inka.jpg',
+                    'PT Intelix Global Crossing'                                                          => 'Intelix.jpg',
+                    'PT JST Indonesia'                                                                    => 'JST.jpg',
+                    'PT Maxchat Inovasi Indonesia'                                                        => 'MaxChat.jpg',
+                    'PT PAL Indonesia (Persero)'                                                          => 'PAL.jpg',
+                    'PT Peruri Wira Timur'                                                                => 'Peruri.jpg',
+                    'PT Rekaindo Global Jasa'                                                             => 'Reka.jpg',
+                    'PT Sekuriti Siber Indonesia'                                                         => 'Siber.jpg',
+                    'PT Time Door Indonesia'                                                              => 'Time.jpg',
+                    'PT UTERO KREATIF INDONESIA'                                                          => 'Utero.jpg',
+                    'Sarastya Agility Innovations'                                                        => 'Sarastya.jpg',
+                    'The Himana Hotel & Mall Malang City Point'                                           => 'Hotel.jpg',
+                    'UPA Bahasa Polinema'                                                                 => 'polinema.jpg',
+                    'Wakil Direktur 4 Politeknik Negeri Malang'                                          => 'polinema.jpg',
+                ];
 
-        $matchScores = [98,95,90,87,85,82,80,78,75,72,70];
+                $gradients = [
+                    'linear-gradient(135deg,#1a1a6e,#3b3bdb)',
+                    'linear-gradient(135deg,#0f4c75,#1b6ca8)',
+                    'linear-gradient(135deg,#1a5276,#2980b9)',
+                    'linear-gradient(135deg,#154360,#1a5276)',
+                    'linear-gradient(135deg,#212f3c,#2e4057)',
+                    'linear-gradient(135deg,#0d1b2a,#1b3a5c)',
+                ];
 
-    @endphp
+                $matchScores = [98, 95, 90, 87, 85, 82, 80, 78, 75, 72, 70];
+            @endphp
 
-    <div class="cards-grid">
+            <div class="cards-grid">
+                @foreach ($perusahaan as $i => $p)
+                    @php
+                        $score = $matchScores[$i] ?? 70;
+                        $grad  = $gradients[$i % count($gradients)];
+                        $foto  = $fotoPerusahaan[$p->name] ?? null;
 
-        @foreach($perusahaan as $i => $p)
+                        $lokasi = 'Malang';
+                        $ti     = strtolower($p->tipe_industri ?? '');
 
-        @php
+                        if (str_contains($ti, 'jakarta'))       { $lokasi = 'Jakarta'; }
+                        elseif (str_contains($ti, 'surabaya'))  { $lokasi = 'Surabaya'; }
+                        elseif (str_contains($ti, 'bali'))      { $lokasi = 'Bali'; }
+                        elseif (str_contains($ti, 'bandung'))   { $lokasi = 'Bandung'; }
+                    @endphp
 
-            // $score = $matchScores[$i] ?? 70;
+                    <div class="r-card">
 
-            $grad = $gradients[$i % count($gradients)];
+                        {{-- MATCH BADGE --}}
+                        <div class="r-card-match">
+                            <div class="pct">{{ $score }}%</div>
+                            <div class="lbl">Match</div>
+                        </div>
 
-            // $foto = $fotoPerusahaan[$p->name] ?? null;
+                        {{-- IMAGE --}}
+                        <div class="r-card-img" style="background: {{ $grad }}">
+                            @if ($foto)
+                                <img src="{{ asset('img/perusahaan/' . $foto) }}" alt="{{ $p->name }}">
+                            @else
+                                <div class="img-placeholder">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                            @endif
+                        </div>
 
-            $lokasi = 'Malang';
+                        {{-- BODY --}}
+                        <div class="r-card-body">
+                            <div class="r-card-name">{{ $p->name }}</div>
 
-            $ti = strtolower($p->tipe_industri ?? '');
+                            <div class="r-card-row">
+                                <span>Tipe Industri:</span>
+                                {{ Str::limit($p->tipe_industri, 55) }}
+                            </div>
 
-            if(str_contains($ti,'jakarta')){
-                $lokasi = 'Jakarta';
-            }
-            elseif(str_contains($ti,'surabaya')){
-                $lokasi = 'Surabaya';
-            }
-            elseif(str_contains($ti,'bali')){
-                $lokasi = 'Bali';
-            }
-            elseif(str_contains($ti,'bandung')){
-                $lokasi = 'Bandung';
-            }
+                            <div class="r-card-row">
+                                <span>Posisi :</span>
+                                {{ Str::limit($p->posisi_magang, 55) }}
+                            </div>
+                            
+                            <div class="r-card-row">
+                                <span>Benefit :</span>
+                                {{ Str::limit($p->benefit, 55) }}
+                            </div>
+                            
+                            <div class="r-card-row">
+                                <span>Provinsi :</span>
+                                {{ Str::limit($p->provinsi, 55) }}
+                            </div>
+                            <div class="r-card-row">
+                                <span>Kota :</span>
+                                {{ Str::limit($p->kota, 55) }}
+                            </div>
 
-        @endphp
+                            <a href="{{ route('detail.perusahaan', $p->id) }}" class="btn-r-detail">
+                                Lihat Detail
+                            </a>
+                        </div>
 
-<div class="r-card">
-
-    {{-- IMAGE --}}
-    <div class="r-card-img" style="background: {{ $grad }}">
-        @if($p->logo)
-            <img src="{{ asset($p->logo) }}" alt="{{ $p->name }}">
-        @else
-            <div class="img-placeholder">
-                <i class="fas fa-building"></i>
+                    </div>
+                @endforeach
             </div>
-        @endif
-    </div>
 
-            {{-- BODY --}}
-            <div class="r-card-body">
+            {{-- PAGINATION --}}
+            <div class="pagination">
 
-                <div class="r-card-name">
-                    {{ $p->name }}
-                </div>
+                {{-- PREV --}}
+                @if ($perusahaan->onFirstPage())
+                    <span class="disabled">‹ Prev</span>
+                @else
+                    <a href="{{ $perusahaan->previousPageUrl() }}">‹ Prev</a>
+                @endif
 
-                <!-- <div class="r-card-row">
-                    <span>Fokus :</span>
-                    {{ Str::limit($p->posisi_magang, 55) }}
-                </div> -->
+                {{-- NUMBER --}}
+                @for ($i = 1; $i <= $perusahaan->lastPage(); $i++)
+                    <a href="{{ $perusahaan->url($i) }}"
+                       class="{{ $i == $perusahaan->currentPage() ? 'active' : '' }}">
+                        {{ $i }}
+                    </a>
+                @endfor
 
-                <div class="r-card-row">
-                    <span>Lokasi :</span>
-                    {{ $lokasi }}
-                </div>
-
-                <div class="r-card-row" style="margin-bottom:.8rem">
-                    <span>Tipe Magang :</span>
-
-                    {{ $p->status_magang === 'Paid' ? 'Onsite' : 'Remote' }}
-                    •
-                    {{ $p->status_magang }}
-                </div>
-
-                <a href="{{ route('detail.perusahaan', $p->id) }}"
-                class="btn-r-detail">
-                    Lihat Detail
-                </a>
+                {{-- NEXT --}}
+                @if ($perusahaan->hasMorePages())
+                    <a href="{{ $perusahaan->nextPageUrl() }}">Next ›</a>
+                @else
+                    <span class="disabled">Next ›</span>
+                @endif
 
             </div>
 
-        </div>
-
-        @endforeach
-
-    </div>
-
-    {{-- PAGINATION --}}
-    <div class="pagination">
-
-        {{-- PREV --}}
-        @if($perusahaan->onFirstPage())
-
-            <span class="disabled">‹ Prev</span>
-
         @else
-
-            <a href="{{ $perusahaan->previousPageUrl() }}">
-                ‹ Prev
-            </a>
-
-        @endif
-
-        {{-- NUMBER --}}
-        @for($i = 1; $i <= $perusahaan->lastPage(); $i++)
-
-            <a href="{{ $perusahaan->url($i) }}"
-               class="{{ $i == $perusahaan->currentPage() ? 'active' : '' }}">
-
-                {{ $i }}
-
-            </a>
-
-        @endfor
-
-        {{-- NEXT --}}
-        @if($perusahaan->hasMorePages())
-
-            <a href="{{ $perusahaan->nextPageUrl() }}">
-                Next ›
-            </a>
-
-        @else
-
-            <span class="disabled">Next ›</span>
-
+            <p style="text-align:center; color:#888; padding: 3rem 0;">
+                Tidak ada perusahaan yang sesuai filter.
+            </p>
         @endif
 
     </div>
 
-    @endif
+    {{-- FOOTER --}}
+    <footer style="background:#1a1a2e; padding:1.5rem 5%; text-align:center; margin-top:3rem;">
+        <p style="font-size:.85rem; color:rgba(255,255,255,0.5);">
+            &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
+        </p>
+    </footer>
 
-</div>
-<!-- FOOTER -->
-<footer style="background:#1a1a2e; padding:1.5rem 5%; text-align:center; margin-top:3rem;">
-    <p style="font-size:.85rem; color:rgba(255,255,255,0.5);">
-        &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
-    </p>
-</footer>
 </body>
 </html>
