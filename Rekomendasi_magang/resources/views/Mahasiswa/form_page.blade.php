@@ -28,40 +28,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
         }
 
-        .step-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .step-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0242C4;
-        }
-
-        .step-percent {
-            color: #7C8299;
-            font-size: 16px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: #E5E7EB;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 35px;
-        }
-
-        .progress-fill {
-            width: 50%;
-            height: 100%;
-            background: #0242C4;
-            border-radius: 20px;
-        }
-
         .card {
             border: 1px solid #E5E7EB;
             border-radius: 14px;
@@ -180,20 +146,6 @@
 <body>
 
 <div class="container">
-
-    <div class="step-header">
-        <div class="step-title">
-            STEP 1 OF 2: YOUR PROFILE
-        </div>
-
-        <div class="step-percent">
-            50% Complete
-        </div>
-    </div>
-
-    <div class="progress-bar">
-        <div class="progress-fill"></div>
-    </div>
 
     <div class="card">
 
