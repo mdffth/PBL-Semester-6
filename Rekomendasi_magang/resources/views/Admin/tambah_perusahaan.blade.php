@@ -42,8 +42,8 @@
     @endif
 
 <form action="{{ isset($perusahaan)
-        ? route('dashboard.update', $perusahaan->id)
-        : route('dashboard.store') }}"
+        ? route('perusahaan.update', $perusahaan->id)
+        : route('perusahaan.store') }}"
         
       method="POST"
       enctype="multipart/form-data">
@@ -386,7 +386,7 @@
 
             <div>
 
-                <a href="{{ route('dashboard.index') }}"
+                <a href="{{ route('perusahaan.index') }}"
                    class="btn btn-outline">
 
                     Cancel

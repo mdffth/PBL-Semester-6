@@ -8,6 +8,8 @@ use App\Models\Skill;
 use App\Models\Technology;
 use App\Models\MinatBidang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class DashboardController extends Controller
 {
@@ -31,6 +33,41 @@ class DashboardController extends Controller
             'Nonactive'
         )->count();
 
+        // TOP 5 MINAT BIDANG
+
+        $topMinat = DB::table('minat_bidang')
+            ->join(
+                'perusahaan_posisi',
+                'minat_bidang.id',
+                '=',
+                'perusahaan_posisi.minat_bidang_id'
+            )
+            ->select(
+                'minat_bidang.name',
+                DB::raw('COUNT(*) as total')
+            )
+            ->groupBy('minat_bidang.id', 'minat_bidang.name')
+            ->orderByDesc('total')
+            ->limit(5)
+            ->get();
+
+        $labels = $topMinat->pluck('name');
+        $data = $topMinat->pluck('total');
+
+        // PERUSAHAAN BERDASARKAN INDUSTRI
+
+        $industriChart = Perusahaan::select(
+                'tipe_industri',
+                DB::raw('COUNT(*) as total')
+            )
+            ->groupBy('tipe_industri')
+            ->orderByDesc('total')
+            ->limit(5)
+            ->get();
+
+        $industriLabels = $industriChart->pluck('tipe_industri');
+        $industriData = $industriChart->pluck('total');
+
         $query = Perusahaan::query();
 
         if ($request->filter == 'active') {
@@ -50,7 +87,13 @@ class DashboardController extends Controller
             'totalPerusahaan',
             'lowonganAktif',
             'lowonganTutup',
-            'perusahaan'
+            'perusahaan',
+
+            'labels',
+            'data',
+
+            'industriLabels',
+            'industriData'
         ));
     }
 

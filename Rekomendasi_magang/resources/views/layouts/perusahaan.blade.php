@@ -312,97 +312,89 @@
                 border-bottom:1px solid #ECECEC;
             }
 
-/* ================= STATS ================= */
+            /* ================= STATS ================= */
 
-.stats{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
-    margin-bottom: 18px;
-}
+            .stats{
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 22px;
+                /* margin-bottom: 18px; */
+            }
 
-.stat-link{
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
+            .stat-link{
+                text-decoration: none;
+                color: inherit;
+                display: block;
+            }
 
-.stat-card{
-    padding: 18px !important;
+            .stat-card{
+                padding: 21px !important;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
 
-    gap: 5px;
-    cursor: pointer;
-}
+                gap: 5px;
+                cursor: pointer;
+            }
 
-.stat-header{
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
+            .stat-header{
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
 
-.stat-icon{
-    width: 54px;
-    height: 54px;
-    border-radius: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-}
+            .stat-icon{
+                width: 54px;
+                height: 54px;
+                border-radius: 18px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 20px;
+            }
 
-.blue{
-    background: #EEF2FF;
-    color: #4338CA;
-}
+            .blue{
+                background: #EEF2FF;
+                color: #4338CA;
+            }
 
-.green{
-    background: #DCFCE7;
-    color: #16A34A;
-}
+            .green{
+                background: #DCFCE7;
+                color: #16A34A;
+            }
 
-.red{
-    background: #FEE2E2;
-    color: #DC2626;
-}
+            .red{
+                background: #FEE2E2;
+                color: #DC2626;
+            }
 
-.stat-label{
-    font-size: 14px;
-    font-weight: 700;
-    color: #767587;
-    letter-spacing: 1px;
-}
+            .stat-label{
+                font-size: 14px;
+                font-weight: 700;
+                color: #767587;
+                letter-spacing: 1px;
+            }
 
-.stat-number{
-    font-size: 42px;
-    font-weight: 800;
-}
+            .stat-number{
+                font-size: 42px;
+                font-weight: 800;
+            }
 
-.stat-footer{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+            .stat-footer{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
 
-/* CARD YANG SEDANG AKTIF */
+            /* hover stat */
 
-.active-card{
-    transform: scale(1.02);
-    box-shadow: 0 10px 20px rgba(30, 58, 138, 0.12);
-}
-
-.active-card .stat-label{
-    color: #1E3A8A;
-}
-
-.active-card .stat-number{
-    color: #1E3A8A;
-}
+            .stat-card:hover{
+                transform: translateY(-4px);
+                box-shadow: 0 10px 20px rgba(30, 58, 138, 0.12);
+            }
             
             /* ================= FORM ================= */
             .form-row{
@@ -462,8 +454,9 @@
             }
 
             .table-title{
-                font-size: 28px;
-                font-weight:800;
+                font-size: 18px;
+                font-weight:600;
+                color: #7b7b89;
             }
 
             .search-box{
@@ -644,7 +637,8 @@
 
             .switch-toggle input:checked + .switch-slider::before{
                 transform:translateX(24px);
-            }           
+            } 
+
             /* ================= ACTION BUTTON ================= */
             .action-buttons{
                 display:flex;
@@ -1195,6 +1189,62 @@
                 display:none;
             }
         }
+
+        /* =========================
+        CHART GRID
+        ========================= */
+
+        .chart-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:20px;
+        }
+
+        /* =========================
+        CARD CHART
+        ========================= */
+
+        .dashboard-chart-header{
+            padding:4px 0px;
+            border-bottom:1px solid #e5e7eb;
+        }
+
+        .dashboard-chart-header h3{
+            margin:0;
+            font-size:26px;
+            font-weight:800;
+            color:#111827;
+        }
+
+        .dashboard-chart-body{
+            padding:20px;
+            height:350px;
+        }
+
+        /* =========================
+        BAR CHART
+        ========================= */
+
+        .dashboard-chart-container{
+            width:100%;
+            height:100%;
+            position:relative;
+        }
+
+        /* =========================
+        DOUGHNUT CHART
+        ========================= */
+
+        .industry-wrapper{
+            width:100%;
+            height:100%;
+        }
+
+        .industry-chart{
+            width:100%;
+            height:100%;
+            position:relative;
+        }
         </style>
         
         @stack('styles')
@@ -1224,10 +1274,18 @@
                             <span class="menu-text">Dashboard</span>
                         </a>
 
-                        <a href="{{ route('dashboard.create') }}"
-                        class="menu-item {{ request()->routeIs('dashboard.create') ? 'active' : '' }}">
+                        <a href="{{ route('perusahaan.index') }}"
+                        class="menu-item {{ request()->routeIs('perusahaan.index') ? 'active' : '' }}">
                             <div class="menu-icon">
                                 <i class="fa-solid fa-building"></i>
+                            </div>
+                            <span class="menu-text">Daftar Perusahaan</span>
+                        </a>
+
+                        <a href="{{ route('perusahaan.create') }}"
+                        class="menu-item {{ request()->routeIs('perusahaan.create') ? 'active' : '' }}">
+                            <div class="menu-icon">
+                                <i class="fa-solid fa-plus"></i>
                             </div>
                             <span class="menu-text">Tambah Perusahaan</span>
                         </a>
