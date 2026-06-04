@@ -348,7 +348,8 @@ class DashboardController extends Controller
         $perusahaan = Perusahaan::with([
             'skills',
             'technologies',
-            'minatBidang'
+            'minatBidang',
+            'benefit'
         ])->findOrFail($id);
 
         return view('Admin.detail_perusahaan', compact('perusahaan'));
