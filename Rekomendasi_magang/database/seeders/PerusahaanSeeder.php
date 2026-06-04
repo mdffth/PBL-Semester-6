@@ -410,7 +410,7 @@ class PerusahaanSeeder extends Seeder
 
         foreach ($data as $item) {
             DB::table('perusahaan')->insert(array_merge($item, [
-                'duration_months' => '3 - 6',
+                'duration_months' => '6',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]));
