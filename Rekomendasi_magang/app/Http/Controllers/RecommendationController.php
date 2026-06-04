@@ -102,10 +102,10 @@ class RecommendationController extends Controller
         }
 
         if ($benefit) {
-            $query->whereHas('perusahaan', function ($q) use ($benefit) {
-                $q->where('benefit', 'like', "%{$benefit}%");
-            });
-        }
+    $query->whereHas('perusahaan', function ($q) use ($benefit) {
+        $q->where('benefit', $benefit);
+    });
+}
         
         if ($provinsi) {
             $query->whereHas('perusahaan', function ($q) use ($provinsi) {
