@@ -7,6 +7,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
         *{
@@ -580,77 +581,82 @@
     </ul>
 </nav>
 
-    <div class="content-wrap">
+    {{-- TITLE --}}
+    <div class="page-title-bar">
+        <h1>Hasil Rekomendasi Perusahaan Magang</h1>
+    </div>
 
-        {{-- TITLE --}}
-        <div class="page-title-bar">
-            <h1>Hasil Rekomendasi Perusahaan Magang</h1>
+    {{-- FILTER --}}
+    <form method="GET" action="{{ route('recommendation.result') }}">
+
+        <div class="filter-bar">
+        <i class="fas fa-filter filter-icon"></i>
+
+        {{-- Filter Benefit --}}
+        <div class="filter-select-wrap">
+            <select name="benefit"
+                    class="filter-select"
+                    onchange="this.form.submit()">
+
+                <option value="">Benefit</option>
+
+                @foreach($benefitList as $benefit)
+                    <option value="{{ $benefit }}"
+                        {{ request('benefit') == $benefit ? 'selected' : '' }}>
+                        {{ $benefit }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
-         {{-- FILTER  --}}
-         <form method="GET" action="{{ route('recommendation.result') }}">
-            <i class="fas fa-filter filter-icon"></i>
-            <div class="filter-bar">
+        {{-- Filter Provinsi --}}
+        <div class="filter-select-wrap">
+            <select name="provinsi"
+                    class="filter-select"
+                    onchange="this.form.submit()">
 
-                {{-- Filter Benefit --}}
-                <div class="filter-select-wrap">
-                    <select name="benefit"
-                            class="filter-select"
-                            onchange="this.form.submit()">
+                <option value="">Provinsi</option>
 
-                        <option value="">Benefit</option>
+                @foreach($provinsiList as $provinsi)
+                    <option value="{{ $provinsi }}"
+                        {{ request('provinsi') == $provinsi ? 'selected' : '' }}>
+                        {{ $provinsi }}
+                    </option>
+                @endforeach
 
-                        @foreach($benefitList as $benefit)
-                            <option value="{{ $benefit }}">
-                                {{ $benefit }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+            </select>
+        </div>
 
-                {{-- Filter Provinsi --}}
-                <div class="filter-select-wrap">
-                    <select name="provinsi"
-                        class="filter-select"
-                        onchange="this.form.submit()">
+        {{-- Filter Kota --}}
+        <div class="filter-select-wrap">
+            <select name="kota"
+                    class="filter-select"
+                    onchange="this.form.submit()">
 
-                        <option value="">Provinsi</option>
+                <option value="">Kota</option>
 
-                        @foreach($provinsiList as $provinsi)
-                            <option value="{{ $provinsi }}"
-                                {{ request('provinsi') == $provinsi ? 'selected' : '' }}>
-                                {{ $provinsi }}
-                            </option>
-                        @endforeach
+                @foreach($kotaList as $kota)
+                    <option value="{{ $kota }}"
+                        {{ request('kota') == $kota ? 'selected' : '' }}>
+                        {{ $kota }}
+                    </option>
+                @endforeach
 
-                    </select>
-                </div>
-                {{-- Filter Kota --}}
-                <div class="filter-select-wrap">
-                    <select name="kota"
-                        class="filter-select"
-                        onchange="this.form.submit()">
+            </select>
+        </div>
 
-                        <option value="">Kota</option>
+        {{-- Reset Filter --}}
+        <a href="{{ route('recommendation.result') }}"
+            class="btn-reset-filter">
+            Reset
+        </a>
 
-                        @foreach($kotaList as $kota)
-                            <option value="{{ $kota }}"
-                                {{ request('kota') == $kota ? 'selected' : '' }}>
-                                {{ $kota }}
-                            </option>
-                        @endforeach
+    </div>
 
-                    </select>
-                </div>
+</form>
 
-                {{-- Reset Filter --}}
-                <a href="{{ route('recommendation.result') }}"
-                    class="btn-reset-filter">
-                    Reset 
-                </a>
-
-            </div>
-        </form>
+    {{-- CONTENT --}}
+    <div class="content-wrap">
 
         <p class="result-info">
             Menampilkan
