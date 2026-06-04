@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
+
         *{
             margin: 0;
             padding: 0;
@@ -223,27 +224,12 @@
             gap: 20px;
         } */
 
-        @media(max-width: 992px){
-            .container{
-                grid-template-columns: 1fr;
-            }
-
-            .company-title{
-                font-size: 30px;
-            }
-
-            .section-title{
-                font-size: 24px;
-            }
-
-            .sidebar-title{
-                font-size: 22px;
-            }
-
-            .navbar{
-                flex-direction: column;
-                gap: 15px;
-            }
+         @media(max-width: 900px) {
+            .hero-right { display: none; }
+            .langkah-grid, .perusahaan-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media(max-width: 600px) {
+            .langkah-grid, .perusahaan-grid { grid-template-columns: 1fr; }
         }
 
     </style>
@@ -345,6 +331,7 @@
 
             <!-- PROFILE -->
             <div class="card">
+
                 <div class="section-title">
                     Profil Perusahaan
                 </div>
@@ -357,6 +344,7 @@
 
             <!-- JOB DESCRIPTION -->
             <div class="card">
+
                 <div class="section-title">
                     Detailed Job Description
                 </div>
@@ -539,17 +527,9 @@
 
                 </div>
 
-                @php
-                    $googleFormBase = 'https://docs.google.com/forms/d/e/1FAIpQLScVNUm4Nit-0VnPf7CbuzrDDEAL2nr2mL9IhYSQjNeeTA06tw/viewform?usp=pp_url';
-                    $entryPerusahaan = 'entry.600353513'; // ganti dengan entry dari Google Form kamu
-                @endphp
-
-                <a href="{{ $googleFormBase }}&{{ $entryPerusahaan }}={{ urlencode($perusahaan->name) }}"
-                target="_blank"
-                class="apply-btn"
-                style="display:block; text-align:center; text-decoration:none;">
+                <button class="apply-btn">
                     Daftar / Apply →
-                </a>
+                </button>
 
             </div>
 
@@ -567,6 +547,7 @@
                 <p>
                     Visit Help Center
                 </p>
+
             </div>
 
         </div>

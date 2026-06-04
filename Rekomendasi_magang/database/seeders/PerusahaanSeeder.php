@@ -38,7 +38,6 @@ class PerusahaanSeeder extends Seeder
                 'kota' => 'Malang',
                 'provinsi' => 'Jawa Timur',
                 'alamat' => 'Jl. Raya Kelampok Kawasan Ekonomi Khusus (KEK) Singhasari, A17, 18, Klampok, Singosari',
-
                 'logo' => 'img/perusahaan/DLH.jpg'
             ],
             [

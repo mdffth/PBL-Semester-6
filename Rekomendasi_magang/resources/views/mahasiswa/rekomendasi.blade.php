@@ -15,10 +15,24 @@
             padding:0;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body{
             font-family:'Inter',sans-serif;
             background:#f4f6fb;
             color:#1a1a2e;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* WRAPPER untuk content yang flex */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
 /* NAVBAR */
@@ -109,6 +123,7 @@
         /* CONTENT */
         .content-wrap{
             padding:1.5rem 5%;
+            flex: 1;
         }
 
         .result-info{
@@ -286,6 +301,20 @@
             pointer-events:none;
         }
 
+        /* FOOTER */
+        footer {
+            background: #1a1a2e;
+            padding: 1.5rem 5%;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: .85rem;
+            color: rgba(255,255,255,0.5);
+        }
+
         @media(max-width:1000px){
             .cards-grid{
                 grid-template-columns:repeat(2,1fr);
@@ -315,45 +344,14 @@
         Start Rekomendasi
     </a>
 </li>
-        <!-- @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
-                    @auth
-                    <li>
-                        <a
-                            href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Dashboard
-                        </a>
-                    </li>
-                    @else
-                    <li>
-                        <a
-                            href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
-                        </a>
-                    </li>
-                        @if (Route::has('register'))
-                        <li>
-                            <a
-                                href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
-                            </a>
-                        </li>
-                        @endif
-                    @endauth
-                </nav>
-            @endif -->
-        {{-- <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li> --}}
     </ul>
 </nav>
 
+<div class="main-wrapper">
+
 <div class="page-title-bar">
     <h1>
-        Berdasarkan Profil Kamu, Berikut Merupakan Rekomendasi Magang Terbaik:
+     Berikut Merupakan Perusahaan Yang Membuka Lowongan Magang:
     </h1>
 </div>
 
@@ -570,14 +568,22 @@
 
     </div>
 
+    @else
+
+    <div style="text-align: center; padding: 3rem 1rem;">
+        <p style="color: #888; font-size: 1rem;">Tidak ada hasil rekomendasi yang sesuai dengan filter Anda.</p>
+    </div>
+
     @endif
 
 </div>
+
+</div>
+
 <!-- FOOTER -->
-<footer style="background:#1a1a2e; padding:1.5rem 5%; text-align:center; margin-top:3rem;">
-    <p style="font-size:.85rem; color:rgba(255,255,255,0.5);">
-        &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
-    </p>
+<footer>
+    <p>&copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.</p>
 </footer>
+
 </body>
 </html>
