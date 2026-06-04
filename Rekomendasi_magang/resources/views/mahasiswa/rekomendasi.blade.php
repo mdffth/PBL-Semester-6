@@ -89,7 +89,7 @@
         .r-card-match .lbl { font-size: .52rem; color: rgba(255,255,255,0.8); }
 
         /* IMAGE */
-        .r-card-img { width: 100%; height: 160px; min-height: 160px; max-height: 160px; overflow: hidden; position: relative; background: #1a1a6e; display: flex; align-items: center; justify-content: center; }
+        .r-card-img { width: 100%; height: 160px; min-height: 160px; max-height: 160px; overflow: hidden; position: relative; background: linear-gradient(135deg,#1a1a6e,#3b3bdb); display: flex; align-items: center; justify-content: center; }
         .r-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
         .img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(255,255,255,0.3); }
 
@@ -233,80 +233,15 @@
 
         @if ($perusahaan->count() > 0)
 
-            @php
-                $fotoPerusahaan = [
-                    'Ariverse Studio (PT Studio Karya Semesta)'                                          => 'Ariverse.jpg',
-                    'Atria Hotel Malang'                                                                  => 'Atria.jpg',
-                    'CV DB KLIK'                                                                          => 'Db Klik.jpg',
-                    'CV Harsyad Utama (Harsyad Teknologi)'                                               => 'Harsyad.jpg',
-                    'DOT Indonesia'                                                                       => 'dot.jpg',
-                    'Humas POLINEMA'                                                                      => 'polinema.jpg',
-                    'Oyitok Group'                                                                        => 'Oyi.jpg',
-                    'Pengembangan Platform Satu Peta Jatim - Batch 2'                                    => 'Peta.jpg',
-                    'Pengembangan Platform Satu Peta Jatim - PT Link Apisindo Media & Dinas Kominfo Jatim' => 'Peta.jpg',
-                    'Pengembangan SIPP - PT Link Apisindo Media & Dinas LH Kota Batu'                   => 'DLH.jpg',
-                    'Politeknik Batu'                                                                     => 'PoltekBatu.jpg',
-                    'PT Alfath Corporation'                                                               => 'Alfath.jpg',
-                    'PT ARM Solusi'                                                                       => 'ARM.jpg',
-                    'PT Dutakom Wibawa Putra'                                                             => 'd-net.jpg',
-                    'PT Green Energi Utama'                                                               => 'Green.jpg',
-                    'PT Indoprima Gemilang'                                                               => 'PT Indo.jpg',
-                    'PT Industri Kereta Api / PT INKA (Persero)'                                         => 'inka.jpg',
-                    'PT Intelix Global Crossing'                                                          => 'Intelix.jpg',
-                    'PT JST Indonesia'                                                                    => 'JST.jpg',
-                    'PT Maxchat Inovasi Indonesia'                                                        => 'MaxChat.jpg',
-                    'PT PAL Indonesia (Persero)'                                                          => 'PAL.jpg',
-                    'PT Peruri Wira Timur'                                                                => 'Peruri.jpg',
-                    'PT Rekaindo Global Jasa'                                                             => 'Reka.jpg',
-                    'PT Sekuriti Siber Indonesia'                                                         => 'Siber.jpg',
-                    'PT Time Door Indonesia'                                                              => 'Time.jpg',
-                    'PT UTERO KREATIF INDONESIA'                                                          => 'Utero.jpg',
-                    'Sarastya Agility Innovations'                                                        => 'Sarastya.jpg',
-                    'The Himana Hotel & Mall Malang City Point'                                           => 'Hotel.jpg',
-                    'UPA Bahasa Polinema'                                                                 => 'polinema.jpg',
-                    'Wakil Direktur 4 Politeknik Negeri Malang'                                          => 'polinema.jpg',
-                ];
-
-                $gradients = [
-                    'linear-gradient(135deg,#1a1a6e,#3b3bdb)',
-                    'linear-gradient(135deg,#0f4c75,#1b6ca8)',
-                    'linear-gradient(135deg,#1a5276,#2980b9)',
-                    'linear-gradient(135deg,#154360,#1a5276)',
-                    'linear-gradient(135deg,#212f3c,#2e4057)',
-                    'linear-gradient(135deg,#0d1b2a,#1b3a5c)',
-                ];
-
-                $matchScores = [98, 95, 90, 87, 85, 82, 80, 78, 75, 72, 70];
-            @endphp
-
             <div class="cards-grid">
                 @foreach ($perusahaan as $i => $p)
-                    @php
-                        $score = $matchScores[$i] ?? 70;
-                        $grad  = $gradients[$i % count($gradients)];
-                        $foto  = $fotoPerusahaan[$p->name] ?? null;
-
-                        $lokasi = 'Malang';
-                        $ti     = strtolower($p->tipe_industri ?? '');
-
-                        if (str_contains($ti, 'jakarta'))       { $lokasi = 'Jakarta'; }
-                        elseif (str_contains($ti, 'surabaya'))  { $lokasi = 'Surabaya'; }
-                        elseif (str_contains($ti, 'bali'))      { $lokasi = 'Bali'; }
-                        elseif (str_contains($ti, 'bandung'))   { $lokasi = 'Bandung'; }
-                    @endphp
 
                     <div class="r-card">
 
-                        {{-- MATCH BADGE --}}
-                        <div class="r-card-match">
-                            <div class="pct">{{ $score }}%</div>
-                            <div class="lbl">Match</div>
-                        </div>
-
                         {{-- IMAGE --}}
-                        <div class="r-card-img" style="background: {{ $grad }}">
-                            @if ($foto)
-                                <img src="{{ asset('img/perusahaan/' . $foto) }}" alt="{{ $p->name }}">
+                        <div class="r-card-img">
+                            @if ($p->logo)
+                                <img src="{{ asset($p->logo) }}" alt="{{ $p->name }}">
                             @else
                                 <div class="img-placeholder">
                                     <i class="fas fa-building"></i>
