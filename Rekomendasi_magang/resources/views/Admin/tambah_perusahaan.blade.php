@@ -61,15 +61,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Industry Type</label>
-                            <select name="tipe_industri" id="tipe_industri" class="select" required>
-                                <option value="">Pilih Sektor Industri</option>
-                                <option value="Technology" {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Technology' ? 'selected' : '' }}>Technology</option>
-                                <option value="Finance" {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Finance' ? 'selected' : '' }}>Finance</option>
-                                <option value="Education" {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Education' ? 'selected' : '' }}>Education</option>
-                                <option value="Other" {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Other' ? 'selected' : '' }}>Other</option>
-                            </select>
-                        </div>
+                        <label>Tipe Industri</label>
+                        <input type="text"
+                        name="tipe_industri"
+                        class="input"
+                        value="{{ old('tipe_industri', $perusahaan->tipe_industri ?? '') }}"
+                        placeholder="Contoh: Swasta Nasional - IT & Software Development"
+                        required>
+                    </div>
 
                         <div class="form-group" id="tipe_industri_lainnya_group" style="display: none;">
                             <label>Industry Type Lainnya</label>
