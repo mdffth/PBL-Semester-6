@@ -39,9 +39,9 @@ class MahasiswaController extends Controller
     }
 
     // ✅ Filter baru yang sebelumnya TIDAK dihandle
-    if ($request->filled('benefit')) {
-        $query->where('benefit', 'like', '%' . $request->benefit . '%');
-    }
+if ($request->filled('benefit')) {
+    $query->where('benefit', $request->benefit);
+}
 
     if ($request->filled('provinsi')) {
         $query->where('provinsi', 'like', '%' . $request->provinsi . '%');
