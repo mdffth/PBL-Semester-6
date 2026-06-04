@@ -20,317 +20,181 @@
 </div>
 
 <div class="container">
-
-    {{-- ALERT VALIDASI --}}
-
     @if ($errors->any())
-
         <div class="alert alert-danger">
-
             <ul>
-
                 @foreach ($errors->all() as $error)
-
                     <li>{{ $error }}</li>
-
                 @endforeach
-
             </ul>
-
         </div>
-
     @endif
 
-<form action="{{ isset($perusahaan)
-        ? route('dashboard.update', $perusahaan->id)
-        : route('dashboard.store') }}"
-        
-      method="POST"
-      enctype="multipart/form-data">
+    <form action="{{ isset($perusahaan) ? route('dashboard.update', $perusahaan->id) : route('dashboard.store') }}"
+          method="POST"
+          enctype="multipart/form-data">
+        @csrf
 
-    @csrf
+        @if(isset($perusahaan))
+            @method('PUT')
+        @endif
 
-    @if(isset($perusahaan))
-        @method('PUT')
-    @endif
+        <input type="hidden" name="page" value="{{ request('page', 1) }}">
 
         <div class="content-grid">
-
-            <!-- LEFT -->
-
-            <div>
-
-                <!-- IDENTITAS PERUSAHAAN -->
-
+            <div class="left-column">
                 <div class="card">
-
                     <div class="card-title">
                         <i class="fa-solid fa-building"></i>
                         Identitas Perusahaan
                     </div>
 
                     <div class="form-row">
-
-                        <!-- COMPANY NAME -->
-
                         <div class="form-group">
-
                             <label>Company Name</label>
-
                             <input type="text"
                                    name="name"
                                    class="input"
                                    value="{{ old('name', $perusahaan->name ?? '') }}"
                                    placeholder="Contoh: PT Teknologi Masa Depan"
                                    required>
-
                         </div>
-
-                        <!-- INDUSTRY -->
 
                         <div class="form-group">
-
                             <label>Industry Type</label>
-
-                            <select name="tipe_industri"
-                                    class="select"
-                                    required>
-
-                                <option value="">
-                                    Pilih Sektor Industri
-                                </option>
-
-                                <option value="Technology"
-                                    {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Technology' ? 'selected' : '' }}>                                    
-                                    Technology
-                                </option>
-
-                                <option value="Finance"
-                                    {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Finance' ? 'selected' : '' }}>
-                                    Finance
-                                </option>
-
-                                <option value="Education"
-                                    {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Education' ? 'selected' : '' }}>
-                                    Education
-                                </option>
-
+                            <select name="tipe_industri" id="tipe_industri" class="select" required>
+                                <option value="">Pilih Sektor Industri</option>
+                                <option value="Technology" {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Technology' ? 'selected' : '' }}>Technology</option>
+                                <option value="Finance" {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Finance' ? 'selected' : '' }}>Finance</option>
+                                <option value="Education" {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Education' ? 'selected' : '' }}>Education</option>
+                                <option value="Other" {{ old('tipe_industri', $perusahaan->tipe_industri ?? '') == 'Other' ? 'selected' : '' }}>Other</option>
                             </select>
-
                         </div>
 
+                        <div class="form-group" id="tipe_industri_lainnya_group" style="display: none;">
+                            <label>Industry Type Lainnya</label>
+                            <input type="text"
+                                   name="tipe_industri_lainnya"
+                                   id="tipe_industri_lainnya"
+                                   class="input"
+                                   value="{{ old('tipe_industri_lainnya', $perusahaan->tipe_industri_lainnya ?? '') }}"
+                                   placeholder="Tulis industri lainnya">
+                        </div>
                     </div>
 
-                    <!-- PROFILE -->
-
                     <div class="form-group">
-
                         <label>Company Profile</label>
-
                         <textarea name="profile_perusahaan"
                                   class="input"
                                   rows="6"
                                   placeholder="Tuliskan profil perusahaan...">{{ old('profile_perusahaan', $perusahaan->profile_perusahaan ?? '') }}</textarea>
-
                     </div>
-
                 </div>
 
-                <!-- DESKRIPSI LOWONGAN -->
-
                 <div class="card">
-
                     <div class="card-title">
                         <i class="fa-solid fa-file-lines"></i>
                         Deskripsi Lowongan
                     </div>
 
-                    <!-- JOB DESCRIPTION -->
-
                     <div class="form-group">
-
                         <label>Job Description</label>
-
                         <textarea name="job_description"
                                   class="input"
                                   rows="8"
                                   placeholder="Tuliskan deskripsi pekerjaan, requirement, dan benefit...">{{ old('job_description', $perusahaan->job_description ?? '') }}</textarea>
-
                     </div>
 
-                    <!-- REQUIRED SKILLS -->
-
                     <div class="form-group">
-
                         <label>Required Skills</label>
-
                         <div class="tag-box" id="skills-container">
-
                             <input type="text"
                                    id="skills-input"
                                    list="list_skills"
                                    placeholder="Ketik skill lalu tekan Enter">
-
                         </div>
-
                         <div id="skill-hidden-input"></div>
-
                         <datalist id="list_skills">
-
                             @foreach ($skills as $skill)
-
-                                <option value="{{ $skill->name }}"
-                                        data-id="{{ $skill->id }}">
-                                </option>
-
+                                <option value="{{ $skill->name }}" data-id="{{ $skill->id }}"></option>
                             @endforeach
-
                         </datalist>
-
                     </div>
 
-                    <!-- TECHNOLOGIES -->
-
                     <div class="form-group">
-
                         <label>Tools & Technologies</label>
-
                         <div class="tag-box" id="tools-container">
-
                             <input type="text"
                                    id="tools-input"
                                    list="list_tools"
                                    placeholder="Ketik tools lalu tekan Enter">
-
                         </div>
-
                         <div id="technology-hidden-input"></div>
-
                         <datalist id="list_tools">
-
                             @foreach ($technologies as $technology)
-
-                                <option value="{{ $technology->name }}"
-                                        data-id="{{ $technology->id }}">
-                                </option>
-
+                                <option value="{{ $technology->name }}" data-id="{{ $technology->id }}"></option>
                             @endforeach
-
                         </datalist>
-
                     </div>
 
-                    <!-- MINAT BIDANG -->
-
                     <div class="form-group">
-
                         <label>Bidang Posisi</label>
-
                         <div class="tag-box" id="minat-container">
-
                             <input type="text"
                                    id="minat-input"
                                    list="list_minat"
                                    placeholder="Ketik bidang lalu tekan Enter">
-
                         </div>
-
                         <div id="minat-hidden-input"></div>
-
                         <datalist id="list_minat">
-
                             @foreach ($minatBidang as $minat)
-
-                                <option value="{{ $minat->name }}"
-                                        data-id="{{ $minat->id }}">
-                                </option>
-
+                                <option value="{{ $minat->name }}" data-id="{{ $minat->id }}"></option>
                             @endforeach
-
                         </datalist>
-
                     </div>
-
                 </div>
-
             </div>
 
-            <!-- RIGHT -->
-
-            <div>
-
-                <!-- LOGO -->
-
+            <div class="right-column">
                 <div class="card">
-
                     <div class="card-title">
                         COMPANY LOGO
                     </div>
 
                     <div class="upload-box">
-
                         <div class="upload-icon">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
                         </div>
-
                         <div class="upload-title">
                             Upload Logo
                         </div>
-
                         <div class="upload-sub">
                             Format: JPG, JPEG, PNG (Max 2MB)
                         </div>
-
                         <br>
-
                         <input type="file"
                                name="logo"
                                class="input"
                                accept=".jpg,.jpeg,.png">
-
                     </div>
-
                 </div>
 
-                <!-- DETAIL LOWONGAN -->
-
                 <div class="card">
-
                     <div class="card-title">
                         <i class="fa-solid fa-briefcase"></i>
                         Detail Lowongan
                     </div>
 
-                    <!-- STATUS -->
-
                     <div class="form-group">
-
-                        <label>Internship Type</label>
-
-                        <select name="status_magang"
-                                class="select"
-                                required>
-
-                            <option value="Paid"
-                                {{ old('status_magang') == 'Paid' ? 'selected' : '' }}>
-                                Paid
-                            </option>
-
-                            <option value="Unpaid"
-                                {{ old('status_magang') == 'Unpaid' ? 'selected' : '' }}>
-                                Unpaid
-                            </option>
-
+                        <label>Benefit</label>
+                        <select name="benefit" class="select" required>
+                            <option value="Paid" {{ old('benefit', $perusahaan->benefit ?? '') == 'Paid' ? 'selected' : '' }}>Paid</option>
+                            <option value="Unpaid" {{ old('benefit', $perusahaan->benefit ?? '') == 'Unpaid' ? 'selected' : '' }}>Unpaid</option>
                         </select>
-
                     </div>
 
-                    <!-- DURATION -->
-
                     <div class="form-group">
-
                         <label>Duration (Months)</label>
-
                         <input type="number"
                                name="duration_months"
                                class="input"
@@ -338,15 +202,10 @@
                                max="12"
                                value="{{ old('duration_months', $perusahaan->duration_months ?? '') }}"
                                placeholder="Contoh: 6">
-
                     </div>
 
-                    <!-- GPA -->
-
                     <div class="form-group">
-
                         <label>Min IPK / GPA</label>
-
                         <input type="number"
                                step="0.01"
                                min="0"
@@ -356,94 +215,86 @@
                                value="{{ old('min_ipk', $perusahaan->min_ipk ?? '') }}"
                                placeholder="3.50"
                                required>
-
                     </div>
 
- 
-
-                    <!-- KOTA -->
-
                     <div class="form-group">
-
-                    <label>Kota</label>
-
-                    <input type="text"
-                            name="kota"
-                            class="input"
-                            value="{{ old('kota', $perusahaan->kota ?? '') }}"
-                            placeholder="Contoh: Malang">
-
-                    </div>
-
-                    <!-- PROVINSI -->
-
-                    <div class="form-group">
-
-                        <label>Provinsi</label>
-
+                        <label>Kota</label>
                         <input type="text"
-                            name="provinsi"
-                            class="input"
-                            value="{{ old('provinsi', $perusahaan->provinsi ?? '') }}"
-                            placeholder="Contoh: Jawa Timur">
-
+                               name="kota"
+                               class="input"
+                               value="{{ old('kota', $perusahaan->kota ?? '') }}"
+                               placeholder="Contoh: Malang">
                     </div>
-
-                    <!-- ALAMAT -->
 
                     <div class="form-group">
-
-                        <label>Alamat Lengkap</label>
-
-                        <textarea
-                            name="alamat"
-                            class="input"
-                            rows="4"
-                            placeholder="Contoh: Jl. Soekarno Hatta No. 9, Lowokwaru, Malang">{{ old('alamat', $perusahaan->alamat ?? '') }}</textarea>
-
+                        <label>Provinsi</label>
+                        <input type="text"
+                               name="provinsi"
+                               class="input"
+                               value="{{ old('provinsi', $perusahaan->provinsi ?? '') }}"
+                               placeholder="Contoh: Jawa Timur">
                     </div>
 
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-        <!-- BUTTON -->
-
-        <div class="bottom-actions">
-
-            <div>
-
-                <a href="{{ route('dashboard.index') }}"
-                   class="btn btn-outline">
-
-                    Cancel
-
-                </a>
-
+                    <div class="form-group">
+                        <label>Alamat Lengkap</label>
+                        <textarea name="alamat"
+                                  class="input"
+                                  rows="4"
+                                  placeholder="Contoh: Jl. Soekarno Hatta No. 9, Lowokwaru, Malang">{{ old('alamat', $perusahaan->alamat ?? '') }}</textarea>
+                    </div>
+                </div>
             </div>
-
-            <button type="submit"
-                    class="btn btn-primary">
-
-                {{-- Publish Vacancy --}}
-                {{ isset($perusahaan) ? 'Update Vacancy' : 'Publish Vacancy' }}
-
-            </button>
-
         </div>
 
-</form>
-
-
-
-{{-- STYLE TAG INPUT --}}
+        <div class="bottom-actions">
+            <div>
+                <button type="button" class="btn btn-outline" id="btn-cancel">
+                    Cancel
+                </button>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                {{ isset($perusahaan) ? 'Update Vacancy' : 'Publish Vacancy' }}
+            </button>
+        </div>
+    </form>
+</div>
 
 <style>
+    .container {
+        width: 100%;
+        max-width: none;
+        padding: 0 24px 24px 24px;
+        box-sizing: border-box;
+    }
+
+    .content-grid {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) !important;
+        gap: 24px !important;
+        align-items: start !important;
+        width: 100% !important;
+    }
+
+    .left-column,
+    .right-column {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
 
     .tag-box {
-
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
@@ -453,7 +304,6 @@
     }
 
     .tag-box input {
-
         border: none;
         outline: none;
         flex: 1;
@@ -463,7 +313,6 @@
     }
 
     .tag {
-
         background: #EEF3FF;
         color: #0242C4;
         padding: 8px 14px;
@@ -475,35 +324,28 @@
     }
 
     .tag span {
-
         cursor: pointer;
         font-weight: bold;
     }
 
+    @media (max-width: 992px) {
+        .content-grid {
+            grid-template-columns: 1fr !important;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 
-{{-- SCRIPT TAG INPUT --}}
-
 <script>
-
-    function createTagInput(
-        inputId,
-        containerId,
-        datalistId,
-        hiddenContainerId,
-        inputName
-    ) {
-
+    function createTagInput(inputId, containerId, datalistId, hiddenContainerId, inputName) {
         const input = document.getElementById(inputId);
-
         const container = document.getElementById(containerId);
-
         const datalist = document.getElementById(datalistId);
-
         const hiddenContainer = document.getElementById(hiddenContainerId);
-
         const form = input.closest('form');
-
         input.setAttribute('required', 'required');
 
         function checkValidityStatus() {
@@ -520,9 +362,9 @@
             form.addEventListener("submit", function(e) {
                 const totalTags = hiddenContainer.querySelectorAll('input[type="hidden"]').length;
                 if (totalTags === 0) {
-                    e.preventDefault(); 
+                    e.preventDefault();
                     input.setCustomValidity('Please fill in this field.');
-                    input.reportValidity(); 
+                    input.reportValidity();
                 } else {
                     input.setCustomValidity('');
                 }
@@ -534,259 +376,146 @@
         });
 
         input.addEventListener("keydown", function(e) {
-
             if (e.key === "Enter") {
-
                 e.preventDefault();
-
                 const value = input.value.trim();
-
                 if (value === "") return;
 
-                // CEK DUPLIKAT
-
                 const existingTags = container.querySelectorAll(".tag");
-
                 let isDuplicate = false;
 
                 existingTags.forEach(tag => {
-
-                    const tagText = tag.firstChild.textContent
-                        .trim()
-                        .toLowerCase();
-
+                    const tagText = tag.firstChild.textContent.trim().toLowerCase();
                     if (tagText === value.toLowerCase()) {
-
                         isDuplicate = true;
-
                     }
-
                 });
 
                 if (isDuplicate) {
-
                     input.value = "";
                     return;
-
                 }
 
-                // CARI DATA DATALIST
-
-                const option = [...datalist.options]
-                    .find(opt => opt.value === value);
+                const option = [...datalist.options].find(opt => opt.value === value);
 
                 if (!option) {
-
                     alert("Data tidak tersedia!");
                     return;
-
                 }
 
                 const id = option.dataset.id;
 
-                // BUAT TAG
-
                 const tag = document.createElement("div");
-
                 tag.classList.add("tag");
-
-                tag.innerHTML = `
-                    ${value}
-                    <span>&times;</span>
-                `;
-
-                // HIDDEN INPUT
+                tag.innerHTML = `${value}<span>&times;</span>`;
 
                 const hiddenInput = document.createElement("input");
-
                 hiddenInput.type = "hidden";
-
                 hiddenInput.name = inputName + "[]";
-
                 hiddenInput.value = id;
-
                 hiddenContainer.appendChild(hiddenInput);
 
-                // HAPUS TAG
-
-                tag.querySelector("span")
-                    .addEventListener("click", function() {
-
-                        tag.remove();
-                        hiddenInput.remove();
-                        checkValidityStatus();
-
-                    });
+                tag.querySelector("span").addEventListener("click", function() {
+                    tag.remove();
+                    hiddenInput.remove();
+                    checkValidityStatus();
+                });
 
                 container.insertBefore(tag, input);
-
                 input.value = "";
-
                 checkValidityStatus();
-
             }
-
         });
-
     }
 
-    // =========================
-    // LOAD EXISTING TAGS (EDIT + OLD INPUT SAFE)
-    // =========================
-
-    function loadExistingTags(
-        data,
-        containerId,
-        hiddenContainerId,
-        inputName,
-        inputId
-    ) {
-
+    function loadExistingTags(data, containerId, hiddenContainerId, inputName, inputId) {
         const container = document.getElementById(containerId);
-
         const hiddenContainer = document.getElementById(hiddenContainerId);
-
         const input = document.getElementById(inputId);
 
         if (!data || data.length === 0) return;
 
         data.forEach(item => {
-
-            // CEK DUPLIKAT
-            if(!item || !item.id || !item.name) return;
+            if (!item || !item.id || !item.name) return;
 
             const existingTags = container.querySelectorAll(".tag");
-
             let isDuplicate = false;
 
             existingTags.forEach(tag => {
-
-                const tagText = tag.firstChild.textContent
-                    .trim()
-                    .toLowerCase();
-
+                const tagText = tag.firstChild.textContent.trim().toLowerCase();
                 if (tagText === item.name.toLowerCase()) {
-
                     isDuplicate = true;
-
                 }
-
             });
 
             if (isDuplicate) return;
 
-            // BUAT TAG
-
             const tag = document.createElement("div");
-
             tag.classList.add("tag");
-
-            tag.innerHTML = `
-                ${item.name}
-                <span>&times;</span>
-            `;
-
-            // HIDDEN INPUT
+            tag.innerHTML = `${item.name}<span>&times;</span>`;
 
             const hiddenInput = document.createElement("input");
-
             hiddenInput.type = "hidden";
-
             hiddenInput.name = inputName + "[]";
-
             hiddenInput.value = item.id;
-
             hiddenContainer.appendChild(hiddenInput);
 
-            // HAPUS TAG
+            tag.querySelector("span").addEventListener("click", function() {
+                tag.remove();
+                hiddenInput.remove();
+                const totalTags = hiddenContainer.querySelectorAll('input[type="hidden"]').length;
+                if (totalTags === 0 && input) {
+                    input.setAttribute('required', 'required');
+                }
+            });
 
-            tag.querySelector("span")
-                .addEventListener("click", function() {
-
-                    tag.remove();
-                    hiddenInput.remove();
-
-                    const totalTags = hiddenContainer.querySelectorAll('input[type="hidden"]').length;
-                    if (totalTags === 0 && input) {
-                        input.setAttribute('required', 'required');
-                    }    
-
-                });
-
-            container.insertBefore(
-                tag,
-                container.querySelector("input")
-            );
-
+            container.insertBefore(tag, container.querySelector("input"));
         });
 
         if (input) {
             input.removeAttribute('required');
         }
+    }
 
-    }    
+    createTagInput("tools-input", "tools-container", "list_tools", "technology-hidden-input", "technology_id");
+    createTagInput("skills-input", "skills-container", "list_skills", "skill-hidden-input", "skill_id");
+    createTagInput("minat-input", "minat-container", "list_minat", "minat-hidden-input", "minat_id");
 
-    // TOOLS
+    loadExistingTags(@json($selectedTools ?? []), "tools-container", "technology-hidden-input", "technology_id", "tools-input");
+    loadExistingTags(@json($selectedSkills ?? []), "skills-container", "skill-hidden-input", "skill_id", "skills-input");
+    loadExistingTags(@json($selectedMinat ?? []), "minat-container", "minat-hidden-input", "minat_id", "minat-input");
 
-    createTagInput(
-        "tools-input",
-        "tools-container",
-        "list_tools",
-        "technology-hidden-input",
-        "technology_id"
-    );
+    document.getElementById('btn-cancel').addEventListener('click', function() {
+        const form = this.closest('form');
+        form.reset();
 
-    // SKILLS
+        document.getElementById('skills-container').querySelectorAll('.tag').forEach(el => el.remove());
+        document.getElementById('skill-hidden-input').innerHTML = '';
 
-    createTagInput(
-        "skills-input",
-        "skills-container",
-        "list_skills",
-        "skill-hidden-input",
-        "skill_id"
-    );
+        document.getElementById('tools-container').querySelectorAll('.tag').forEach(el => el.remove());
+        document.getElementById('technology-hidden-input').innerHTML = '';
 
-    // MINAT BIDANG
+        document.getElementById('minat-container').querySelectorAll('.tag').forEach(el => el.remove());
+        document.getElementById('minat-hidden-input').innerHTML = '';
+    });
 
-    createTagInput(
-        "minat-input",
-        "minat-container",
-        "list_minat",
-        "minat-hidden-input",
-        "minat_id"
-    );
+    const tipeIndustri = document.getElementById('tipe_industri');
+    const tipeIndustriLainnyaGroup = document.getElementById('tipe_industri_lainnya_group');
+    const tipeIndustriLainnyaInput = document.getElementById('tipe_industri_lainnya');
 
-    // =========================
-    // LOAD EXISTING TAGS (EDIT + OLD INPUT SAFE)
-    // =========================
+    function toggleIndustryOther() {
+        if (tipeIndustri.value === 'Lainnya') {
+            tipeIndustriLainnyaGroup.style.display = 'block';
+            tipeIndustriLainnyaInput.setAttribute('required', 'required');
+        } else {
+            tipeIndustriLainnyaGroup.style.display = 'none';
+            tipeIndustriLainnyaInput.removeAttribute('required');
+            tipeIndustriLainnyaInput.value = '';
+        }
+    }
 
-    loadExistingTags(
-        @json($selectedTools ?? []),
-        "tools-container",
-        "technology-hidden-input",
-        "technology_id",
-        "tools-input"
-    );
-
-    // LOAD SKILLS
-
-    loadExistingTags(
-        @json($selectedSkills ?? []),
-        "skills-container",
-        "skill-hidden-input",
-        "skill_id",
-        "skills-input"
-    );
-
-        // LOAD MINAT
-    loadExistingTags(
-        @json($selectedMinat ?? []),
-        "minat-container",
-        "minat-hidden-input",
-        "minat_id",
-        "minat-input"
-    );   
-
+    tipeIndustri.addEventListener('change', toggleIndustryOther);
+    toggleIndustryOther();
 </script>
 
 @endsection
