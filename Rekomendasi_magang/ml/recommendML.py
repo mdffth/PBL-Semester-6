@@ -34,7 +34,7 @@ W_TECH  = 0.30
 W_MINAT = 0.20
 W_IPK   = 0.10
 
-TOP_N = 10
+TOP_N = 9
 
 
 
