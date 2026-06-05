@@ -18,7 +18,7 @@ class PerusahaanController extends Controller
     */
     public function index()
     {
-        $perusahaan = Perusahaan::paginate(10);
+        $perusahaan = Perusahaan::latest()->paginate(10);
 
         $totalPerusahaan = Perusahaan::count();
 
@@ -79,7 +79,7 @@ class PerusahaanController extends Controller
 
             'job_description' => 'nullable|string',
 
-            'status_magang' => 'required|in:Active,Nonactive',
+            'benefit' => 'required|in:Paid, Unpaid',
 
             'duration_months' => 'nullable|integer|min:1|max:12',
 
@@ -116,7 +116,7 @@ class PerusahaanController extends Controller
 
             'job_description' => $request->job_description,
 
-            'status_magang' => $request->status_magang,
+            'benefit' => $request->benefit,
 
             'duration_months' => $request->duration_months,
 
@@ -278,24 +278,14 @@ class PerusahaanController extends Controller
 
             'kota' => $request->kota,
 
-            'duration_months' => $request->duration_months
-                ?? $perusahaan->duration_months,
+            'duration_months' => $request->duration_months ?? $perusahaan->duration_months,
 
-            'job_description' => $request->job_description
-                ?? $perusahaan->job_description,
+            'job_description' => $request->job_description ?? $perusahaan->job_description,
         ]);
 
-        $perusahaan->skills()->sync(
-            $request->skill_id ?? []
-        );
-
-        $perusahaan->technologies()->sync(
-            $request->technology_id ?? []
-        );
-
-        $perusahaan->minatBidang()->sync(
-            $request->minat_id ?? []
-        );
+        $perusahaan->skills()->sync($request->skill_id ?? []);
+        $perusahaan->technologies()->sync($request->technology_id ?? []);
+        $perusahaan->minatBidang()->sync($request->minat_id ?? []);
 
         return redirect()
             ->route('perusahaan.index', [
