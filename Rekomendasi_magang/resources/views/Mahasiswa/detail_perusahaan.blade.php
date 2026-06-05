@@ -527,9 +527,12 @@
 
                 </div>
 
-                <button class="apply-btn">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScVNUm4Nit-0VnPf7CbuzrDDEAL2nr2mL9IhYSQjNeeTA06tw/viewform?usp=pp_url&entry.600353513={{ urlencode($perusahaan->name) }}"
+                   target="_blank"
+                   class="apply-btn"
+                   style="display:block; text-align:center; text-decoration:none;">
                     Daftar / Apply →
-                </button>
+                </a>
 
             </div>
 
