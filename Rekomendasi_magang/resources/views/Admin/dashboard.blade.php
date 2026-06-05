@@ -86,200 +86,44 @@
                     </a>
                 </div>
 
-                <!-- TABLE -->
+                <!-- BAR CHART -->
+                <div class="chart-grid">
 
-                <div class="card table-card">
+                    <div class="card">
 
-                    <div class="table-header">
-
-                        <div class="table-title">
-                            Daftar Perusahaan
+                        <div class="dashboard-chart-header">
+                            <div class="table-title">
+                                Top 5 Minat Bidang
+                            </div>            
+                            {{-- <h3>Top 5 Minat Bidang</h3> --}}
                         </div>
 
-                        <input type="text"
-                            id="searchInput"
-                            class="search-box"
-                            placeholder="Cari perusahaan, status, posisi, bidang...">
+                        <div class="dashboard-chart-body">
+                            <div class="dashboard-chart-container">
+                                <canvas id="minatChart"></canvas>
+                            </div>
+                        </div>
 
                     </div>
 
-                    <table id="companyTable">
+                    <!-- PIE CHART -->
+                    <div class="card">
 
-                        <thead>
-
-                            <tr>
-
-                                <th>PROFILE</th>
-                                <th>INDUSTRI</th>
-                                <th>POSISI</th>
-                                <th>PAID/UNPAID</th>
-                                <th style="text-align:center" >DURASI</th>
-                                <th>STATUS</th>
-                                <th style="text-align:center" >AKSI</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            @forelse ($perusahaan as $item)
-
-                                <tr>
-                                    <td>
-                                        <div class="company">
-                                            <div>
-                                                <strong>{{ $item->name }}</strong>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        {{ ($item->tipe_industri) }}
-                                    </td>
-
-                                    <td>
-                                        <div class="posisi-wrapper">
-
-                                            @php
-                                                $bidang = $item->minatBidang->pluck('name')->toArray();
-                                                $visible = array_slice($bidang, 0, 2);
-                                                $remaining = count($bidang) - 2;
-                                            @endphp
-
-                                            {{-- untuk datatable search --}}
-                                            <span style="display:none;">
-                                                {{ implode(' ', $bidang) }}
-                                            </span>
-
-                                            @foreach($visible as $b)
-                                                <span class="badge-posisi">
-                                                    {{ $b }}
-                                                </span>
-                                            @endforeach
-
-                                            @if($remaining > 0)
-                                                <span class="badge-more">
-                                                    +{{ $remaining }} lainnya
-                                                </span>
-                                            @endif
-
-                                        </div>
-                                    </td>
-                                    
-                                    <td style="text-align:center" >
-                                        {{ ($item->benefit) }}
-                                    </td>
-
-                                    <td style="text-align:center" >
-                                        {{ $item->duration_months }} bulan
-                                    </td>
-
-                                    <td>
-                                        <label class="switch-toggle">
-
-                                            <input
-                                                type="checkbox"
-                                                class="toggle-status"
-                                                data-id="{{ $item->id }}"
-                                                {{ $item->status_magang == 'Active' ? 'checked' : '' }}
-                                            >
-
-                                            <span class="switch-slider"></span>
-
-                                        </label>
-                                    </td>
-
-                                    <td>
-                                        <div class="action-buttons">
-                                            <a href="{{ route('dashboard.edit', [
-                                                'id' => $item->id,
-                                                'page' => request('page', 1)
-                                            ]) }}"
-                                            class="action-btn edit">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </a>
-
-                                            <form
-                                                action="{{ route('dashboard.destroy', $item->id) }}"
-                                                method="POST"
-                                                class="form-delete"
-                                            >
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit" class="action-btn delete">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </form>                                            
-                                        </div>
-                                    </td>                                    
-
-                                </tr>
-
-                            @empty
-
-                                <tr>
-                                    <td colspan="7" style="text-align:center; padding:30px;">
-                                        Data perusahaan belum tersedia
-                                    </td>
-                                </tr>
-
-                            @endforelse
-
-                        </tbody>                   
-                    </table>
-
-                    <!-- PAGINATION -->
-                    <div class="pagination-wrapper">
-
-                        <div class="pagination-info">
-                            Showing {{ $perusahaan->firstItem() }}
-                            to {{ $perusahaan->lastItem() }}
-                            of {{ $perusahaan->total() }} results
+                        <div class="dashboard-chart-header">
+                            <div class="table-title">
+                                Perusahaan Berdasarkan Industri
+                            </div> 
                         </div>
 
-                        <div class="pagination-buttons">
+                        <div class="dashboard-chart-body">
 
-                            {{-- Previous --}}
-                            @if ($perusahaan->onFirstPage())
+                            <div class="industry-wrapper">
 
-                                <span class="page-btn disabled">
-                                    Previous
-                                </span>
+                                <div class="industry-chart">
+                                    <canvas id="industryChart"></canvas>
+                                </div>
 
-                            @else
-
-                                <a href="{{ $perusahaan->previousPageUrl() }}" class="page-btn">
-                                    Previous
-                                </a>
-
-                            @endif
-
-                            {{-- Number --}}
-                            @for ($i = 1; $i <= $perusahaan->lastPage(); $i++)
-
-                                <a href="{{ $perusahaan->url($i) }}"
-                                class="page-btn {{ $perusahaan->currentPage() == $i ? 'active' : '' }}">
-                                    {{ $i }}
-                                </a>
-
-                            @endfor
-
-                            {{-- Next --}}
-                            @if ($perusahaan->hasMorePages())
-
-                                <a href="{{ $perusahaan->nextPageUrl() }}" class="page-btn">
-                                    Next
-                                </a>
-
-                            @else
-
-                                <span class="page-btn disabled">
-                                    Next
-                                </span>
-
-                            @endif
+                            </div>
 
                         </div>
 
@@ -287,77 +131,174 @@
 
                 </div>
 
+                <!-- TABLE -->
+
+                
+
             </div>
 
         </main>
 
     </div>
     
-    <script>
+    
 
-    document.getElementById('searchInput').addEventListener('keyup', function () {
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        let value = this.value.toLowerCase().trim();
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
-        let rows = document.querySelectorAll('#companyTable tbody tr');
+    // =====================================
+    // BAR CHART - TOP MINAT BIDANG
+    // =====================================
 
-        rows.forEach(row => {
+    new Chart(
+        document.getElementById('minatChart'),
+        {
+            type: 'bar',
 
-            // ambil kolom pertama (nama perusahaan)
-            let companyName = row.querySelector('td:first-child strong')
-                .innerText
-                .toLowerCase();
+            data: {
+                labels: @json($labels),
 
-            if (companyName.includes(value) || value === '') {
+                datasets: [{
+                    data: @json($data),
 
-                row.style.display = '';
+                    backgroundColor: [
+                        '#4F46E5',
+                        '#06B6D4',
+                        '#10B981',
+                        '#F59E0B',
+                        '#EF4444'
+                    ],
 
-            } else {
+                }]
+            },
 
-                row.style.display = 'none';
+options: {
+    responsive: true,
+    maintainAspectRatio: false,
 
-            }
+    plugins: {
+        legend: {
+            display: false
+        }
+    },
 
-        });
+    scales: {
+        x: {
+            grid: {
+                display: false
+            },
 
-    });
+            ticks: {
+                maxRotation: 0,
+                minRotation: 0,
+                padding: 10,
 
-    document.querySelectorAll('.toggle-status').forEach(toggle => {
+                font: {
+                    size: 11
+                },
 
-        toggle.addEventListener('change', function () {
+                callback: function(value) {
 
-            let id = this.dataset.id;
-            // let checkbox = this;
+                    const label =
+                        this.getLabelForValue(value);
 
-            fetch(`/admin/dashboard/toggle_status/${id}`, {
+                    const words =
+                        label.split(' ');
 
-                method: 'POST',
+                    let lines = [];
+                    let currentLine = '';
 
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
+                    words.forEach(word => {
+
+                        if (
+                            (currentLine + ' ' + word)
+                                .length > 15
+                        ) {
+                            lines.push(currentLine);
+                            currentLine = word;
+                        } else {
+                            currentLine +=
+                                (currentLine ? ' ' : '') + word;
+                        }
+
+                    });
+
+                    lines.push(currentLine);
+
+                    return lines;
                 }
+            }
+        },
 
-            })
+        y: {
+            beginAtZero: true,
 
-            .then(response => response.json())
+            ticks: {
+                stepSize: 2
+            }
+        }
+    }
+}
+        }
+    );
 
-            .then(data => {
 
-                // this.checked = data.status === 'Active';
-                location.reload();
+    // =====================================
+    // DOUGHNUT CHART - INDUSTRI
+    // =====================================
 
-            })
+    new Chart(
+        document.getElementById('industryChart'),
+        {
+            type: 'doughnut',
 
-            .catch(error => {
+            data: {
+                labels: @json($industriLabels),
 
-                console.log(error);
+                datasets: [{
+                    data: @json($industriData),
 
-            });
+                    backgroundColor: [
+                        '#4F46E5',
+                        '#06B6D4',
+                        '#10B981',
+                        '#F59E0B',
+                        '#EF4444'
+                    ],
 
-        });
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            },
 
-    });
-    </script>
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                cutout: '55%',
+
+                plugins: {
+                    legend: {
+                        position: 'right',
+
+                        labels: {
+                            boxWidth: 12,
+                            boxHeight: 12,
+                            padding: 15,
+
+                            font: {
+                                size: 11
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    );
+
+});
+</script>
 
 @endsection
