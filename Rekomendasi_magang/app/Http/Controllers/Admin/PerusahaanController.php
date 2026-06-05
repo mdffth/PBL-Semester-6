@@ -16,11 +16,28 @@ class PerusahaanController extends Controller
     | DAFTAR PERUSAHAAN
     |--------------------------------------------------------------------------
     */
-
     public function index()
     {
         $perusahaan = Perusahaan::paginate(10);
-        return view('admin.daftar_perusahaan', compact('perusahaan'));
+
+        $totalPerusahaan = Perusahaan::count();
+
+        $lowonganAktif = Perusahaan::where(
+            'status_magang',
+            'Active'
+        )->count();
+
+        $lowonganTutup = Perusahaan::where(
+            'status_magang',
+            'Nonactive'
+        )->count();
+
+        return view('admin.daftar_perusahaan', compact(
+            'perusahaan',
+            'totalPerusahaan',
+            'lowonganAktif',
+            'lowonganTutup'
+        ));
     }
 
     /*
@@ -134,7 +151,7 @@ class PerusahaanController extends Controller
     |--------------------------------------------------------------------------
     | TOGGLE STATUS
     |--------------------------------------------------------------------------
-    */
+    */ 
 
     public function toggleStatus($id)
     {
@@ -310,18 +327,18 @@ class PerusahaanController extends Controller
         );
     }
 
-public function destroy($id)
-{
-    $perusahaan = Perusahaan::findOrFail($id);
+    public function destroy($id)
+    {
+        $perusahaan = Perusahaan::findOrFail($id);
 
-    $perusahaan->skills()->detach();
-    $perusahaan->technologies()->detach();
-    $perusahaan->minatBidang()->detach();
+        $perusahaan->skills()->detach();
+        $perusahaan->technologies()->detach();
+        $perusahaan->minatBidang()->detach();
 
-    $perusahaan->delete();
+        $perusahaan->delete();
 
-    return redirect()
-        ->route('perusahaan.index')
-        ->with('success', 'Data perusahaan berhasil dihapus');
-}    
+        return redirect()
+            ->route('perusahaan.index')
+            ->with('success', 'Data perusahaan berhasil dihapus');
+    }
 }

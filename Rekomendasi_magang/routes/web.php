@@ -185,3 +185,5 @@ Route::controller(MahasiswaController::class)->group(function () {
     Route::get('/mahasiswa-form', 'formPage');
 
 });
+
+Route::get('/perusahaan/stats', [PerusahaanController::class, 'getStats'])->name('perusahaan.stats');

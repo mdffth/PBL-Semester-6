@@ -19,25 +19,78 @@
                 </div>
 
                 <!-- STATS -->
+                <div class="stats">
+                    {{-- TOTAL PERUSAHAAN --}}
+                    <a href="{{ route('dashboard.index') }}" class="stat-link">
+                        <div class="card stat-card {{ request('filter') == null ? 'active-card' : '' }}">
+                            <div class="stat-header">
+                                <div class="stat-icon blue">
+                                    <i class="fa-solid fa-building"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-label">
+                                        TOTAL PERUSAHAAN
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stat-footer">
+                                <div class="stat-number">
+                                    {{ $totalPerusahaan }}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    {{-- LOWONGAN AKTIF --}}
+                    <a href="{{ route('dashboard.index', ['filter' => 'active']) }}"
+                    class="stat-link">
+                        <div class="card stat-card {{ request('filter') == 'active' ? 'active-card' : '' }}">
+                            <div class="stat-header">
+                                <div class="stat-icon green">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-label">
+                                        LOWONGAN AKTIF
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stat-footer">
+                                <div class="stat-number">
+                                    {{ $lowonganAktif }}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    {{-- LOWONGAN TUTUP --}}
+                    <a href="{{ route('dashboard.index', ['filter' => 'nonactive']) }}"
+                    class="stat-link">
+                        <div class="card stat-card {{ request('filter') == 'nonactive' ? 'active-card' : '' }}">
+                            <div class="stat-header">
+                                <div class="stat-icon red">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-label">
+                                        LOWONGAN TUTUP
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stat-footer">
+                                <div class="stat-number">
+                                    {{ $lowonganTutup }}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>                
                 
                 <!-- BAR CHART -->
 
                 <!-- TABLE -->
 
                 <div class="card table-card">
-
-                    {{-- <div class="table-header">
-
-                        <div class="table-title">
-                            Daftar Perusahaan
-                        </div>
-
-                        <input type="text"
-                            id="searchInput"
-                            class="search-box"
-                            placeholder="Cari perusahaan, status, posisi, bidang...">
-
-                    </div> --}}
 
                     <table id="companyTable">
 
@@ -231,39 +284,11 @@
     
 <script>
 
-    document.getElementById('searchInput').addEventListener('keyup', function () {
-
-        let value = this.value.toLowerCase().trim();
-
-        let rows = document.querySelectorAll('#companyTable tbody tr');
-
-        rows.forEach(row => {
-
-            // ambil kolom pertama (nama perusahaan)
-            let companyName = row.querySelector('td:first-child strong')
-                .innerText
-                .toLowerCase();
-
-            if (companyName.includes(value) || value === '') {
-
-                row.style.display = '';
-
-            } else {
-
-                row.style.display = 'none';
-
-            }
-
-        });
-
-    });
-
     document.querySelectorAll('.toggle-status').forEach(toggle => {
 
         toggle.addEventListener('change', function () {
 
             let id = this.dataset.id;
-            // let checkbox = this;
 
             fetch(`/admin/perusahaan/toggle_status/${id}`, {
 
@@ -280,7 +305,6 @@
 
             .then(data => {
 
-                // this.checked = data.status === 'Active';
                 location.reload();
 
             })
@@ -292,8 +316,7 @@
             });
 
         });
-
-
+        
     });
 </script>
 
