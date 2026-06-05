@@ -14,7 +14,7 @@ class MahasiswaController extends Controller
         $perusahaanList = Perusahaan::limit(6)->get();
         $totalPerusahaan = Perusahaan::count();
         $ulasan = Ulasan::where('is_active', true)
-            ->latest() 
+            ->latest()
             ->get();
 
         return view('welcome', compact('perusahaanList', 'totalPerusahaan', 'ulasan'));
@@ -99,30 +99,35 @@ class MahasiswaController extends Controller
     }
 
     //ulasan landing page
+
     /**
      * Menyimpan testimoni baru ke database.
      */
     public function store(Request $request)
     {
-        // Validasi input data sesuai dengan schema migration
-        $validated = $request->validate([
-            'name'      => 'required|string|max:255',
-            'position'  => 'required|string|max:255',
-            'rating'    => 'required|integer|min:1|max:5',
-            'review'    => 'required|string',
-            'is_active' => 'sometimes|boolean',
-        ]);
+        $exists = Ulasan::where('name', $request->name)->exists();
 
-        // Menyimpan data ke database menggunakan mass assignment dari model
-        $ulasan = Ulasan::create($validated);
+        if ($exists) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Anda sudah pernah memberikan ulasan.'
+            ], 422);
+        }
+
+        $ulasan = Ulasan::create([
+            'name' => $request->name,
+            'position' => $request->position,
+            'rating' => $request->rating,
+            'review' => $request->review,
+            'is_active' => true,
+        ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Testimoni berhasil ditambahkan.',
-            'data'    => $ulasan
-        ], 201);
+            'data' => $ulasan
+        ]);
     }
-
     /**
      * Menampilkan detail satu testimoni tertentu.
      */
