@@ -34,26 +34,25 @@ W_TECH  = 0.30
 W_MINAT = 0.20
 W_IPK   = 0.10
 
-TOP_N = 10
+TOP_N = 9
 
 
 
 
 
 
-def cosine_similarity(vec_a: list, vec_b: list) -> float:
-    """
-    Hitung cosine similarity antara dua vektor binary (multi-hot).
-    Mengembalikan 0.0 jika salah satu vektor adalah zero vektor.
-    """
-    dot   = sum(a * b for a, b in zip(vec_a, vec_b))
-    mag_a = math.sqrt(sum(a**2 for a in vec_a))
-    mag_b = math.sqrt(sum(a**2 for a in vec_b))
+def overlap_similarity(vec_user: list, vec_company: list) -> float:
+    # Dot product: Menghitung jumlah kriteria yang COCOK (irisan)
+    irisan = sum(u * c for u, c in zip(vec_user, vec_company))
     
-    if mag_a == 0.0 or mag_b == 0.0:
-        return 0.0
+    # Menghitung total kebutuhan (angka 1) pada spesifikasi perusahaan
+    total_kebutuhan_perusahaan = sum(vec_company)
     
-    return dot / (mag_a * mag_b)
+    # Jika perusahaan tidak menentukan kriteria sama sekali, anggap netral/match (1.0)
+    if total_kebutuhan_perusahaan == 0:
+        return 1.0
+    
+    return irisan / total_kebutuhan_perusahaan
 
 
 def build_vector(ids: list, universe_size: int) -> list:
@@ -231,9 +230,9 @@ def main():
             vec_comp_minat = build_vector(comp_minat_ids, universe['minat'])
             
             #Hitung cosine similarity per dimensi
-            sim_skill = cosine_similarity(vec_user_skill, vec_comp_skill)
-            sim_tech  = cosine_similarity(vec_user_tech, vec_comp_tech)
-            sim_minat = cosine_similarity(vec_user_minat, vec_comp_minat)
+            sim_skill = overlap_similarity(vec_user_skill, vec_comp_skill)
+            sim_tech  = overlap_similarity(vec_user_tech, vec_comp_tech)
+            sim_minat = overlap_similarity(vec_user_minat, vec_comp_minat)
             sc_ipk    = ipk_score(user['ipk'], min_ipk)
             
             #wight final score

@@ -7,6 +7,7 @@ use App\Models\RecommendationResult;
 use App\Models\Skill;
 use App\Models\Technology;
 use App\Models\UserInput;
+use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -69,7 +70,7 @@ class RecommendationController extends Controller
         return redirect()->route('recommendation.result');
     }
 
-    public function result()
+    public function result(Request $request)
     {
         $uuid = session('recommendation_uuid');
 
@@ -85,23 +86,69 @@ class RecommendationController extends Controller
         ->where('session_uuid', $uuid)
         ->firstOrFail();
 
-        $results = RecommendationResult::with('perusahaan')
-            ->where('user_input_id', $user->id)
+        $tipeIndustri = $request->tipe_industri;
+        $benefit = $request->benefit;
+        $provinsi = $request->provinsi;
+        $kota = $request->kota;
+        
+
+        $query = RecommendationResult::with('perusahaan')
+            ->where('user_input_id', $user->id);
+
+        if ($tipeIndustri) {
+            $query->whereHas('perusahaan', function ($q) use ($tipeIndustri) {
+                $q->where('tipe_industri', $tipeIndustri);
+            });
+        }
+
+        if ($benefit) {
+    $query->whereHas('perusahaan', function ($q) use ($benefit) {
+        $q->where('benefit', $benefit);
+    });
+}
+        
+        if ($provinsi) {
+            $query->whereHas('perusahaan', function ($q) use ($provinsi) {
+                $q->where('provinsi', $provinsi);
+            });
+        }
+
+        if ($kota) {
+            $query->whereHas('perusahaan', function ($q) use ($kota) {
+                $q->where('kota', $kota);
+            });
+        }
+
+            $results = $query
             ->orderBy('ranking')
             ->get();
 
-        if ($results->isEmpty()) {
+            $tipeIndustriList = Perusahaan::select('tipe_industri')
+                ->whereNotNull('tipe_industri')
+                ->distinct()
+                ->orderBy('tipe_industri')
+                ->pluck('tipe_industri');
 
-            return redirect()
-                ->route('recommendation.index')
-                ->withErrors([
-                    'ml_error' => 'Tidak ada hasil rekomendasi.'
-                ]);
-        }
+            $benefitList = Perusahaan::select('benefit')
+                ->whereNotNull('benefit')
+                ->distinct()
+                ->pluck('benefit');
+
+            $provinsiList = Perusahaan::select('provinsi')
+            ->whereNotNull('provinsi')
+            ->distinct()
+            ->orderBy('provinsi')
+            ->pluck('provinsi');
+
+            $kotaList = Perusahaan::select('kota')
+            ->whereNotNull('kota')
+            ->distinct()
+            ->orderBy('kota')
+            ->pluck('kota');
 
         return view(
             'mahasiswa.result',
-            compact('results')
+            compact('results', 'tipeIndustriList', 'benefitList','provinsiList', 'kotaList')
         );
     }
 }

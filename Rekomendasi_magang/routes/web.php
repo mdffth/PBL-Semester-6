@@ -43,7 +43,7 @@ Route::post('/login', function (Request $request) {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [AuthController::class, 'loginForm'])
+Route::get('/login1', [AuthController::class, 'loginForm'])
     ->name('login.form');
 
 Route::post('/login', [AuthController::class, 'login'])
@@ -83,7 +83,7 @@ Route::controller(RecommendationController::class)->group(function () {
     Route::get('/hasil-rekomendasi', 'result')
         ->name('recommendation.result');
 });
-
+Route::post('/system-review/store', [MahasiswaController::class, 'store'])->name('system-review.store');
 
 /*
 |--------------------------------------------------------------------------

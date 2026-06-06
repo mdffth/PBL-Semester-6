@@ -5,20 +5,35 @@
     <meta charset="UTF-8">
     <title>Hasil Rekomendasi</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
         }
 
         body {
-            background: #F5F7FB;
-            color: #1E1E1E;
+            font-family: 'Inter', sans-serif;
+            background: #f4f6fb;
+            color: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* WRAPPER untuk content yang flex */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         /* NAVBAR */
@@ -91,7 +106,238 @@
             background: #2d2db8 !important;
         }
 
-        /* TITLE BAR */
+        .nav-avatar {
+            width: 34px;
+            height: 34px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: .9rem;
+            cursor: pointer;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .content-wrap {
+            padding: 40px 5%;
+        }
+
+        .page-title {
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .result-info {
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .result-card-body {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .company-img {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a6e, #3b3bdb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.4);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .company-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .score-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #1a1a6e;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 13px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+            z-index: 10;
+            line-height: 1.1;
+        }
+
+        .result-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-height: 60px;
+        }
+
+        .result-header h3 {
+            font-size: 16px;
+            margin: 0 0 4px;
+            font-weight: 700;
+        }
+
+        .result-header p {
+            font-size: 13px;
+            margin: 0;
+            color: #4b5563;
+        }
+
+        .company-info {
+            margin-top: 18px;
+            font-size: 14px;
+        }
+
+        .company-info p {
+            margin: 8px 0;
+        }
+
+        .score-section {
+            margin-top: 18px;
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .detail-section {
+            margin-top: 18px;
+            font-size: 14px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 15px;
+            line-height: 1.6;
+            margin-top: auto;
+            padding-top: 15px;
+        }
+
+        .score-item {
+            margin-bottom: 10px;
+        }
+
+        .score-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .progress {
+            background: #e5e7eb;
+            height: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #1d4ed8;
+        }
+
+        .btn-detail {
+            display: block;
+            text-align: center;
+            background: #1a1a6e;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .btn-detail:hover {
+            background: #15155c;
+        }
+
+        @media (max-width: 1024px) {
+            .result-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+        }
+
+        .minat-tags {
+            margin: 4px 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .minat-tag {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        /* =========================
+   PAGE TITLE
+========================= */
         .page-title-bar {
             background: #fff;
             border-bottom: 1px solid #e8e8f0;
@@ -99,12 +345,14 @@
         }
 
         .page-title-bar h1 {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: #1a1a2e;
         }
 
-        /* FILTER BAR */
+        /* =========================
+   FILTER
+========================= */
         .filter-bar {
             background: #fff;
             border-bottom: 1px solid #e8e8f0;
@@ -158,6 +406,7 @@
             color: #555;
             font-size: .85rem;
             font-weight: 600;
+            transition: .2s;
         }
 
         .btn-reset-filter:hover {
@@ -165,96 +414,174 @@
             color: #3b3bdb;
         }
 
-        /* CONTENT WRAP */
+        /* =========================
+   CONTENT
+========================= */
         .content-wrap {
-            padding: 40px 5%;
+            padding: 1.5rem 5%;
+            flex: 1;
         }
 
-        .page-title {
-            font-size: 34px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .page-subtitle {
-            color: #6b7280;
-            margin-bottom: 30px;
-            font-size: 15px;
-        }
-
-        /* RESULT INFO */
         .result-info {
-            margin-bottom: 30px;
-            font-size: 16px;
+            font-size: .92rem;
+            color: #555;
+            margin-bottom: 1.5rem;
         }
 
         .result-info strong {
             color: #3b3bdb;
         }
 
-        /* RESULT GRID */
-        .result-grid {
+        /* =========================
+   GRID
+========================= */
+        .cards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
+            gap: 1.5rem;
         }
 
-        /* RESULT CARD */
-        .result-card {
-            background: white;
+        /* =========================
+   CARD
+========================= */
+        .r-card {
+            background: #fff;
             border-radius: 16px;
-            padding: 22px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .result-header {
+            overflow: hidden;
+            border: 1.5px solid #e8e8f0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: .25s;
+            position: relative;
             display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            align-items: flex-start;
-            margin-bottom: 12px;
+            flex-direction: column;
         }
 
-        .result-header h3 {
-            font-size: 18px;
-            margin: 0 0 8px;
+        .r-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(26, 26, 110, 0.12);
+            border-color: #3b3bdb;
         }
 
-        .result-header p {
-            font-size: 13px;
-            margin: 0;
-            color: #4b5563;
+        /* =========================
+   MATCH BADGE
+========================= */
+        .r-card-match {
+            position: absolute;
+            top: .8rem;
+            right: .8rem;
+            z-index: 5;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #1a1a6e;
+            border: 3px solid #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
 
-        .company-info {
-            margin: 15px 0;
-            font-size: 13px;
-            border-top: 1px solid #eef2f6;
-            padding-top: 12px;
+        .r-card-match .pct {
+            font-size: .9rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1;
         }
 
-        .company-info p {
-            margin: 6px 0;
+        .r-card-match .lbl {
+            font-size: .6rem;
+            color: rgba(255, 255, 255, .8);
         }
 
+        /* =========================
+   IMAGE
+========================= */
+        .r-card-img {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #1a1a6e, #3b3bdb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .r-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* =========================
+   CARD BODY
+========================= */
+        .r-card-body {
+            padding: 1rem 1.1rem 1.2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .r-card-name {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: .7rem;
+            line-height: 1.4;
+        }
+
+        .r-card-row {
+            font-size: .84rem;
+            color: #555;
+            margin-bottom: .4rem;
+            line-height: 1.5;
+        }
+
+        .r-card-row span {
+            font-weight: 700;
+            color: #222;
+        }
+
+        /* =========================
+   SCORE BAR
+========================= */
         .score-section {
-            margin: 15px 0;
+            margin-top: 1rem;
         }
 
         .score-item {
-            margin-bottom: 12px;
+            margin-bottom: .7rem;
         }
 
         .score-top {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
-            margin-bottom: 4px;
-            color: #4b5563;
+            font-size: .75rem;
+            margin-bottom: .25rem;
+            color: #555;
+        }
+
+        .score-top span:last-child {
+            font-weight: 700;
+            color: #1a1a2e;
         }
 
         .progress {
-            background: #e5e7eb;
+            background: #e8e8f0;
             height: 6px;
             border-radius: 10px;
             overflow: hidden;
@@ -262,128 +589,290 @@
 
         .progress-bar {
             height: 100%;
-            background: #1a1a6e;
+            background: #3b3bdb;
             border-radius: 10px;
         }
 
-        .btn-detail {
+        /* =========================
+   BUTTON
+========================= */
+        .btn-r-detail {
             display: block;
             text-align: center;
             background: #1a1a6e;
             color: #fff;
-            padding: .7rem;
-            border-radius: 8px;
+            padding: .75rem;
+            border-radius: 10px;
             text-decoration: none;
             font-size: .85rem;
-            font-weight: 600;
-            margin-top: 16px;
-            transition: background 0.2s;
+            font-weight: 700;
+            margin-top: auto;
+            transition: .2s;
         }
 
-        .btn-detail:hover {
+        .btn-r-detail:hover {
             background: #3b3bdb;
         }
 
-        /* PAGINATION */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: .5rem;
-            margin-top: 2.5rem;
-            flex-wrap: wrap;
-        }
-
-        .pagination a,
-        .pagination span {
-            padding: .5rem .9rem;
-            border-radius: 8px;
-            font-size: .85rem;
-            font-weight: 600;
-            text-decoration: none;
-            border: 1.5px solid #e0e0ea;
-            color: #555;
-            background: #fff;
-            transition: all .2s;
-        }
-
-        .pagination a:hover,
-        .pagination .active {
-            background: #1a1a6e;
-            color: #fff;
-            border-color: #1a1a6e;
-        }
-
-        .pagination .disabled {
-            color: #ccc;
-            pointer-events: none;
-        }
-
-        .btn-detail {
-            display: block;
-            text-align: center;
-            background: #1a1a6e;
-            color: white;
-            padding: 12px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            margin-top: 10px;
-            transition: 0.2s;
-        }
-
-        .btn-detail:hover {
-            background: #15155c;
-        }
-
-        @media (max-width: 1024px) {
-            .result-grid {
+        /* =========================
+   RESPONSIVE
+========================= */
+        @media(max-width:1000px) {
+            .cards-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 768px) {
-            .result-grid {
+        @media(max-width:640px) {
+            .cards-grid {
                 grid-template-columns: 1fr;
             }
 
-            .navbar {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .page-title {
-                font-size: 28px;
+            .page-title-bar h1 {
+                font-size: 1rem;
             }
         }
+
+        /* ====================
+MODAL CUSTOM
+==================== */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+
+            display: none;
+
+            justify-content: center;
+            align-items: center;
+
+            z-index: 9999;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: 90%;
+            max-width: 520px;
+
+            background: white;
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            animation: popup .25s ease;
+        }
+
+        @keyframes popup {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header-custom {
+            background: #1a1a6e;
+
+            color: white;
+
+            padding: 18px 22px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: none;
+
+            color: white;
+
+            font-size: 28px;
+
+            cursor: pointer;
+        }
+
+        #ulasanForm {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            padding: 12px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b3bdb;
+        }
+
+        .btn-submit-ulasan {
+            width: 100%;
+
+            border: none;
+
+            background: #1a1a6e;
+
+            color: white;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        /* RATING */
+
+        .rating-box {
+            display: flex;
+            gap: 8px;
+            font-size: 32px;
+        }
+
+        .star {
+            color: #d1d5db;
+            cursor: pointer;
+        }
+
+        .star.active {
+            color: #f59e0b;
+        }
+
+        .alert-success {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
     </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
 
     <nav class="navbar">
-
-        <div class="brand">
-            RekomIn
-        </div>
-
-        <div>
-            <a href="{{ route('landing') }}">Home</a>
-            <a href="{{ route('rekomendasi') }}">Perusahaan</a>
-            <a href="{{ route('recommendation.index') }}">Start Rekomendasi</a>
-        </div>
-
+        <a href="{{ route('landing') }}" class="navbar-brand">
+            <div class="brand-logo">RI</div>
+            <span class="brand-name">RekomIn</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="{{ route('landing') }}" class="active">Home</a></li>
+            <li><a href="#perusahaan">Perusahaan</a></li>
+            <li>
+                <button id="openUlasan" class="nav-btn">
+                    Beri Ulasan
+                </button>
+            </li>
+        </ul>
     </nav>
 
+    {{-- TITLE --}}
+    <div class="page-title-bar">
+        <h1>Hasil Rekomendasi Perusahaan Magang</h1>
+    </div>
+
+    {{-- FILTER --}}
+    <form method="GET" action="{{ route('recommendation.result') }}">
+
+        <div class="filter-bar">
+            <i class="fas fa-filter filter-icon"></i>
+
+            {{-- Filter Benefit --}}
+            <div class="filter-select-wrap">
+                <select name="benefit" class="filter-select" onchange="this.form.submit()">
+
+                    <option value="">Benefit</option>
+
+                    @foreach ($benefitList as $benefit)
+                        <option value="{{ $benefit }}" {{ request('benefit') == $benefit ? 'selected' : '' }}>
+                            {{ $benefit }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Filter Provinsi --}}
+            <div class="filter-select-wrap">
+                <select name="provinsi" class="filter-select" onchange="this.form.submit()">
+
+                    <option value="">Provinsi</option>
+
+                    @foreach ($provinsiList as $provinsi)
+                        <option value="{{ $provinsi }}" {{ request('provinsi') == $provinsi ? 'selected' : '' }}>
+                            {{ $provinsi }}
+                        </option>
+                    @endforeach
+
+                </select>
+            </div>
+
+            {{-- Filter Kota --}}
+            <div class="filter-select-wrap">
+                <select name="kota" class="filter-select" onchange="this.form.submit()">
+
+                    <option value="">Kota</option>
+
+                    @foreach ($kotaList as $kota)
+                        <option value="{{ $kota }}" {{ request('kota') == $kota ? 'selected' : '' }}>
+                            {{ $kota }}
+                        </option>
+                    @endforeach
+
+                </select>
+            </div>
+
+            {{-- Reset Filter --}}
+            <a href="{{ route('recommendation.result') }}" class="btn-reset-filter">
+                Reset
+            </a>
+
+        </div>
+
+    </form>
+
+    {{-- CONTENT --}}
     <div class="content-wrap">
-
-        <div class="page-title">
-            Hasil Rekomendasi Magang
-        </div>
-
-        <div class="page-subtitle">
-            Berikut perusahaan yang paling sesuai dengan profil dan minatmu.
-        </div>
 
         <p class="result-info">
             Menampilkan
@@ -391,145 +880,303 @@
             hasil rekomendasi terbaik untukmu.
         </p>
 
-        <div class="result-grid">
+        <div class="cards-grid">
 
             @foreach ($results as $result)
-
                 @php
                     $company = $result->perusahaan;
                 @endphp
 
-                <div class="result-card">
+                <div class="r-card">
 
-                    <div class="result-header">
+                    {{-- GAMBAR PERUSAHAAN --}}
+                    <div class="company-img">
+                        @if ($company->logo)
+                            <img src="{{ asset($company->logo) }}" alt="{{ $company->name }}">
+                        @endif
 
-                        <div>
+                        {{-- BADGE PERSENTASE DI POJOK KANAN ATAS --}}
+                        <div class="score-badge">
+                            {{ number_format($result->final_score * 100, 1) }}%
+                        </div>
+                    </div>
+
+                    <div class="result-card-body">
+
+                        <div class="result-header">
                             <h3>
                                 #{{ $result->ranking }}
                                 {{ $company->name }}
                             </h3>
 
+                            {{-- SEMUA BIDANG POSISI PERUSAHAAN --}}
+                            @if ($company->minatBidang->count() > 0)
+                                <p class="minat-tags">
+                                    @foreach ($company->minatBidang as $posisi)
+                                        <span class="minat-tag">{{ $posisi->name }}</span>
+                                    @endforeach
+                                </p>
+                            @endif
+                        </div>
+                        <div class="company-info">
+
                             <p>
-                                {{ $company->posisi_magang }}
+                                <strong>Tipe Industri:</strong>
+                                {{ $company->tipe_industri ?? '-' }}
                             </p>
+
+                            <p>
+                                <strong>Status Magang:</strong>
+                                {{ $company->status_magang ?? '-' }}
+                            </p>
+
+                            <p>
+                                <strong>Provinsi:</strong>
+                                {{ $company->provinsi ?? '-' }}
+                            </p>
+
+                            <p>
+                                <strong>Kota:</strong>
+                                {{ $company->kota ?? '-' }}
+                            </p>
+
+                            <p>
+                                <strong>Minimal IPK:</strong>
+                                {{ $company->min_ipk ?? '-' }}
+                            </p>
+
+                            <p>
+                                <strong>Durasi:</strong>
+                                {{ $company->duration_months ?? '-' }} bulan
+                            </p>
+
                         </div>
 
-                        <div class="score-box">
-                            {{ number_format($result->final_score * 100, 1) }}%
-                        </div>
+                        <div class="score-section">
 
-                    </div>
-
-                    <div class="company-info">
-
-                        <p>
-                            <strong>Tipe Industri:</strong>
-                            {{ $company->tipe_industri ?? '-' }}
-                        </p>
-
-                        <p>
-                            <strong>Status Magang:</strong>
-                            {{ $company->status_magang ?? '-' }}
-                        </p>
-
-                        <p>
-                            <strong>Minimal IPK:</strong>
-                            {{ $company->min_ipk ?? '-' }}
-                        </p>
-
-                        <p>
-                            <strong>Durasi:</strong>
-                            {{ $company->duration_months ?? '-' }} bulan
-                        </p>
-
-                    </div>
-
-                    <div class="score-section">
-
-                        <div class="score-item">
-
-                            <div class="score-top">
-                                <span>Skill</span>
-                                <span>{{ number_format($result->score_skill * 100, 0) }}%</span>
+                            <div class="score-item">
+                                <div class="score-top">
+                                    <span>Skill</span>
+                                    <span>{{ number_format($result->score_skill * 100, 0) }}%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: {{ $result->score_skill * 100 }}%"></div>
+                                </div>
                             </div>
 
-                            <div class="progress">
-                                <div class="progress-bar"
-                                    style="width: {{ $result->score_skill * 100 }}%">
+                            <div class="score-item">
+                                <div class="score-top">
+                                    <span>Teknologi</span>
+                                    <span>{{ number_format($result->score_technology * 100, 0) }}%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: {{ $result->score_technology * 100 }}%">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="score-item">
+                                <div class="score-top">
+                                    <span>Minat</span>
+                                    <span>{{ number_format($result->score_minat * 100, 0) }}%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: {{ $result->score_minat * 100 }}%"></div>
+                                </div>
+                            </div>
+
+                            <div class="score-item">
+                                <div class="score-top">
+                                    <span>IPK</span>
+                                    <span>{{ number_format($result->score_ipk * 100, 0) }}%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: {{ $result->score_ipk * 100 }}%"></div>
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="score-item">
-
-                            <div class="score-top">
-                                <span>Teknologi</span>
-                                <span>{{ number_format($result->score_technology * 100, 0) }}%</span>
-                            </div>
-
-                            <div class="progress">
-                                <div class="progress-bar"
-                                    style="width: {{ $result->score_technology * 100 }}%">
-                                </div>
-                            </div>
-
+                        <div class="detail-section">
+                            <a href="{{ route('detail.perusahaan', $company->id) }}" class="btn-detail">
+                                Lihat Detail →
+                            </a>
                         </div>
 
-                        <div class="score-item">
-
-                            <div class="score-top">
-                                <span>Minat</span>
-                                <span>{{ number_format($result->score_minat * 100, 0) }}%</span>
-                            </div>
-
-                            <div class="progress">
-                                <div class="progress-bar"
-                                    style="width: {{ $result->score_minat * 100 }}%">
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="score-item">
-
-                            <div class="score-top">
-                                <span>IPK</span>
-                                <span>{{ number_format($result->score_ipk * 100, 0) }}%</span>
-                            </div>
-
-                            <div class="progress">
-                                <div class="progress-bar"
-                                    style="width: {{ $result->score_ipk * 100 }}%">
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="detail-section">
-
-                        <a href="{{ route('detail.perusahaan', $company->id) }}"
-                            class="btn-detail">
-                            Lihat Detail →
-                        </a>
-
-                    </div>
+                    </div>{{-- end result-card-body --}}
 
                 </div>
-
             @endforeach
 
         </div>
 
-    <!-- TITLE BAR -->
-    <div class="page-title-bar">
-        <h1>
-            Berdasarkan Profil Kamu, Berikut Merupakan Rekomendasi Magang Terbaik:
-        </h1>
+
     </div>
 
+    {{-- FOOTER --}}
+    <footer style="background:#1a1a2e; padding:1.5rem 5%; text-align:center; margin-top:3rem;">
+        <p style="font-size:.85rem; color:rgba(255,255,255,0.5);">
+            &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
+        </p>
+    </footer>
+
+    <!-- Overlay -->
+    <div id="ulasanOverlay" class="modal-overlay">
+
+        <div class="modal-box">
+
+            <div class="modal-header-custom">
+                <h3>Beri Ulasan</h3>
+
+                <button id="closeUlasan" class="close-btn">
+                    &times;
+                </button>
+            </div>
+
+            <form id="ulasanForm">
+
+                @csrf
+
+                <div class="form-group">
+                    <label>Nama</label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Posisi / Jabatan</label>
+                    <input type="text" name="position" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Rating</label>
+
+                    <div class="rating-box">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+
+                        <input type="hidden" name="rating" id="rating" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ulasan</label>
+
+                    <textarea name="review" rows="4" required></textarea>
+                </div>
+
+                <input type="hidden" name="is_active" value="1">
+
+                <button type="submit" class="btn-submit-ulasan">
+                    Kirim Ulasan
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+    <script>
+        // buka modal
+        document.getElementById('openUlasan')
+            .addEventListener('click', () => {
+
+                document.getElementById('ulasanOverlay')
+                    .classList.add('show');
+            });
+
+        // tutup modal
+        document.getElementById('closeUlasan')
+            .addEventListener('click', () => {
+
+                document.getElementById('ulasanOverlay')
+                    .classList.remove('show');
+            });
+
+        // klik area gelap tutup modal
+        document.getElementById('ulasanOverlay')
+            .addEventListener('click', function(e) {
+
+                if (e.target === this) {
+                    this.classList.remove('show');
+                }
+            });
+
+        // rating bintang
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('rating');
+
+        stars.forEach(star => {
+
+            star.addEventListener('click', function() {
+
+                const value = this.dataset.value;
+
+                ratingInput.value = value;
+
+                stars.forEach(s => {
+                    s.classList.remove('active');
+                });
+
+                stars.forEach(s => {
+
+                    if (s.dataset.value <= value) {
+                        s.classList.add('active');
+                    }
+
+                });
+
+            });
+
+        });
+
+            document.getElementById('ulasanForm')
+            .addEventListener('submit', async function(e) {
+
+                e.preventDefault();
+
+                let formData = new FormData(this);
+
+                try {
+
+                    const response = await fetch(
+                        "{{ route('system-review.store') }}", {
+                            method: "POST",
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ).content,
+
+                                "Accept": "application/json"
+                            },
+                            body: formData
+                        }
+                    );
+
+                    const result = await response.json();
+
+                    if (result.success) {
+
+                        alert(result.message);
+
+                        this.reset();
+
+                        document.getElementById('ulasanOverlay')
+                            .classList.remove('show');
+
+                    }
+
+                } catch (err) {
+
+                    console.error(err);
+
+                    alert("Terjadi kesalahan");
+                }
+
+            });
+    </script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,51 +16,67 @@
 
         body {
             background: #F5F7FB;
-            padding: 40px;
             color: #1E1E1E;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAVBAR - Tetap di atas penuh */
+        .navbar {
+            background: #1a1a6e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .9rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            background: #fff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #1a1a6e;
+            font-size: .85rem;
+        }
+
+        .brand-name {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* MAIN WRAPPER - Membuat form otomatis ke tengah layar */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
         }
 
         .container {
-            width: 700px;
-            margin: auto;
+            width: 100%;
+            max-width: 700px;
             background: white;
             border-radius: 16px;
             padding: 40px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-        }
-
-        .step-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .step-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0242C4;
-        }
-
-        .step-percent {
-            color: #7C8299;
-            font-size: 16px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: #E5E7EB;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 35px;
-        }
-
-        .progress-fill {
-            width: 50%;
-            height: 100%;
-            background: #0242C4;
-            border-radius: 20px;
         }
 
         .card {
@@ -159,14 +176,13 @@
             background: #0136A0;
         }
 
+        /* RESPONSIVE */
         @media(max-width:768px) {
-
-            body {
-                padding: 20px;
+            .main-wrapper {
+                padding: 20px 15px;
             }
 
             .container {
-                width: 100%;
                 padding: 25px;
             }
 
@@ -179,244 +195,224 @@
 
 <body>
 
-<div class="container">
+    <nav class="navbar">
+        <a href="{{ route('landing') }}" class="navbar-brand">
+            <div class="brand-logo">RI</div>
+            <span class="brand-name">RekomIn</span>
+        </a>
+    </nav>
 
-    <div class="step-header">
-        <div class="step-title">
-            STEP 1 OF 2: YOUR PROFILE
-        </div>
+    <div class="main-wrapper">
+        <div class="container">
 
-        <div class="step-percent">
-            50% Complete
-        </div>
-    </div>
+            <div class="card">
 
-    <div class="progress-bar">
-        <div class="progress-fill"></div>
-    </div>
-
-    <div class="card">
-
-        <div class="card-title">
-            Lengkapi Data Diri Anda
-        </div>
-
-        <div class="card-subtitle">
-            Informasi ini membantu sistem mencocokkan Anda
-            dengan magang yang paling sesuai.
-        </div>
-
-        @if ($errors->any())
-            <div style="color:red; margin-bottom:15px;">
-                @foreach ($errors->all() as $error)
-                    <div>{{ $error }}</div>
-                @endforeach
-            </div>
-        @endif
-
-        <form action="{{ route('recommendation.process') }}" method="POST">
-            @csrf
-
-            <!-- IPK -->
-            <div class="form-group">
-                <label>IPK (GPA)</label>
-
-                <input type="text"
-                       name="ipk"
-                       class="form-control"
-                       placeholder="Contoh: 3.80"
-                       required>
-            </div>
-
-            <!-- MINAT BIDANG -->
-            <div class="form-group">
-                <label>MINAT BIDANG</label>
-
-                <div class="tag-box" id="minat-bidang-container">
-                    <input type="text"
-                           id="minat-bidang-input"
-                           list="list_minat_bidang"
-                           placeholder="Ketik minat bidang lalu tekan Enter">
+                <div class="card-title">
+                    Lengkapi Data Diri Anda
                 </div>
 
-    <div id="minat-hidden-input"></div>
-
-                <datalist id="list_minat_bidang">
-                    @foreach ($minat_bidang as $minat)
-                        <option value="{{ $minat->name }}"
-                                data-id="{{ $minat->id }}">
-                        </option>
-                    @endforeach
-                </datalist>
-            </div>
-
-            <!-- TOOLS -->
-            <div class="form-group">
-                <label>TOOLS YANG DIKUASAI</label>
-
-                <div class="tag-box" id="tools-container">
-                    <input type="text"
-                           id="tools-input"
-                           list="list_tools"
-                           placeholder="Ketik tools lalu tekan Enter">
+                <div class="card-subtitle">
+                    Informasi ini membantu sistem mencocokkan Anda
+                    dengan magang yang paling sesuai.
                 </div>
 
-    <div id="technology-hidden-input"></div>
+                @if ($errors->any())
+                    <div style="color:red; margin-bottom:15px;">
+                        @foreach ($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                        @endforeach
+                    </div>
+                @endif
 
-                <datalist id="list_tools">
-                    @foreach ($technologies as $tech)
-                        <option value="{{ $tech->name }}"
-                                data-id="{{ $tech->id }}">
-                        </option>
-                    @endforeach
-                </datalist>
+                <form action="{{ route('recommendation.process') }}" method="POST">
+                    @csrf
+
+                    <!-- IPK -->
+                    <div class="form-group">
+                        <label>IPK (GPA)</label>
+
+                        <input type="text" name="ipk" class="form-control" placeholder="Contoh: 3.80" required>
+                    </div>
+
+                    <!-- MINAT BIDANG -->
+                    <div class="form-group">
+                        <label>MINAT BIDANG</label>
+
+                        <div class="tag-box" id="minat-bidang-container">
+                            <input type="text" id="minat-bidang-input" list="list_minat_bidang"
+                                placeholder="Ketik minat bidang lalu tekan Enter">
+                        </div>
+
+                        <div id="minat-hidden-input"></div>
+
+                        <datalist id="list_minat_bidang">
+                            @foreach ($minat_bidang as $minat)
+                                <option value="{{ $minat->name }}" data-id="{{ $minat->id }}">
+                                </option>
+                            @endforeach
+                        </datalist>
+                    </div>
+
+                    <!-- TOOLS -->
+                    <div class="form-group">
+                        <label>TOOLS YANG DIKUASAI</label>
+
+                        <div class="tag-box" id="tools-container">
+                            <input type="text" id="tools-input" list="list_tools"
+                                placeholder="Ketik tools lalu tekan Enter">
+                        </div>
+
+                        <div id="technology-hidden-input"></div>
+
+                        <datalist id="list_tools">
+                            @foreach ($technologies as $tech)
+                                <option value="{{ $tech->name }}" data-id="{{ $tech->id }}">
+                                </option>
+                            @endforeach
+                        </datalist>
+                    </div>
+
+                    <!-- SKILLS -->
+                    <div class="form-group">
+                        <label>KEAHLIAN (SKILLS)</label>
+
+                        <div class="tag-box" id="skills-container">
+                            <input type="text" id="skills-input" list="list_skills"
+                                placeholder="Ketik skill lalu tekan Enter">
+                        </div>
+
+                        <div id="skill-hidden-input"></div>
+
+                        <datalist id="list_skills">
+                            @foreach ($skills as $skill)
+                                <option value="{{ $skill->name }}" data-id="{{ $skill->id }}">
+                                </option>
+                            @endforeach
+                        </datalist>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        Lihat Hasil Rekomendasi
+                    </button>
+
+                </form>
+
             </div>
 
-            <!-- SKILLS -->
-            <div class="form-group">
-                <label>KEAHLIAN (SKILLS)</label>
-
-                <div class="tag-box" id="skills-container">
-                    <input type="text"
-                           id="skills-input"
-                           list="list_skills"
-                           placeholder="Ketik skill lalu tekan Enter">
-                </div>
-
-                <div id="skill-hidden-input"></div>
-
-                <datalist id="list_skills">
-                    @foreach ($skills as $skill)
-                        <option value="{{ $skill->name }}"
-                                data-id="{{ $skill->id }}">
-                        </option>
-                    @endforeach
-                </datalist>
-            </div>
-
-            <button type="submit" class="btn-submit">
-                Lihat Hasil Rekomendasi
-            </button>
-
-        </form>
-
+        </div>
     </div>
+    <script>
+        function createTagInput(
+            inputId,
+            containerId,
+            datalistId,
+            hiddenContainerId,
+            inputName
+        ) {
 
-</div>
+            const input = document.getElementById(inputId);
+            const container = document.getElementById(containerId);
+            const datalist = document.getElementById(datalistId);
+            const hiddenContainer = document.getElementById(hiddenContainerId);
 
-<script>
+            input.addEventListener("keydown", function(e) {
 
-    function createTagInput(
-        inputId,
-        containerId,
-        datalistId,
-        hiddenContainerId,
-        inputName
-    ) {
+                if (e.key === "Enter") {
 
-        const input = document.getElementById(inputId);
-        const container = document.getElementById(containerId);
-        const datalist = document.getElementById(datalistId);
-        const hiddenContainer = document.getElementById(hiddenContainerId);
+                    e.preventDefault();
 
-        input.addEventListener("keydown", function(e) {
+                    const value = input.value.trim();
 
-            if (e.key === "Enter") {
+                    if (value === "") return;
 
-                e.preventDefault();
+                    const existingTags = container.querySelectorAll(".tag");
 
-                const value = input.value.trim();
+                    let isDuplicate = false;
 
-                if (value === "") return;
+                    existingTags.forEach(tag => {
 
-                const existingTags = container.querySelectorAll(".tag");
+                        const tagText = tag.firstChild.textContent
+                            .trim()
+                            .toLowerCase();
 
-                let isDuplicate = false;
+                        if (tagText === value.toLowerCase()) {
+                            isDuplicate = true;
+                        }
+                    });
 
-                existingTags.forEach(tag => {
+                    if (isDuplicate) {
 
-                    const tagText = tag.firstChild.textContent
-                        .trim()
-                        .toLowerCase();
-
-                    if (tagText === value.toLowerCase()) {
-                        isDuplicate = true;
+                        input.value = "";
+                        return;
                     }
-                });
 
-                if (isDuplicate) {
+                    const option = [...datalist.options]
+                        .find(opt => opt.value === value);
 
-                    input.value = "";
-                    return;
-                }
+                    if (!option) {
 
-                const option = [...datalist.options]
-                    .find(opt => opt.value === value);
+                        alert("Data tidak tersedia!");
+                        return;
+                    }
 
-                if (!option) {
+                    const id = option.dataset.id;
 
-                    alert("Data tidak tersedia!");
-                    return;
-                }
+                    const tag = document.createElement("div");
 
-                const id = option.dataset.id;
+                    tag.classList.add("tag");
 
-                const tag = document.createElement("div");
-
-                tag.classList.add("tag");
-
-                tag.innerHTML = `
+                    tag.innerHTML = `
                     ${value}
                     <span>&times;</span>
                 `;
 
-                const hiddenInput = document.createElement("input");
+                    const hiddenInput = document.createElement("input");
 
-                hiddenInput.type = "hidden";
-                hiddenInput.name = inputName + "[]";
-                hiddenInput.value = id;
+                    hiddenInput.type = "hidden";
+                    hiddenInput.name = inputName + "[]";
+                    hiddenInput.value = id;
 
-                hiddenContainer.appendChild(hiddenInput);
+                    hiddenContainer.appendChild(hiddenInput);
 
-                tag.querySelector("span").addEventListener("click", function() {
+                    tag.querySelector("span").addEventListener("click", function() {
 
-                    tag.remove();
-                    hiddenInput.remove();
-                });
+                        tag.remove();
+                        hiddenInput.remove();
+                    });
 
-                container.insertBefore(tag, input);
+                    container.insertBefore(tag, input);
 
-                input.value = "";
-            }
-        });
-    }
+                    input.value = "";
+                }
+            });
+        }
 
-    createTagInput(
-        "tools-input",
-        "tools-container",
-        "list_tools",
-        "technology-hidden-input",
-        "technology_id"
-    );
+        createTagInput(
+            "tools-input",
+            "tools-container",
+            "list_tools",
+            "technology-hidden-input",
+            "technology_id"
+        );
 
-    createTagInput(
-        "skills-input",
-        "skills-container",
-        "list_skills",
-        "skill-hidden-input",
-        "skill_id"
-    );
+        createTagInput(
+            "skills-input",
+            "skills-container",
+            "list_skills",
+            "skill-hidden-input",
+            "skill_id"
+        );
 
-    createTagInput(
-        "minat-bidang-input",
-        "minat-bidang-container",
-        "list_minat_bidang",
-        "minat-hidden-input",
-        "minat_id"
-    );
-
-</script>
+        createTagInput(
+            "minat-bidang-input",
+            "minat-bidang-container",
+            "list_minat_bidang",
+            "minat-hidden-input",
+            "minat_id"
+        );
+    </script>
 
 </body>
+
 </html>
 ```

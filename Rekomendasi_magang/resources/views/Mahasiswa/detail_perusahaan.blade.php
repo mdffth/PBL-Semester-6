@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,37 +12,103 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', sans-serif;
         }
 
-        body{
+        body {
             background: #F5F7FB;
             color: #1E1E1E;
         }
 
         /* NAVBAR */
-        .navbar { background: #1a1a6e; display: flex; align-items: center; justify-content: space-between; padding: .9rem 5%; position: sticky; top: 0; z-index: 100; }
-        .navbar-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
-        .brand-logo { width: 36px; height: 36px; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1a1a6e; font-size: .85rem; }
-        .brand-name { color: #fff; font-weight: 700; font-size: 1.1rem; }
-        .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .2s; }
-        .nav-links a:hover, .nav-links a.active { color: #fff; }
-        .nav-btn { background: #3b3bdb; color: #fff !important; padding: .5rem 1.3rem; border-radius: 8px; font-weight: 600 !important; }
-        .nav-btn:hover { background: #2d2db8 !important; }
-        .nav-avatar { width: 34px; height: 34px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: .9rem; cursor: pointer; }
+        .navbar {
+            background: #1a1a6e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .9rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-         /* SECTION */
-        section { padding: 5rem 5%; }
-        .sec-title { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: #1a1a2e; margin-bottom: .5rem; }
-        .sec-sub { color: #666; font-size: .93rem; line-height: 1.65; }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            background: #fff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #1a1a6e;
+            font-size: .85rem;
+        }
+
+        .brand-name {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: .9rem;
+            font-weight: 500;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+        }
+
+        .nav-btn {
+            background: #3b3bdb;
+            color: #fff !important;
+            padding: .5rem 1.3rem;
+            border-radius: 8px;
+            font-weight: 600 !important;
+        }
+
+        .nav-btn:hover {
+            background: #2d2db8 !important;
+        }
+
+        .nav-avatar {
+            width: 34px;
+            height: 34px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: .9rem;
+            cursor: pointer;
+        }
 
         /* CONTAINER */
-        .container{
+        .container {
             width: 95%;
             margin: 30px auto;
             display: grid;
@@ -50,39 +117,39 @@
         }
 
         /* LEFT */
-        .card{
+        .card {
             background: white;
             border-radius: 14px;
             padding: 20px;
             margin-bottom: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
-        .company-image{
+        .company-image {
             width: 100%;
             height: 350px;
             object-fit: cover;
             border-radius: 12px;
         }
 
-        .company-header{
+        .company-header {
             margin-top: 20px;
         }
 
-        .company-title{
+        .company-title {
             font-size: 42px;
             font-weight: bold;
             margin-bottom: 10px;
         }
 
-        .company-badge{
+        .company-badge {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             margin-top: 12px;
         }
 
-        .badge{
+        .badge {
             background: #EEF3FF;
             color: #0242C4;
             padding: 8px 14px;
@@ -91,7 +158,7 @@
             font-weight: 600;
         }
 
-        .section-title{
+        .section-title {
             font-size: 30px;
             font-weight: bold;
             margin-bottom: 20px;
@@ -99,50 +166,50 @@
             padding-left: 12px;
         }
 
-        .description{
+        .description {
             color: #555;
-            line-height: 1.8;
+            line-height: 1;
             font-size: 16px;
             white-space: pre-line;
         }
 
-        .responsibility-list{
+        .responsibility-list {
             margin-top: 20px;
             padding-left: 20px;
         }
 
-        .responsibility-list li{
+        .responsibility-list li {
             margin-bottom: 15px;
             color: #444;
             line-height: 1.6;
         }
 
         /* RIGHT */
-        .sidebar-card{
+        .sidebar-card {
             background: white;
             border-radius: 14px;
             padding: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             margin-bottom: 20px;
         }
 
-        .sidebar-title{
+        .sidebar-title {
             font-size: 26px;
             font-weight: bold;
             margin-bottom: 25px;
         }
 
-        .info-group{
+        .info-group {
             margin-bottom: 22px;
             border-bottom: 1px solid #eee;
             padding-bottom: 15px;
         }
 
-        .info-group:last-child{
+        .info-group:last-child {
             border-bottom: none;
         }
 
-        .info-label{
+        .info-label {
             font-size: 12px;
             color: #7C8299;
             margin-bottom: 8px;
@@ -150,21 +217,21 @@
             font-weight: 600;
         }
 
-        .info-value{
+        .info-value {
             font-size: 15px;
             color: #333;
             font-weight: 500;
             line-height: 1.6;
         }
 
-        .tag-container{
+        .tag-container {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 10px;
         }
 
-        .tag{
+        .tag {
             background: #EEF3FF;
             color: #0242C4;
             padding: 8px 14px;
@@ -173,7 +240,7 @@
             font-weight: 500;
         }
 
-        .apply-btn{
+        .apply-btn {
             width: 100%;
             background: #0242C4;
             color: white;
@@ -186,23 +253,23 @@
             margin-top: 20px;
         }
 
-        .apply-btn:hover{
+        .apply-btn:hover {
             background: #0136A0;
         }
 
-        .help-box{
+        .help-box {
             background: #0F172A;
             color: white;
         }
 
-        .help-box p{
+        .help-box p {
             margin-top: 10px;
             color: #D1D5DB;
             font-size: 14px;
             line-height: 1.7;
         }
 
-        footer{
+        /* footer{
             background: white;
             padding: 30px 50px;
             margin-top: 50px;
@@ -227,61 +294,80 @@
         .footer-links{
             display: flex;
             gap: 20px;
+        } */
+
+        @media(max-width: 900px) {
+            .hero-right {
+                display: none;
+            }
+
+            .langkah-grid,
+            .perusahaan-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
-        @media(max-width: 992px){
-            .container{
+        @media(max-width: 600px) {
+
+            .langkah-grid,
+            .perusahaan-grid {
                 grid-template-columns: 1fr;
             }
-
-            .company-title{
-                font-size: 30px;
-            }
-
-            .section-title{
-                font-size: 24px;
-            }
-
-            .sidebar-title{
-                font-size: 22px;
-            }
-
-            .navbar{
-                flex-direction: column;
-                gap: 15px;
-            }
         }
-
     </style>
 </head>
+
 <body>
 
     <!-- NAVBAR -->
-<nav class="navbar">
-    <a href="{{ route('landing') }}" class="navbar-brand">
-        <div class="brand-logo">RI</div>
-        <span class="brand-name">RekomIn</span>
-    </a>
-    <ul class="nav-links">
-        <li><a href="{{ route('landing') }}" class="active">Home</a></li>
-        <li><a href="{{ route('rekomendasi') }}">Perusahaan</a></li>
-
-        <a href="{{ route('recommendation.index') }}" class="nav-btn">
-            Start Rekomendasi
+    <nav class="navbar">
+        <a href="{{ route('landing') }}" class="navbar-brand">
+            <div class="brand-logo">RI</div>
+            <span class="brand-name">RekomIn</span>
         </a>
-
-        {{-- <li>
-        <div class="nav-avatar">
-            <i class="fas fa-user"></i>
-        </div>
-
-        <div class="nav-menu">
-            <a href="#">Beranda</a>
-            <a href="#">Perusahaan</a>
-            <a href="#" class="btn-login">Login</a>
-            <a href="#" class="btn-primary">Mulai Rekomendasi</a>
-        </div>
-    </div>
+        <ul class="nav-links">
+            <li><a href="{{ route('landing') }}" class="active">Home</a></li>
+            <li><a href="#perusahaan">Perusahaan</a></li>
+            <li>
+                <a href="{{ route('recommendation.index') }}" class="nav-btn">
+                    Start Rekomendasi
+                </a>
+            </li>
+            <!-- @if (Route::has('login'))
+                <nav class="flex items-center justify-end gap-4">
+                    @auth
+                            <li>
+                                <a
+                                    href="{{ url('/dashboard') }}"
+                                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                                >
+                                    Dashboard
+                                </a>
+                            </li>
+@else
+    <li>
+                                <a
+                                    href="{{ route('login') }}"
+                                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                                >
+                                    Log in
+                                </a>
+                            </li>
+                                @if (Route::has('register'))
+    <li>
+                                    <a
+                                        href="{{ route('register') }}"
+                                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                        Register
+                                    </a>
+                                </li>
+    @endif
+                    @endauth
+                </nav>
+            @endif -->
+            {{-- <li><div class="nav-avatar"><i class="fas fa-user"></i></div></li> --}}
+        </ul>
+    </nav>
 
     <!-- CONTENT -->
     <div class="container">
@@ -293,10 +379,8 @@
             <div class="card">
 
                 {{-- LOGO DINAMIS --}}
-                <img
-                    src="{{ $perusahaan->logo ? asset('storage/' . $perusahaan->logo) : asset('images/reka.png') }}"
-                    class="company-image"
-                >
+                <img src="{{ $perusahaan->logo ? asset($perusahaan->logo) : asset('images/reka.png') }}"
+                    class="company-image">
 
                 <div class="company-header">
 
@@ -328,6 +412,7 @@
 
             <!-- PROFILE -->
             <div class="card">
+
                 <div class="section-title">
                     Profil Perusahaan
                 </div>
@@ -340,6 +425,7 @@
 
             <!-- JOB DESCRIPTION -->
             <div class="card">
+
                 <div class="section-title">
                     Detailed Job Description
                 </div>
@@ -348,36 +434,9 @@
                     {{ $perusahaan->job_description ?? '-' }}
                 </div>
 
-                <div class="section-title"
-                     style="margin-top:35px; font-size:24px;">
-
-                    Informasi Magang
+                <div>
 
                 </div>
-
-                <ul class="responsibility-list">
-
-                    <li>
-                        <strong>Posisi Magang :</strong>
-                        {{ $perusahaan->posisi_magang ?? '-' }}
-                    </li>
-
-                    <li>
-                        <strong>Minimal IPK :</strong>
-                        {{ $perusahaan->min_ipk ?? '-' }}
-                    </li>
-
-                    <li>
-                        <strong>Durasi Magang :</strong>
-                        {{ $perusahaan->duration_months ?? '-' }}
-                    </li>
-
-                    <li>
-                        <strong>Status Magang :</strong>
-                        {{ $perusahaan->status_magang ?? '-' }}
-                    </li>
-
-                </ul>
 
             </div>
 
@@ -427,145 +486,137 @@
                     </div>
 
                     <div class="info-value">
-                        {{ $perusahaan->posisi_magang ?? '-' }}
-                    </div>
-
-                </div>
-
-                <div class="info-group">
-
-                    <div class="info-label">
-                        Minimal IPK
-                    </div>
-
-                    <div class="info-value">
-                        {{ $perusahaan->min_ipk ?? '-' }}
-                    </div>
-
-                </div>
-
-                <div class="info-group">
-
-                    <div class="info-label">
-                        Durasi Magang
-                    </div>
-
-                    <div class="info-value">
-                        {{ $perusahaan->duration_months ?? '-' }}
-                    </div>
-
-                </div>
-
-                <div class="info-group">
-
-                    <div class="info-label">
-                        Status Magang
-                    </div>
-
-                    <div class="info-value">
-                        {{ $perusahaan->status_magang ?? '-' }}
-                    </div>
-
-                </div>
-
-                <!-- SKILLS -->
-                <div class="info-group">
-
-                    <div class="info-label">
-                        Required Skills
-                    </div>
-
-                    <div class="tag-container">
-
-                        @forelse($perusahaan->skills as $skill)
-
-                            <div class="tag">
-                                {{ $skill->name }}
-                            </div>
-
-                        @empty
-
-                            <div class="tag">
+                        @forelse($perusahaan->minatBidang as $posisi)
+                            {{ $posisi->name }}@if (!$loop->last)
+                                /
+                            @endif
+                            @empty
                                 Belum ada skill
-                            </div>
-
-                        @endforelse
+                            @endforelse
+                        </div>
 
                     </div>
+
+                    <div class="info-group">
+
+                        <div class="info-label">
+                            Minimal IPK
+                        </div>
+
+                        <div class="info-value">
+                            {{ $perusahaan->min_ipk ?? '-' }}
+                        </div>
+
+                    </div>
+
+                    <div class="info-group">
+
+                        <div class="info-label">
+                            Durasi Magang
+                        </div>
+
+                        <div class="info-value">
+                            {{ $perusahaan->duration_months ?? '-' }}
+                        </div>
+
+                    </div>
+
+                    <div class="info-group">
+
+                        <div class="info-label">
+                            Benefit Magang
+                        </div>
+
+                        <div class="info-value">
+                            {{ $perusahaan->benefit ?? '-' }}
+                        </div>
+
+                    </div>
+
+                    <!-- SKILLS -->
+                    <div class="info-group">
+
+                        <div class="info-label">
+                            Required Skills
+                        </div>
+
+                        <div class="tag-container">
+
+                            @forelse($perusahaan->skills as $skill)
+                                <div class="tag">
+                                    {{ $skill->name }}
+                                </div>
+
+                            @empty
+
+                                <div class="tag">
+                                    Belum ada skill
+                                </div>
+                            @endforelse
+
+                        </div>
+
+                    </div>
+
+                    <!-- TECHNOLOGIES -->
+                    <div class="info-group">
+
+                        <div class="info-label">
+                            Technologies
+                        </div>
+
+                        <div class="tag-container">
+
+                            @forelse($perusahaan->technologies as $tech)
+                                <div class="tag">
+                                    {{ $tech->name }}
+                                </div>
+
+                            @empty
+
+                                <div class="tag">
+                                    Belum ada teknologi
+                                </div>
+                            @endforelse
+
+                        </div>
+
+                    </div>
+
+                    <button class="apply-btn">
+                        Daftar / Apply →
+                    </button>
 
                 </div>
 
-                <!-- TECHNOLOGIES -->
-                <div class="info-group">
+                <div class="sidebar-card help-box">
 
-                    <div class="info-label">
-                        Technologies
-                    </div>
+                    <h3>
+                        Need Help?
+                    </h3>
 
-                    <div class="tag-container">
+                    <p>
+                        Contact our talent acquisition team if you have
+                        questions about this role or the application process.
+                    </p>
 
-                        @forelse($perusahaan->technologies as $tech)
-
-                            <div class="tag">
-                                {{ $tech->name }}
-                            </div>
-
-                        @empty
-
-                            <div class="tag">
-                                Belum ada teknologi
-                            </div>
-
-                        @endforelse
-
-                    </div>
+                    <p>
+                        Visit Help Center
+                    </p>
 
                 </div>
 
-                @php
-                    $googleFormBase = 'https://docs.google.com/forms/d/e/1FAIpQLScVNUm4Nit-0VnPf7CbuzrDDEAL2nr2mL9IhYSQjNeeTA06tw/viewform?usp=pp_url';
-                    $entryPerusahaan = 'entry.600353513'; // ganti dengan entry dari Google Form kamu
-                @endphp
-
-                <a href="{{ $googleFormBase }}&{{ $entryPerusahaan }}={{ urlencode($perusahaan->name) }}"
-                target="_blank"
-                class="apply-btn"
-                style="display:block; text-align:center; text-decoration:none;">
-                    Daftar / Apply →
-                </a>
-
-            </div>
-
-            <div class="sidebar-card help-box">
-
-                <h3>
-                    Need Help?
-                </h3>
-
-                <p>
-                    Contact our talent acquisition team if you have
-                    questions about this role or the application process.
-                </p>
-
-                <p>
-                    Visit Help Center
-                </p>
             </div>
 
         </div>
 
-    </div>
+        <!-- FOOTER -->
+        <footer style="background:#1a1a2e; padding:1.5rem 5%; text-align:center; margin-top:3rem;">
+            <p style="font-size:.85rem; color:rgba(255,255,255,0.5);">
+                &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
+            </p>
+        </footer>
 
-    <!-- FOOTER -->
-<footer style="background:#1a1a2e; padding:1.5rem 5%; margin-top:3rem;">
-    
-    <div style="display:flex; justify-content:center; align-items:center;">
-        <p style="font-size:.85rem; color:rgba(255,255,255,0.5); margin:0; text-align:center;">
-            &copy; {{ date('Y') }} RekomIn — Platform Rekomendasi Magang Mahasiswa.
-        </p>
-    </div>
+    </body>
 
-</footer>
-
-</body>
-</html>
+    </html>
