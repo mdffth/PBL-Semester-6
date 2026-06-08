@@ -1,23 +1,22 @@
 @extends('layouts.perusahaan')
 
-@section('topbar_title', 'Tambah Perusahaan')
+@section('topbar_title')
+    {{ isset($perusahaan) ? 'Edit Perusahaan Mitra' : 'Tambah Perusahaan Mitra' }}
+@endsection
+
+@section('topbar_subtitle')
+
+    @isset($perusahaan)
+        Perbarui informasi data mitra, posisi lowongan magang,
+        serta kualifikasi mahasiswa untuk {{ $perusahaan->name }}.
+    @else
+        Daftarkan perusahaan mitra baru beserta info lowongan,
+        teknologi, dan kualifikasi bidang minat magang.
+    @endisset
+
+@endsection
 
 @section('content')
-
-<div class="page-header">
-    <div>
-        <div class="page-title">
-            {{ isset($perusahaan) ? 'Edit Perusahaan Mitra' : 'Tambah Perusahaan Mitra' }}
-        </div>
-        <div class="page-subtitle">
-            @isset($perusahaan)
-                Perbarui informasi data mitra, posisi lowongan magang, serta kualifikasi mahasiswa untuk {{ $perusahaan->name }}.
-            @else
-                Daftarkan perusahaan mitra baru beserta info lowongan, teknologi, dan kualifikasi bidang minat magang.
-            @endisset
-        </div>
-    </div>
-</div>
 
 <div class="container">
     @if ($errors->any())

@@ -1,27 +1,15 @@
 @extends('layouts.perusahaan')
 
-@section('topbar_title', 'Dashboard Admin')
+@section('topbar_title', 'Daftar Perusahaan')
+
+@section('topbar_subtitle', 'Kelola data perusahaan mitra dan lowongan magang mahasiswa.')
 
 @section('content')
-                <!-- PAGE HEADER -->
-
-                <div class="page-header">
-
-                    <div>
-                        <div class="page-title">
-                            Daftar Perusahaan
-                        </div>
-                        <div class="page-subtitle">
-                            Kelola data perusahaan mitra dan lowongan magang mahasiswa.
-                        </div>
-                    </div>
-
-                </div>
 
                 <!-- STATS -->
                 <div class="stats">
                     {{-- TOTAL PERUSAHAAN --}}
-                    <a href="{{ route('dashboard.index') }}" class="stat-link">
+                    <a href="{{ route('perusahaan.index') }}" class="stat-link">
                         <div class="card stat-card {{ request('filter') == null ? 'active-card' : '' }}">
                             <div class="stat-header">
                                 <div class="stat-icon blue">
@@ -42,7 +30,7 @@
                     </a>
 
                     {{-- LOWONGAN AKTIF --}}
-                    <a href="{{ route('dashboard.index', ['filter' => 'active']) }}"
+                    <a href="{{ route('perusahaan.index', ['filter' => 'active']) }}"
                     class="stat-link">
                         <div class="card stat-card {{ request('filter') == 'active' ? 'active-card' : '' }}">
                             <div class="stat-header">
@@ -64,7 +52,7 @@
                     </a>
 
                     {{-- LOWONGAN TUTUP --}}
-                    <a href="{{ route('dashboard.index', ['filter' => 'nonactive']) }}"
+                    <a href="{{ route('perusahaan.index', ['filter' => 'nonactive']) }}"
                     class="stat-link">
                         <div class="card stat-card {{ request('filter') == 'nonactive' ? 'active-card' : '' }}">
                             <div class="stat-header">
@@ -91,8 +79,22 @@
                 <!-- TABLE -->
 
                 <div class="card table-card">
+                    <div class="table-header">
 
-                    <table id="companyTable">
+                        <div class="card-title perusahaan-page">
+                            Daftar Perusahaan
+                        </div>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            class="search-box"
+                            placeholder="Cari perusahaan, status, posisi, bidang..."
+                        >
+
+                    </div>
+
+                    <table id="companyTable">             
 
                         <thead>
 
@@ -116,7 +118,7 @@
 
                                 <tr>
                                     <td>
-                                        <div class="company">
+                                        <div class="form-group">
                                             <div>
                                                 <strong>{{ $item->name }}</strong>
                                             </div>
@@ -283,6 +285,23 @@
     </div>
     
 <script>
+    document.getElementById('searchInput')
+        .addEventListener('keyup', function() {
+
+        let keyword = this.value.toLowerCase();
+
+        document.querySelectorAll('#companyTable tbody tr')
+            .forEach(row => {
+
+            let text = row.innerText.toLowerCase();
+
+            row.style.display =
+                text.includes(keyword)
+                    ? ''
+                    : 'none';
+        });
+
+    });
 
     document.querySelectorAll('.toggle-status').forEach(toggle => {
 

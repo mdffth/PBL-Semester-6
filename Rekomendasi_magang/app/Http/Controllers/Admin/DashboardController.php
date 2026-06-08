@@ -10,81 +10,178 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request)
-    {
-        $totalPerusahaan = Perusahaan::count();
+public function index(Request $request)
+{
+    $filter   = $request->filter;
+    $bidang   = $request->bidang;
+    $industri = $request->industri;
 
-        $lowonganAktif = Perusahaan::where(
-            'status_magang',
-            'Active'
-        )->count();
+    /*
+    |--------------------------------------------------------------------------
+    | QUERY DASAR UNTUK FILTER TABEL
+    |--------------------------------------------------------------------------
+    */
+    $baseQuery = Perusahaan::query()
 
-        $lowonganTutup = Perusahaan::where(
-            'status_magang',
-            'Nonactive'
-        )->count();
+        ->when($filter == 'active', function ($q) {
+            $q->where('status_magang', 'Active');
+        })
 
-        // TOP 5 MINAT BIDANG
+        ->when($filter == 'nonactive', function ($q) {
+            $q->where('status_magang', 'Nonactive');
+        })
 
-        $topMinat = DB::table('minat_bidang')
-            ->join(
-                'perusahaan_posisi',
-                'minat_bidang.id',
-                '=',
-                'perusahaan_posisi.minat_bidang_id'
-            )
-            ->select(
-                'minat_bidang.name',
-                DB::raw('COUNT(*) as total')
-            )
-            ->groupBy('minat_bidang.id', 'minat_bidang.name')
-            ->orderByDesc('total')
-            ->limit(5)
-            ->get();
+        ->when($industri, function ($q) use ($industri) {
+            $q->where('tipe_industri', $industri);
+        })
 
-        $labels = $topMinat->pluck('name');
-        $data = $topMinat->pluck('total');
+        ->when($bidang, function ($q) use ($bidang) {
+            $q->whereHas('minatBidang', function ($sub) use ($bidang) {
+                $sub->where('name', $bidang);
+            });
+        });
 
-        // PERUSAHAAN BERDASARKAN INDUSTRI
+    /*
+    |--------------------------------------------------------------------------
+    | STATISTIK GLOBAL
+    |--------------------------------------------------------------------------
+    */
+    $totalPerusahaan = (clone $baseQuery)->count();
 
-        $industriChart = Perusahaan::select(
-                'tipe_industri',
-                DB::raw('COUNT(*) as total')
-            )
-            ->groupBy('tipe_industri')
-            ->orderByDesc('total')
-            ->limit(5)
-            ->get();
+    $lowonganAktif = (clone $baseQuery)
+        ->where('status_magang', 'Active')
+        ->count();
 
-        $industriLabels = $industriChart->pluck('tipe_industri');
-        $industriData = $industriChart->pluck('total');
+    $lowonganTutup = (clone $baseQuery)
+        ->where('status_magang', 'Nonactive')
+        ->count();
 
-        $query = Perusahaan::query();
-
-        if ($request->filter == 'active') {
-            $query->where('status_magang', 'Active');
-        }
-
-        if ($request->filter == 'nonactive') {
-            $query->where('status_magang', 'Nonactive');
-        }
-
-        $perusahaan = $query
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('admin.dashboard', compact(
-            'totalPerusahaan',
-            'lowonganAktif',
-            'lowonganTutup',
+    /*
+    |--------------------------------------------------------------------------
+    | TOP 5 MINAT BIDANG
+    |--------------------------------------------------------------------------
+    */
+    $topMinat = DB::table('minat_bidang')
+        ->join(
+            'perusahaan_posisi',
+            'minat_bidang.id',
+            '=',
+            'perusahaan_posisi.minat_bidang_id'
+        )
+        ->join(
             'perusahaan',
+            'perusahaan.id',
+            '=',
+            'perusahaan_posisi.perusahaan_id'
+        )
 
-            'labels',
-            'data',
+        ->when($filter == 'active', function ($q) {
+            $q->where('perusahaan.status_magang', 'Active');
+        })
 
-            'industriLabels',
-            'industriData'
-        ));
+        ->when($filter == 'nonactive', function ($q) {
+            $q->where('perusahaan.status_magang', 'Nonactive');
+        })
+
+        ->when($industri, function ($q) use ($industri) {
+            $q->where('perusahaan.tipe_industri', $industri);
+        })
+
+        ->select(
+            'minat_bidang.name',
+            DB::raw('COUNT(*) as total')
+        )
+
+        ->groupBy(
+            'minat_bidang.id',
+            'minat_bidang.name'
+        )
+
+        ->orderByDesc('total')
+        ->limit(5)
+        ->get();
+
+    // Jika bidang dipilih, tampilkan hanya bidang tersebut
+    if ($bidang) {
+
+        $labels = [$bidang];
+
+        $data = [
+            (clone $baseQuery)->count()
+        ];
+
+    } else {
+
+        $labels = $topMinat
+            ->pluck('name')
+            ->toArray();
+
+        $data = $topMinat
+            ->pluck('total')
+            ->toArray();
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CHART INDUSTRI
+    |--------------------------------------------------------------------------
+    */
+    $industriChart = Perusahaan::query()
+
+        ->when($filter == 'active', function ($q) {
+            $q->where('status_magang', 'Active');
+        })
+
+        ->when($filter == 'nonactive', function ($q) {
+            $q->where('status_magang', 'Nonactive');
+        })
+
+        ->when($bidang, function ($q) use ($bidang) {
+            $q->whereHas('minatBidang', function ($sub) use ($bidang) {
+                $sub->where('name', $bidang);
+            });
+        })
+
+        ->select(
+            'tipe_industri',
+            DB::raw('COUNT(*) as total')
+        )
+
+        ->groupBy('tipe_industri')
+        ->orderByDesc('total')
+        ->limit(5)
+        ->get();
+
+    $industriLabels = $industriChart
+        ->pluck('tipe_industri')
+        ->toArray();
+
+    $industriData = $industriChart
+        ->pluck('total')
+        ->toArray();
+
+    /*
+    |--------------------------------------------------------------------------
+    | 5 PERUSAHAAN TERBARU
+    |--------------------------------------------------------------------------
+    */
+    $perusahaan = (clone $baseQuery)
+        ->latest()
+        ->take(5)
+        ->get();
+
+    return view('admin.dashboard', compact(
+        'totalPerusahaan',
+        'lowonganAktif',
+        'lowonganTutup',
+        'perusahaan',
+        'labels',
+        'data',
+        'industriLabels',
+        'industriData',
+        'filter',
+        'bidang',
+        'industri'
+    ));
+}
 }
