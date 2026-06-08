@@ -268,9 +268,79 @@
                 box-sizing: border-box;
             }
 
-.main.collapsed-mode .main-container {
-    padding: 23px 20px 40px;
-}            
+            .main.collapsed-mode .main-container {
+                padding: 23px 20px 40px;
+            }  
+            
+            /* ================= TOP NAVBART ================= */
+            .top-navbar{
+                height: 82px;
+                background: #ffffff;
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                padding: 0 32px;
+
+                border-bottom: 1px solid #E5E7EB;
+
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+
+            .navbar-title{
+                font-size: 22px;
+                font-weight: 800;
+                color: #1F2937;
+            }
+
+            .navbar-right{
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+            
+            .navbar-heading{
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .navbar-subtitle{
+                font-size: 14px;
+                color: #767587;
+                font-weight: 500;
+            }  
+
+            .navbar-actions{
+                display: flex;
+                align-items: center;
+            }
+
+            .btn-reset{
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+
+                padding: 10px 16px;
+
+                border-radius: 10px;
+
+                background: #EEF2FF;
+                color: #4338CA;
+
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 600;
+
+                transition: all .2s ease;
+            }
+
+            .btn-reset:hover{
+                background: #DDE5FF;
+            }            
             /* ================= BUTTON ================= */
             .btn-primary-custom {
                 display: inline-flex;
@@ -319,11 +389,16 @@
                 display: flex;
                 align-items: center;
                 gap: 12px;
-                padding-bottom: 18px;
-                margin-bottom: 24px;
+                padding-bottom: 16px;
+                
                 font-size: 18px;
                 font-weight: 800;
                 border-bottom: 1px solid #ECECEC;
+            }
+
+            .card-title.perusahaan-page{
+                border-bottom: none;
+                padding-bottom: 0;
             }
 
             /* ================= STATS ================= */
@@ -409,7 +484,18 @@
                 transform: translateY(-4px);
                 box-shadow: 0 10px 20px rgba(30, 58, 138, 0.12);
             }
-            
+
+            .active-card{
+                border: 2px solid #2563EB;
+                background: #EFF6FF;
+                transform: translateY(-4px);
+                box-shadow: 0 10px 20px rgba(37,99,235,.15);
+            }
+
+            .active-card .stat-label,
+            .active-card .stat-number{
+                color: #2563EB;
+            }            
             /* ================= FORM ================= */
             .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
             .form-group { margin-bottom: 20px; }
@@ -447,7 +533,7 @@
                 border-bottom: 1px solid #ECECEC;
             }
 
-            .table-title { font-size: 28px; font-weight: 800; }
+            /* .table-title { font-size: 28px; font-weight: 800; } */
 
             .search-box {
                 width: 350px;
@@ -699,9 +785,10 @@
             /* ================= PAGE HEADER ================= */
             .page-header {
                 display: flex;
+                justify-content: space-between;
                 align-items: center;
                 gap: 16px;
-                margin-bottom: 26px;
+                margin-bottom: 24px;
             }
 
             .page-title    { font-size: 22px; font-weight: 800; }
@@ -727,19 +814,6 @@
 
         /* ================= Tambah Perusahaan ================= */
 
-        .page-header{
-            display:flex;
-            align-items:center;
-            gap:16px;
-
-            margin-bottom:26px;
-        }
-
-        .page-title{
-            font-size:22px;
-            font-weight:800;
-        }
-
         .content-grid{
             display:grid;
             grid-template-columns:2fr 1fr;
@@ -753,20 +827,6 @@
 
             box-shadow:0 6px 18px rgba(0,0,0,0.04);
             margin-bottom:24px;
-        }
-
-        .card-title{
-            font-size:18px;
-            font-weight:800;
-
-            margin-bottom:24px;
-            padding-bottom:18px;
-
-            border-bottom:1px solid #ECECEC;
-
-            display:flex;
-            align-items:center;
-            gap:12px;
         }
 
         .form-row{
@@ -1039,21 +1099,11 @@
         CARD CHART
         ========================= */
 
-        .dashboard-chart-header{
-            padding:4px 0px;
-            border-bottom:1px solid #e5e7eb;
-        }
-
         .dashboard-chart-header h3{
             margin:0;
             font-size:26px;
             font-weight:800;
             color:#111827;
-        }
-
-        .dashboard-chart-body{
-            padding:20px;
-            height:350px;
         }
 
         /* =========================
@@ -1141,6 +1191,32 @@
 
             <!-- ===== MAIN CONTENT ===== -->
             <main class="main" id="mainContent">
+
+            <!-- TOP NAVBAR -->
+            <div class="top-navbar">
+
+                <div class="navbar-heading">
+
+                    <div class="navbar-title">
+                        @yield('topbar_title')
+                    </div>
+
+                    <div class="navbar-subtitle">
+                        @yield('topbar_subtitle')
+                    </div>
+
+                </div>
+
+                <div class="navbar-actions">
+                    @if(request('filter') || request('bidang') || request('industri'))
+                        <a href="{{ route('dashboard.index') }}" class="btn-reset">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Reset Filter
+                        </a>
+                    @endif
+                </div>
+
+            </div>
                 <div class="main-container">
                     @yield('content')
                 </div>

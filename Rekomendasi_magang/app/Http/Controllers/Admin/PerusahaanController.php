@@ -16,7 +16,7 @@ class PerusahaanController extends Controller
     | DAFTAR PERUSAHAAN
     |--------------------------------------------------------------------------
     */
-    public function index()
+    public function index(Request $request)
     {
         $perusahaan = Perusahaan::latest()->paginate(10);
 
@@ -31,6 +31,21 @@ class PerusahaanController extends Controller
             'status_magang',
             'Nonactive'
         )->count();
+
+        $query = Perusahaan::query();
+
+        if ($request->filter == 'active') {
+            $query->where('status_magang', 'Active');
+        }
+
+        if ($request->filter == 'nonactive') {
+            $query->where('status_magang', 'Nonactive');
+        }
+
+        $perusahaan = $query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();        
 
         return view('admin.daftar_perusahaan', compact(
             'perusahaan',
