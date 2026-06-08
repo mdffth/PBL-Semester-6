@@ -103,31 +103,33 @@ class MahasiswaController extends Controller
     /**
      * Menyimpan testimoni baru ke database.
      */
-    public function store(Request $request)
-    {
-        $exists = Ulasan::where('name', $request->name)->exists();
+public function store(Request $request)
+{
+    $exists = Ulasan::where('name', $request->name)
+        ->where('position', $request->position)
+        ->exists();
 
-        if ($exists) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Anda sudah pernah memberikan ulasan.'
-            ], 422);
-        }
-
-        $ulasan = Ulasan::create([
-            'name' => $request->name,
-            'position' => $request->position,
-            'rating' => $request->rating,
-            'review' => $request->review,
-            'is_active' => true,
-        ]);
-
+    if ($exists) {
         return response()->json([
-            'success' => true,
-            'message' => 'Testimoni berhasil ditambahkan.',
-            'data' => $ulasan
-        ]);
+            'success' => false,
+            'message' => 'Anda sudah pernah mengirim ulasan dengan nama dan jabatan tersebut.'
+        ], 422);
     }
+
+    $ulasan = Ulasan::create([
+        'name'      => $request->name,
+        'position'  => $request->position,
+        'rating'    => $request->rating,
+        'review'    => $request->review,
+        'is_active' => true,
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Terima kasih atas ulasan Anda. Masukan yang diberikan akan membantu mahasiswa menemukan tempat magang yang lebih sesuai.',
+        'data' => $ulasan
+    ]);
+}
     /**
      * Menampilkan detail satu testimoni tertentu.
      */

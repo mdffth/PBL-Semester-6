@@ -59,7 +59,7 @@ Route::post('/logout', [AuthController::class, 'logout'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/landing', [MahasiswaController::class, 'landing'])
+Route::get('/', [MahasiswaController::class, 'landing'])
     ->name('landing');
 
 Route::get('/rekomendasi', [MahasiswaController::class, 'rekomendasi'])
