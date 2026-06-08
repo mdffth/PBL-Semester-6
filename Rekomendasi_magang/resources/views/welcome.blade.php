@@ -2490,7 +2490,7 @@
                         });
                     }
 
-                    for (let i = 0; i < pages; i++) {
+                    for (let i = 0; i < 5; i++) {
                         const b = document.createElement('button');
                         b.style.cssText =
                             'height:8px;width:8px;border-radius:4px;border:none;background:#c0c0d0;cursor:pointer;transition:all .2s;padding:0;';
