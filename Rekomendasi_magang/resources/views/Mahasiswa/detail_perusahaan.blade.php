@@ -33,31 +33,31 @@
             <!-- @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
-                                <li>
-                                    <a
-                                        href="{{ url('/dashboard') }}"
-                                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                                    >
-                                        Dashboard
-                                    </a>
-                                </li>
-@else
-    <li>
-                                    <a
-                                        href="{{ route('login') }}"
-                                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                                    >
-                                        Log in
-                                    </a>
-                                </li>
-                                    @if (Route::has('register'))
-    <li>
+                                    <li>
                                         <a
-                                            href="{{ route('register') }}"
-                                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                            Register
+                                            href="{{ url('/dashboard') }}"
+                                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                                        >
+                                            Dashboard
                                         </a>
                                     </li>
+@else
+    <li>
+                                        <a
+                                            href="{{ route('login') }}"
+                                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                                        >
+                                            Log in
+                                        </a>
+                                    </li>
+                                        @if (Route::has('register'))
+    <li>
+                                            <a
+                                                href="{{ route('register') }}"
+                                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                                Register
+                                            </a>
+                                        </li>
     @endif
                     @endauth
                 </nav>
@@ -280,11 +280,12 @@
 
                     </div>
 
-                    <button class="apply-btn">
-                        Daftar / Apply →
-                    </button>
-
                 </div>
+
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScVNUm4Nit-0VnPf7CbuzrDDEAL2nr2mL9IhYSQjNeeTA06tw/viewform?usp=pp_url&entry.600353513={{ urlencode($perusahaan->name) }}"
+                    target="_blank" class="apply-btn" style="display:block; text-align:center; text-decoration:none;">
+                    Daftar / Apply →
+                </a>
 
                 <div class="sidebar-card help-box">
 
@@ -302,7 +303,6 @@
                     </p>
 
                 </div>
-
             </div>
 
         </div>
