@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #F5F7FB;
+    color: #1E1E1E;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR - Tetap di atas penuh */
+.navbar {
+    background: #1a1a6e;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .9rem 5%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    text-decoration: none;
+}
+
+.brand-logo {
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: #1a1a6e;
+    font-size: .85rem;
+}
+
+.brand-name {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* MAIN WRAPPER - Membuat form otomatis ke tengah layar */
+.main-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    background: white;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.card {
+    border: 1px solid #E5E7EB;
+    border-radius: 14px;
+    padding: 25px;
+}
+
+.card-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-subtitle {
+    color: #7C8299;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-control {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #D1D5DB;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-control:focus {
+    border-color: #0242C4;
+    box-shadow: 0 0 0 3px rgba(2, 66, 196, 0.12);
+}
+
+.tag-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    border: 1px solid #D1D5DB;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.tag-box input {
+    border: none;
+    outline: none;
+    flex: 1;
+    min-width: 200px;
+    font-size: 15px;
+    padding: 8px;
+}
+
+.tag {
+    background: #EEF3FF;
+    color: #0242C4;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tag span {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-submit {
+    width: 100%;
+    background: #0242C4;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background: #0136A0;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px) {
+    .main-wrapper {
+        padding: 20px 15px;
+    }
+
+    .container {
+        padding: 25px;
+    }
+
+    .card-title {
+        font-size: 22px;
+    }
+}

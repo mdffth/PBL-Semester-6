@@ -10,311 +10,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css/mahasiswa/detail_perusahaan.css') }}">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background: #F5F7FB;
-            color: #1E1E1E;
-        }
-
-        /* NAVBAR */
-        .navbar {
-            background: #1a1a6e;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: .9rem 5%;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: .6rem;
-            text-decoration: none;
-        }
-
-        .brand-logo {
-            width: 36px;
-            height: 36px;
-            background: #fff;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            color: #1a1a6e;
-            font-size: .85rem;
-        }
-
-        .brand-name {
-            color: #fff;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.85);
-            text-decoration: none;
-            font-size: .9rem;
-            font-weight: 500;
-            transition: color .2s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #fff;
-        }
-
-        .nav-btn {
-            background: #3b3bdb;
-            color: #fff !important;
-            padding: .5rem 1.3rem;
-            border-radius: 8px;
-            font-weight: 600 !important;
-        }
-
-        .nav-btn:hover {
-            background: #2d2db8 !important;
-        }
-
-        .nav-avatar {
-            width: 34px;
-            height: 34px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: .9rem;
-            cursor: pointer;
-        }
-
-        /* CONTAINER */
-        .container {
-            width: 95%;
-            margin: 30px auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 25px;
-        }
-
-        /* LEFT */
-        .card {
-            background: white;
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .company-image {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            border-radius: 12px;
-        }
-
-        .company-header {
-            margin-top: 20px;
-        }
-
-        .company-title {
-            font-size: 42px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .company-badge {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-
-        .badge {
-            background: #EEF3FF;
-            color: #0242C4;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .section-title {
-            font-size: 30px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            border-left: 5px solid #0242C4;
-            padding-left: 12px;
-        }
-
-        .description {
-            color: #555;
-            line-height: 1;
-            font-size: 16px;
-            white-space: pre-line;
-        }
-
-        .responsibility-list {
-            margin-top: 20px;
-            padding-left: 20px;
-        }
-
-        .responsibility-list li {
-            margin-bottom: 15px;
-            color: #444;
-            line-height: 1.6;
-        }
-
-        /* RIGHT */
-        .sidebar-card {
-            background: white;
-            border-radius: 14px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-        }
-
-        .sidebar-title {
-            font-size: 26px;
-            font-weight: bold;
-            margin-bottom: 25px;
-        }
-
-        .info-group {
-            margin-bottom: 22px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
-        }
-
-        .info-group:last-child {
-            border-bottom: none;
-        }
-
-        .info-label {
-            font-size: 12px;
-            color: #7C8299;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .info-value {
-            font-size: 15px;
-            color: #333;
-            font-weight: 500;
-            line-height: 1.6;
-        }
-
-        .tag-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .tag {
-            background: #EEF3FF;
-            color: #0242C4;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .apply-btn {
-            width: 100%;
-            background: #0242C4;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .apply-btn:hover {
-            background: #0136A0;
-        }
-
-        .help-box {
-            background: #0F172A;
-            color: white;
-        }
-
-        .help-box p {
-            margin-top: 10px;
-            color: #D1D5DB;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        /* footer{
-            background: white;
-            padding: 30px 50px;
-            margin-top: 50px;
-            border-top: 1px solid #ddd;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        footer h3{
-            color: #0242C4;
-            margin-bottom: 10px;
-        }
-
-        footer p,
-        footer a{
-            color: #7C8299;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .footer-links{
-            display: flex;
-            gap: 20px;
-        } */
-
-        @media(max-width: 900px) {
-            .hero-right {
-                display: none;
-            }
-
-            .langkah-grid,
-            .perusahaan-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media(max-width: 600px) {
-
-            .langkah-grid,
-            .perusahaan-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -336,31 +33,31 @@
             <!-- @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
-                            <li>
-                                <a
-                                    href="{{ url('/dashboard') }}"
-                                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                                >
-                                    Dashboard
-                                </a>
-                            </li>
-@else
-    <li>
-                                <a
-                                    href="{{ route('login') }}"
-                                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                                >
-                                    Log in
-                                </a>
-                            </li>
-                                @if (Route::has('register'))
-    <li>
+                                <li>
                                     <a
-                                        href="{{ route('register') }}"
-                                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                        Register
+                                        href="{{ url('/dashboard') }}"
+                                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                                    >
+                                        Dashboard
                                     </a>
                                 </li>
+@else
+    <li>
+                                    <a
+                                        href="{{ route('login') }}"
+                                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                                    >
+                                        Log in
+                                    </a>
+                                </li>
+                                    @if (Route::has('register'))
+    <li>
+                                        <a
+                                            href="{{ route('register') }}"
+                                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                            Register
+                                        </a>
+                                    </li>
     @endif
                     @endauth
                 </nav>
