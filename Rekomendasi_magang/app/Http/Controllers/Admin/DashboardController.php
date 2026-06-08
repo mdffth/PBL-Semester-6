@@ -40,19 +40,31 @@ public function index(Request $request)
                 $sub->where('name', $bidang);
             });
         });
+    
+    $statQuery = Perusahaan::query()
+
+        ->when($industri, function ($q) use ($industri) {
+            $q->where('tipe_industri', $industri);
+        })
+
+        ->when($bidang, function ($q) use ($bidang) {
+            $q->whereHas('minatBidang', function ($sub) use ($bidang) {
+                $sub->where('name', $bidang);
+            });
+        });
 
     /*
     |--------------------------------------------------------------------------
     | STATISTIK GLOBAL
     |--------------------------------------------------------------------------
     */
-    $totalPerusahaan = (clone $baseQuery)->count();
+    $totalPerusahaan = (clone $statQuery)->count();
 
-    $lowonganAktif = (clone $baseQuery)
+    $lowonganAktif = (clone $statQuery)
         ->where('status_magang', 'Active')
         ->count();
 
-    $lowonganTutup = (clone $baseQuery)
+    $lowonganTutup = (clone $statQuery)
         ->where('status_magang', 'Nonactive')
         ->count();
 
