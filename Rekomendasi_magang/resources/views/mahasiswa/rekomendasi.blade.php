@@ -145,8 +145,8 @@
                             </div>
 
                             <div class="r-card-row">
-                                <span>Posisi :</span>
-                                {{ Str::limit($p->posisi_magang, 55) }}
+                                <span>Minimal IPK:</span>
+                                {{ Str::limit($p->min_ipk, 55) }}
                             </div>
                             
                             <div class="r-card-row">
