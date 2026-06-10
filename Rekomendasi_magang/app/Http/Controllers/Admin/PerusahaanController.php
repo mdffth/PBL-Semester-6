@@ -45,7 +45,7 @@ class PerusahaanController extends Controller
         $perusahaan = $query
             ->latest()
             ->paginate(10)
-            ->withQueryString();        
+            ->withQueryString();
 
         return view('admin.daftar_perusahaan', compact(
             'perusahaan',
@@ -114,9 +114,13 @@ class PerusahaanController extends Controller
         $logoPath = null;
 
         if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
 
-            $logoPath = $request->file('logo')
-                ->store('logo_perusahaan', 'public');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('img/perusahaan'), $fileName);
+
+            $logoPath = 'img/perusahaan/' . $fileName;
         }
 
         $perusahaan = Perusahaan::create([
@@ -166,7 +170,7 @@ class PerusahaanController extends Controller
     |--------------------------------------------------------------------------
     | TOGGLE STATUS
     |--------------------------------------------------------------------------
-    */ 
+    */
 
     public function toggleStatus($id)
     {
@@ -272,10 +276,21 @@ class PerusahaanController extends Controller
 
         $perusahaan = Perusahaan::findOrFail($id);
 
-        if ($request->hasFile('logo')) {
+        $logoPath = $perusahaan->logo;
 
-            $perusahaan->logo = $request->file('logo')
-                ->store('logo_perusahaan', 'public');
+        if ($request->hasFile('logo')) {
+            // 2. HAPUS LOGO LAMA DARI FOLDER (Jika file lamanya ada)
+            if ($perusahaan->logo && file_exists(public_path($perusahaan->logo))) {
+                unlink(public_path($perusahaan->logo));
+            }
+
+            // 3. PROSES UPLOAD LOGO BARU
+            $file = $request->file('logo');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img/perusahaan'), $fileName);
+
+            // Set path baru untuk disimpan ke database
+            $logoPath = 'img/perusahaan/' . $fileName;
         }
 
         $perusahaan->update([
@@ -296,6 +311,8 @@ class PerusahaanController extends Controller
             'duration_months' => $request->duration_months ?? $perusahaan->duration_months,
 
             'job_description' => $request->job_description ?? $perusahaan->job_description,
+
+            'logo' => $logoPath,
         ]);
 
         $perusahaan->skills()->sync($request->skill_id ?? []);
