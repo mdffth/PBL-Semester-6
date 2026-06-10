@@ -7,9 +7,9 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/mahasiswa/result_page.css') }}">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -361,9 +361,13 @@
                 e.preventDefault();
 
                 let formData = new FormData(this);
+                const submitBtn = this.querySelector('.btn-submit-ulasan');
+
+                // Disable button saat submitting
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Mengirim...';
 
                 try {
-
                     const response = await fetch(
                         "{{ route('system-review.store') }}", {
                             method: "POST",
@@ -371,7 +375,6 @@
                                 "X-CSRF-TOKEN": document.querySelector(
                                     'meta[name="csrf-token"]'
                                 ).content,
-
                                 "Accept": "application/json"
                             },
                             body: formData
@@ -381,24 +384,99 @@
                     const result = await response.json();
 
                     if (result.success) {
-
-                        alert(result.message);
+                        // ✅ Alert Sukses
+                        showCustomAlert('success', 'Berhasil Mengirim Ulasan!', result.message);
 
                         this.reset();
+                        ratingInput.value = '';
+                        stars.forEach(s => s.classList.remove('active'));
 
-                        document.getElementById('ulasanOverlay')
-                            .classList.remove('show');
-
+                        setTimeout(() => {
+                            document.getElementById('ulasanOverlay').classList.remove('show');
+                        }, 1500);
+                    } else {
+                        // ❌ Alert Gagal
+                        showCustomAlert('error', 'Gagal Mengirim Ulasan', result.message);
                     }
 
                 } catch (err) {
-
                     console.error(err);
-
-                    alert("Terjadi kesalahan");
+                    showCustomAlert('error', 'Terjadi Kesalahan',
+                        'Maaf, terjadi kesalahan pada server. Silakan coba lagi.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Kirim Ulasan';
                 }
-
             });
+
+        // Fungsi custom alert yang lebih menarik
+        function showCustomAlert(type, title, message) {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 99999;
+            `;
+
+            const icon = type === 'success' ? '✓' : '✕';
+            const bgColor = type === 'success' ? '#1a1a6e' : '#dc2626';
+            const iconBg = type === 'success' ? '#dcfce7' : '#fee2e2';
+
+            overlay.innerHTML = `
+                <div class="custom-alert-box">
+                    <div style="
+                        width: 70px;
+                        height: 70px;
+                        border-radius: 50%;
+                        background: ${iconBg};
+                        color: ${bgColor};
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 32px;
+                        font-weight: 800;
+                        margin: 0 auto 20px;
+                    ">${icon}</div>
+                    
+                    <h3 style="
+                        font-size: 20px;
+                        font-weight: 800;
+                        color: #1a1a2e;
+                        margin-bottom: 10px;
+                    ">${title}</h3>
+                    
+                    <p style="
+                        font-size: 14px;
+                        color: #666;
+                        line-height: 1.6;
+                        margin-bottom: 25px;
+                    ">${message}</p>
+                    
+                    <button onclick="this.closest('.custom-alert-overlay').remove()" style="
+                        background: ${bgColor};
+                        color: white;
+                        border: none;
+                        padding: 12px 30px;
+                        border-radius: 10px;
+                        font-weight: 700;
+                        font-size: 14px;
+                        cursor: pointer;
+                    ">Tutup</button>
+                </div>
+            `;
+
+            overlay.classList.add('custom-alert-overlay');
+            document.body.appendChild(overlay);
+
+            // Auto close setelah 5 detik untuk success
+            if (type === 'success') {
+                setTimeout(() => overlay.remove(), 5000);
+            }
+        }
     </script>
 </body>
 

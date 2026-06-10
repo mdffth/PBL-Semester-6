@@ -325,8 +325,8 @@ body {
 }
 
 /* =========================
-   PAGE TITLE
-========================= */
+       PAGE TITLE
+    ========================= */
 .page-title-bar {
     background: #fff;
     border-bottom: 1px solid #e8e8f0;
@@ -340,8 +340,8 @@ body {
 }
 
 /* =========================
-   FILTER
-========================= */
+       FILTER
+    ========================= */
 .filter-bar {
     background: #fff;
     border-bottom: 1px solid #e8e8f0;
@@ -404,8 +404,8 @@ body {
 }
 
 /* =========================
-   CONTENT
-========================= */
+       CONTENT
+    ========================= */
 .content-wrap {
     padding: 1.5rem 5%;
     flex: 1;
@@ -422,8 +422,8 @@ body {
 }
 
 /* =========================
-   GRID
-========================= */
+       GRID
+    ========================= */
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -431,8 +431,8 @@ body {
 }
 
 /* =========================
-   CARD
-========================= */
+       CARD
+    ========================= */
 .r-card {
     background: #fff;
     border-radius: 16px;
@@ -452,8 +452,8 @@ body {
 }
 
 /* =========================
-   MATCH BADGE
-========================= */
+       MATCH BADGE
+    ========================= */
 .r-card-match {
     position: absolute;
     top: .8rem;
@@ -484,8 +484,8 @@ body {
 }
 
 /* =========================
-   IMAGE
-========================= */
+       IMAGE
+    ========================= */
 .r-card-img {
     width: 100%;
     height: 180px;
@@ -516,8 +516,8 @@ body {
 }
 
 /* =========================
-   CARD BODY
-========================= */
+       CARD BODY
+    ========================= */
 .r-card-body {
     padding: 1rem 1.1rem 1.2rem;
     flex: 1;
@@ -546,8 +546,8 @@ body {
 }
 
 /* =========================
-   SCORE BAR
-========================= */
+       SCORE BAR
+    ========================= */
 .score-section {
     margin-top: 1rem;
 }
@@ -583,8 +583,8 @@ body {
 }
 
 /* =========================
-   BUTTON
-========================= */
+       BUTTON
+    ========================= */
 .btn-r-detail {
     display: block;
     text-align: center;
@@ -604,8 +604,8 @@ body {
 }
 
 /* =========================
-   RESPONSIVE
-========================= */
+       RESPONSIVE
+    ========================= */
 @media(max-width:1000px) {
     .cards-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -623,19 +623,15 @@ body {
 }
 
 /* ====================
-MODAL CUSTOM
-==================== */
-
+       MODAL CUSTOM
+    ==================== */
 .modal-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, .45);
-
     display: none;
-
     justify-content: center;
     align-items: center;
-
     z-index: 9999;
 }
 
@@ -646,17 +642,13 @@ MODAL CUSTOM
 .modal-box {
     width: 90%;
     max-width: 520px;
-
     background: white;
     border-radius: 18px;
-
     overflow: hidden;
-
     animation: popup .25s ease;
 }
 
 @keyframes popup {
-
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -670,11 +662,8 @@ MODAL CUSTOM
 
 .modal-header-custom {
     background: #1a1a6e;
-
     color: white;
-
     padding: 18px 22px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -683,11 +672,8 @@ MODAL CUSTOM
 .close-btn {
     background: transparent;
     border: none;
-
     color: white;
-
     font-size: 28px;
-
     cursor: pointer;
 }
 
@@ -708,11 +694,8 @@ MODAL CUSTOM
 .form-group input,
 .form-group textarea {
     width: 100%;
-
     border: 1px solid #ddd;
-
     border-radius: 10px;
-
     padding: 12px;
 }
 
@@ -724,24 +707,16 @@ MODAL CUSTOM
 
 .btn-submit-ulasan {
     width: 100%;
-
     border: none;
-
     background: #1a1a6e;
-
     color: white;
-
     padding: 12px;
-
     border-radius: 10px;
-
     font-weight: 700;
-
     cursor: pointer;
 }
 
 /* RATING */
-
 .rating-box {
     display: flex;
     gap: 8px;
@@ -775,3 +750,22 @@ MODAL CUSTOM
     margin-bottom: 15px;
 }
 
+/* CUSTOM ALERT NOTIFICATION */
+.custom-alert-box {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 400px;
+    text-align: center;
+    animation: popup .25s ease;
+}
+
+.custom-alert-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
