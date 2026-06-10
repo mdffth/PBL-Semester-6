@@ -108,6 +108,10 @@ class PerusahaanController extends Controller
 
             'technology_id' => 'required|array',
 
+            'provinsi' => 'nullable|string|max:255',
+
+            'alamat' => 'nullable|string|max:255',
+
             'minat_id' => 'required|array',
         ]);
 
@@ -142,6 +146,10 @@ class PerusahaanController extends Controller
             'min_ipk' => $request->min_ipk,
 
             'kota' => $request->kota,
+
+            'provinsi' => $request->provinsi,
+
+            'alamat' => $request->alamat,
 
             'logo' => $logoPath,
         ]);
@@ -265,6 +273,10 @@ class PerusahaanController extends Controller
 
             'kota' => 'nullable|string|max:255',
 
+            'provinsi' => 'nullable|string|max:255',
+
+            'alamat' => 'nullable|string|max:255',
+
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
 
             'skill_id' => 'nullable|array',
@@ -311,6 +323,10 @@ class PerusahaanController extends Controller
             'duration_months' => $request->duration_months ?? $perusahaan->duration_months,
 
             'job_description' => $request->job_description ?? $perusahaan->job_description,
+
+            'provinsi' => $request->provinsi,
+
+            'alamat' => $request->alamat,
 
             'logo' => $logoPath,
         ]);
