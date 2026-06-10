@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -24,28 +25,32 @@ class AuthController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+   public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | CEK LOGIN KE DATABASE ADMIN
-        |--------------------------------------------------------------------------
-        */
+    if (Auth::attempt($credentials)) {
 
-        if (Auth::attempt($credentials)) {
+        Log::info(
+            'LOGIN_SUCCESS ip=' . $request->ip() .
+            ' email=' . $request->email
+        );
 
-            $request->session()->regenerate();
+        $request->session()->regenerate();
 
-            return redirect()->route('dashboard.index');
-        }
-
-        return back()->with('error', 'Email atau password salah');
+        return redirect()->route('dashboard.index');
     }
+
+    Log::warning(
+        'LOGIN_FAILED ip=' . $request->ip() .
+        ' email=' . $request->email
+    );
+
+    return back()->with('error', 'Email atau password salah');
+}
 
     /*
     |--------------------------------------------------------------------------

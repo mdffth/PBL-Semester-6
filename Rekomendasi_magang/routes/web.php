@@ -13,29 +13,6 @@ use App\Http\Controllers\Admin\PerusahaanController;
 
 
 // ================= ROUTE UMUM / MAHASISWA =================
-Route::get('/', function () {
-    return view('admin.login');
-});
-
-Route::get('/detail-perusahaan', function () {
-    return view('mahasiswa.detail_perusahaan');
-});
-
-Route::get('/form-page', function () {
-    return view('mahasiswa.form_page');
-});
-
-Route::post('/login', function (Request $request) {
-    $email = $request->email;
-    $password = $request->password;
-
-    if ($email == 'admin@gmail.com' && $password == '123456') {
-        // TIPS: Jika login admin sukses, diarahkan ke dashboard admin
-        return redirect()->route('dashboard.index');
-    }
-
-    return back()->with('error', 'Email atau Password salah');
-})->name('login');
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +24,7 @@ Route::get('/login1', [AuthController::class, 'loginForm'])
     ->name('login.form');
 
 Route::post('/login', [AuthController::class, 'login'])
+    ->middleware('sqli')
     ->name('login');
 
 Route::post('/logout', [AuthController::class, 'logout'])
