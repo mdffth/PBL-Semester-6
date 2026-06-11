@@ -20,9 +20,6 @@ RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-zi
 
 RUN pip3 install --break-system-packages -r requirements.txt
 
-RUN php artisan config:clear
-RUN php artisan cache:clear
-
 EXPOSE 8080
 
 CMD sh -c "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
