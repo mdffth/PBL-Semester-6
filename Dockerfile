@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip \
     git \
+    libzip-dev \
+    && docker-php-ext-install zip pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -16,7 +18,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-req=ext-zip
+RUN composer install --no-dev --optimize-autoloader
 
 RUN pip3 install --break-system-packages -r requirements.txt
 
