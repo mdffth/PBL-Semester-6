@@ -327,27 +327,40 @@
             }
 
             /* ================= STATS ================= */
-            .stats {
+
+            .stats{
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 22px;
-                margin-bottom: 18px;
+                /* margin-bottom: 18px; */
             }
 
-            .stat-link { text-decoration: none; color: inherit; display: block; }
+            .stat-link{
+                text-decoration: none;
+                color: inherit;
+                display: block;
+            }
 
-            .stat-card {
-                padding: 18px !important;
+            .stat-card{
+                padding: 21px !important;
+
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 text-align: center;
+
                 gap: 5px;
                 cursor: pointer;
             }
 
-            .stat-icon {
+            .stat-header{
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+
+            .stat-icon{
                 width: 54px;
                 height: 54px;
                 border-radius: 18px;
@@ -357,17 +370,46 @@
                 font-size: 20px;
             }
 
-            .blue  { background: #EEF2FF; color: #4338CA; }
-            .green { background: #DCFCE7; color: #16A34A; }
-            .red   { background: #FEE2E2; color: #DC2626; }
+            .blue{
+                background: #EEF2FF;
+                color: #4338CA;
+            }
 
-            .stat-label { font-size: 14px; font-weight: 700; color: #767587; letter-spacing: 1px; }
-            .stat-number { font-size: 42px; font-weight: 800; }
+            .green{
+                background: #DCFCE7;
+                color: #16A34A;
+            }
 
-            .active-card { transform: scale(1.02); box-shadow: 0 10px 20px rgba(30,58,138,0.12); }
-            .active-card .stat-label { color: #1E3A8A; }
-            .active-card .stat-number { color: #1E3A8A; }
+            .red{
+                background: #FEE2E2;
+                color: #DC2626;
+            }
 
+            .stat-label{
+                font-size: 14px;
+                font-weight: 700;
+                color: #767587;
+                letter-spacing: 1px;
+            }
+
+            .stat-number{
+                font-size: 42px;
+                font-weight: 800;
+            }
+
+            .stat-footer{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            /* hover stat */
+
+            .stat-card:hover{
+                transform: translateY(-4px);
+                box-shadow: 0 10px 20px rgba(30, 58, 138, 0.12);
+            }
+            
             /* ================= FORM ================= */
             .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
             .form-group { margin-bottom: 20px; }
@@ -417,8 +459,11 @@
                 outline: none;
             }
 
-            table { width: 100%; border-collapse: collapse; }
-            thead { background: #F4F6FB; }
+            .table-title{
+                font-size: 18px;
+                font-weight:600;
+                color: #7b7b89;
+            }
 
             th { padding: 18px 24px; text-align: left; font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #6B7280; }
             td { padding: 22px 24px; font-size: 14px; border-top: 1px solid #F1F1F1; }
@@ -488,10 +533,78 @@
                 border: none; border-radius: 12px; font-size: 15px; cursor: pointer; transition: 0.25s;
             }
 
-            .action-btn.edit   { background: #EEF2FF; color: #4338CA; }
-            .action-btn.edit:hover   { background: #4338CA; color: white; }
-            .action-btn.delete { background: #FEF2F2; color: #DC2626; }
-            .action-btn.delete:hover { background: #DC2626; color: white; }
+            .switch-slider::before{
+                content:'';
+
+                position:absolute;
+                width:22px;
+                height:22px;
+
+                left:3px;
+                top:3px;
+
+                background:white;
+                border-radius:50%;
+
+                transition:0.3s;
+                box-shadow:0 2px 6px rgba(0,0,0,0.15);
+            }
+
+            .switch-toggle input:checked + .switch-slider{
+                background:#22C55E;
+            }
+
+            .switch-toggle input:checked + .switch-slider::before{
+                transform:translateX(24px);
+            } 
+
+            /* ================= ACTION BUTTON ================= */
+            .action-buttons{
+                display:flex;
+                justify-content:center;
+                gap:10px;
+            }
+
+            .action-buttons form{
+                margin:0;
+            }
+
+            .action-btn{
+                width:38px;
+                height:38px;
+
+                display:flex;
+                justify-content:center;
+                align-items:center;
+
+                border:none;
+                border-radius:12px;
+
+                font-size:15px;
+                cursor:pointer;
+
+                transition:0.25s;
+            }
+
+            .action-btn.edit{
+                background:#EEF2FF;
+                color:#4338CA;
+            }
+
+            .action-btn.edit:hover{
+                background:#4338CA;
+                color:white;
+            }
+
+            .action-btn.delete{
+                background:#FEF2F2;
+                color:#DC2626;
+            }
+
+            .action-btn.delete:hover{
+                background:#DC2626;
+                color:white;
+            }
 
             /* ================= EDITOR ================= */
             .editor-toolbar {
@@ -600,6 +713,373 @@
                 .form-row     { grid-template-columns: 1fr; }
             }
 
+            .page-btn.active{
+                background:#0606CD;
+                border-color:#0606CD;
+                color:white;
+            }
+
+            .page-btn.disabled{
+                opacity:0.5;
+                cursor:not-allowed;
+                pointer-events:none;
+            }
+
+        /* ================= Tambah Perusahaan ================= */
+
+        .page-header{
+            display:flex;
+            align-items:center;
+            gap:16px;
+
+            margin-bottom:26px;
+        }
+
+        .page-title{
+            font-size:22px;
+            font-weight:800;
+        }
+
+        .content-grid{
+            display:grid;
+            grid-template-columns:2fr 1fr;
+            gap:24px;
+        }
+
+        .card{
+            background:white;
+            border-radius:24px;
+            padding:28px;
+
+            box-shadow:0 6px 18px rgba(0,0,0,0.04);
+            margin-bottom:24px;
+        }
+
+        .card-title{
+            font-size:18px;
+            font-weight:800;
+
+            margin-bottom:24px;
+            padding-bottom:18px;
+
+            border-bottom:1px solid #ECECEC;
+
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .form-row{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:18px;
+
+            margin-bottom:20px;
+        }
+
+        .form-group{
+            margin-bottom:18px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:10px;
+
+            font-size:14px;
+            font-weight:700;
+
+            color:#333;
+        }
+
+        .input,
+        .select,
+        .textarea{
+            width:100%;
+
+            border:1px solid #E5E7EB;
+            border-radius:14px;
+
+            padding:14px 16px;
+
+            font-size:14px;
+            outline:none;
+
+            transition:0.2s;
+        }
+
+        .input:focus,
+        .select:focus,
+        .textarea:focus{
+            border-color:#1212ff;
+            box-shadow:0 0 0 4px rgba(18,18,255,0.08);
+        }
+
+        .textarea{
+            min-height:180px;
+            resize:none;
+        }
+
+        .editor-toolbar{
+            border:1px solid #E5E7EB;
+            border-bottom:none;
+
+            padding:14px 16px;
+
+            border-radius:14px 14px 0 0;
+
+            display:flex;
+            gap:18px;
+        }
+
+        .editor-area{
+            border:1px solid #E5E7EB;
+            border-radius:0 0 14px 14px;
+
+            min-height:160px;
+
+            padding:18px;
+
+            color:#9CA3AF;
+        }
+
+        .upload-box{
+            border:2px dashed #D1D5DB;
+            border-radius:18px;
+
+            padding:40px 20px;
+
+            text-align:center;
+        }
+
+        .upload-icon{
+            width:56px;
+            height:56px;
+
+            border-radius:50%;
+            background:#EEF2FF;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            margin:auto;
+            margin-bottom:14px;
+
+            color:#1212ff;
+            font-size:20px;
+        }
+
+        .upload-title{
+            color:#1212ff;
+            font-weight:700;
+            margin-bottom:4px;
+        }
+
+        .upload-sub{
+            font-size:12px;
+            color:#8B8B8B;
+        }
+
+        .type-group{
+            display:flex;
+            gap:12px;
+        }
+
+        .type-btn{
+            flex:1;
+
+            border:1px solid #E5E7EB;
+            background:white;
+
+            border-radius:14px;
+
+            padding:16px;
+
+            font-weight:700;
+
+            cursor:pointer;
+
+            transition:0.2s;
+        }
+
+        .type-btn.active{
+            background:#1212ff;
+            color:white;
+            border-color:#1212ff;
+        }
+
+        .range-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            margin-bottom:10px;
+        }
+
+        .range-value{
+            color:#1212ff;
+            font-weight:700;
+        }
+
+        .range-input{
+            width:100%;
+        }
+
+        .switch-wrapper{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            padding:22px;
+
+            border:1px solid #ECECEC;
+            border-radius:18px;
+        }
+
+        .switch-text h4{
+            margin-bottom:6px;
+        }
+
+        .switch-text p{
+            color:#777;
+            font-size:14px;
+        }
+
+        .switch{
+            width:56px;
+            height:30px;
+
+            border-radius:999px;
+            background:#1212ff;
+
+            position:relative;
+        }
+
+        .switch::after{
+            content:'';
+
+            width:24px;
+            height:24px;
+
+            border-radius:50%;
+            background:white;
+
+            position:absolute;
+            right:3px;
+            top:3px;
+        }
+
+        .bottom-actions{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            margin-top:20px;
+        }
+
+        .btn{
+            border:none;
+            border-radius:14px;
+
+            padding:14px 26px;
+
+            font-size:14px;
+            font-weight:700;
+
+            cursor:pointer;
+
+            transition:0.2s;
+        }
+
+        .btn-outline{
+            background:white;
+            border:1px solid #D1D5DB;
+        }
+
+        .btn-secondary{
+            background:#DDE5FF;
+            color:#1212ff;
+        }
+
+        .btn-primary{
+            background:#1212ff;
+            color:white;
+        }
+
+        .btn:hover{
+            transform:translateY(-2px);
+        }
+
+        @media(max-width:992px){
+
+            .content-grid{
+                grid-template-columns:1fr;
+            }
+
+            .form-row{
+                grid-template-columns:1fr;
+            }
+
+            .sidebar{
+                display:none;
+            }
+        }
+
+        /* =========================
+        CHART GRID
+        ========================= */
+
+        .chart-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:20px;
+        }
+
+        /* =========================
+        CARD CHART
+        ========================= */
+
+        .dashboard-chart-header{
+            padding:4px 0px;
+            border-bottom:1px solid #e5e7eb;
+        }
+
+        .dashboard-chart-header h3{
+            margin:0;
+            font-size:26px;
+            font-weight:800;
+            color:#111827;
+        }
+
+        .dashboard-chart-body{
+            padding:20px;
+            height:350px;
+        }
+
+        /* =========================
+        BAR CHART
+        ========================= */
+
+        .dashboard-chart-container{
+            width:100%;
+            height:100%;
+            position:relative;
+        }
+
+        /* =========================
+        DOUGHNUT CHART
+        ========================= */
+
+        .industry-wrapper{
+            width:100%;
+            height:100%;
+        }
+
+        .industry-chart{
+            width:100%;
+            height:100%;
+            position:relative;
+        }
         </style>
 
         @stack('styles')
@@ -629,10 +1109,19 @@
                             <span class="menu-text">Dashboard</span>
                         </a>
 
-                        <a href="{{ route('dashboard.create') }}"
-                           class="menu-item {{ request()->routeIs('dashboard.create') ? 'active' : '' }}"
-                           data-tooltip="Tambah Perusahaan">
-                            <div class="menu-icon"><i class="fa-solid fa-building"></i></div>
+                        <a href="{{ route('perusahaan.index') }}"
+                        class="menu-item {{ request()->routeIs('perusahaan.index') ? 'active' : '' }}">
+                            <div class="menu-icon">
+                                <i class="fa-solid fa-building"></i>
+                            </div>
+                            <span class="menu-text">Daftar Perusahaan</span>
+                        </a>
+
+                        <a href="{{ route('perusahaan.create') }}"
+                        class="menu-item {{ request()->routeIs('perusahaan.create') ? 'active' : '' }}">
+                            <div class="menu-icon">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
                             <span class="menu-text">Tambah Perusahaan</span>
                         </a>
                     </div>

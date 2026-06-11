@@ -3232,7 +3232,7 @@
                                         class="text-sm text-dark-400 hover:text-white transition-colors">Gedung Inovasi
                                         Lt. 3, Jakarta Selatan,Indonesia</a></li>
                                 <li><a href="#"
-                                        class="text-sm text-dark-400 hover:text-white transition-colors">Kelompok_3_PBL@internpath.com</a>
+                                        class="text-sm text-dark-400 hover:text-white transition-colors">Kelompok_5_PBL@internpath.com</a>
                                 </li>
                                 <li><a href="#"
                                         class="text-sm text-dark-400 hover:text-white transition-colors">+62 812 3456

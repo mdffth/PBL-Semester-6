@@ -30,7 +30,7 @@
         </div>
     @endif
 
-    <form action="{{ isset($perusahaan) ? route('dashboard.update', $perusahaan->id) : route('dashboard.store') }}"
+    <form action="{{ isset($perusahaan) ? route('perusahaan.update', $perusahaan->id) : route('perusahaan.store') }}"
           method="POST"
           enctype="multipart/form-data">
         @csrf

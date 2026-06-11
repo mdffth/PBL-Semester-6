@@ -4,19 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Perusahaan;
-use App\Models\Skill;
-use App\Models\Technology;
-use App\Models\MinatBidang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class DashboardController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | DASHBOARD
-    |--------------------------------------------------------------------------
-    */
-
     public function index(Request $request)
     {
         $totalPerusahaan = Perusahaan::count();
@@ -30,6 +23,41 @@ class DashboardController extends Controller
             'status_magang',
             'Nonactive'
         )->count();
+
+        // TOP 5 MINAT BIDANG
+
+        $topMinat = DB::table('minat_bidang')
+            ->join(
+                'perusahaan_posisi',
+                'minat_bidang.id',
+                '=',
+                'perusahaan_posisi.minat_bidang_id'
+            )
+            ->select(
+                'minat_bidang.name',
+                DB::raw('COUNT(*) as total')
+            )
+            ->groupBy('minat_bidang.id', 'minat_bidang.name')
+            ->orderByDesc('total')
+            ->limit(5)
+            ->get();
+
+        $labels = $topMinat->pluck('name');
+        $data = $topMinat->pluck('total');
+
+        // PERUSAHAAN BERDASARKAN INDUSTRI
+
+        $industriChart = Perusahaan::select(
+                'tipe_industri',
+                DB::raw('COUNT(*) as total')
+            )
+            ->groupBy('tipe_industri')
+            ->orderByDesc('total')
+            ->limit(5)
+            ->get();
+
+        $industriLabels = $industriChart->pluck('tipe_industri');
+        $industriData = $industriChart->pluck('total');
 
         $query = Perusahaan::query();
 
@@ -50,234 +78,13 @@ class DashboardController extends Controller
             'totalPerusahaan',
             'lowonganAktif',
             'lowonganTutup',
-            'perusahaan'
-        ));
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | FORM TAMBAH PERUSAHAAN
-    |--------------------------------------------------------------------------
-    */
-
-    public function create()
-    {
-        $skills = Skill::all();
-
-        $technologies = Technology::all();
-
-        $minatBidang = MinatBidang::all();
-
-        return view('admin.tambah_perusahaan', compact(
-            'skills',
-            'technologies',
-            'minatBidang'
-        ));
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | SIMPAN PERUSAHAAN
-    |--------------------------------------------------------------------------
-    */
-
-    public function store(Request $request)
-    {
-        $request->validate([
-
-            /*
-            |--------------------------------------------------------------------------
-            | DATA PERUSAHAAN
-            |--------------------------------------------------------------------------
-            */
-
-            'name' => 'required|string|max:255',
-
-            'tipe_industri' => 'required|string|max:255',
-
-            'profile_perusahaan' => 'nullable|string',
-
-            /*
-            |--------------------------------------------------------------------------
-            | LOWONGAN
-            |--------------------------------------------------------------------------
-            */
-
-            // 'posisi_magang' => 'required|exsist:minat_bidang,id',
-
-            'job_description' => 'nullable|string',
-
-             'benefit' => 'required|in:Paid, Unpaid',
-
-            'duration_months' => 'nullable|integer|min:1|max:12',
-
-            'min_ipk' => 'nullable|numeric|min:0|max:4',
-
-            'kota' => 'nullable|string|max:255',
-
-            /*
-            |--------------------------------------------------------------------------
-            | LOGO
-            |--------------------------------------------------------------------------
-            */
-
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-
-            /*
-            |--------------------------------------------------------------------------
-            | RELASI REKOMENDASI
-            |--------------------------------------------------------------------------
-            */
-
-            'skill_id' => 'required|array',
-
-            'technology_id' => 'required|array',
-
-            'minat_id' => 'required|array',
-
-        ]);
-
-        /*
-        |--------------------------------------------------------------------------
-        | UPLOAD LOGO
-        |--------------------------------------------------------------------------
-        */
-
-        $logoPath = null;
-
-        if ($request->hasFile('logo')) {
-
-            $file = $request->file('logo');
-            $filename = $file->getClientOriginalName();
-            $file->move(public_path('img/perusahaan'), $filename);
-            $logoPath = 'img/perusahaan/' . $filename;
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | SIMPAN DATA PERUSAHAAN
-        |--------------------------------------------------------------------------
-        */
-
-        $perusahaan = Perusahaan::create([
-
-            'name' => $request->name,
-
-            'tipe_industri' => $request->tipe_industri,
-
-            'profile_perusahaan' => $request->profile_perusahaan,
-
-            'posisi_magang' => '-',
-
-            'job_description' => $request->job_description,
-
-            'benefit' => $request->benefit,
-
-            'duration_months' => $request->duration_months,
-
-            'min_ipk' => $request->min_ipk,
-
-            'kota' => $request->kota,
-
-            'logo' => $logoPath,
-        ]);
-
-        /*
-        |--------------------------------------------------------------------------
-        | SIMPAN RELASI
-        |--------------------------------------------------------------------------
-        */
-
-        $perusahaan->skills()->sync(
-            $request->skill_id ?? []
-        );
-
-        $perusahaan->technologies()->sync(
-            $request->technology_id ?? []
-        );
-
-        $perusahaan->minatBidang()->sync(
-            $request->minat_id ?? []
-        );
-
-        /*
-        |--------------------------------------------------------------------------
-        | REDIRECT
-        |--------------------------------------------------------------------------
-        */
-
-        return redirect()
-            ->route('dashboard.index')
-            ->with(
-                'success',
-                'Perusahaan berhasil ditambahkan'
-            );
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | TOGGLE STATUS
-    |--------------------------------------------------------------------------
-    */
-
-    public function toggleStatus($id)
-    {
-        $perusahaan = Perusahaan::findOrFail($id);
-
-        $perusahaan->status_magang = $perusahaan->status_magang === 'Active'
-            ? 'Nonactive'
-            : 'Active';
-
-        $perusahaan->save();
-
-        return response()->json([
-            'success' => true,
-            'status' => $perusahaan->status_magang
-        ]);
-    }
-
-    // ==============================
-    // EDIT
-    // ==============================
-    public function edit($id)
-    {
-        $perusahaan = Perusahaan::with([
-            'technologies',
-            'skills',
-            'minatBidang'
-        ])->findOrFail($id);
-
-        $technologies = Technology::all();
-        $skills = Skill::all();
-        $minatBidang = MinatBidang::all();
-
-        // =========================
-        // FORMAT TAG DATA (SAFE)
-        // =========================
-
-        $selectedTools = $perusahaan->technologies->map(fn($t) => [
-            'id' => $t->id,
-            'name' => $t->name
-        ]);
-
-        $selectedSkills = $perusahaan->skills->map(fn($s) => [
-            'id' => $s->id,
-            'name' => $s->name
-        ]);
-
-        $selectedMinat = $perusahaan->minatBidang->map(fn($m) => [
-            'id' => $m->id,
-            'name' => $m->name
-        ]);
-
-        return view('Admin.tambah_perusahaan', compact(
             'perusahaan',
-            'technologies',
-            'skills',
-            'minatBidang',
-            'selectedTools',
-            'selectedSkills',
-            'selectedMinat'
+
+            'labels',
+            'data',
+
+            'industriLabels',
+            'industriData'
         ));
     }
 
