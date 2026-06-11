@@ -1,25 +1,30 @@
 FROM dunglas/frankenphp:php8.3
 
-# Install Composer
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Install Python
+# Install dependency OS + Python + ZIP
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
+    unzip \
+    zip \
+    libzip-dev \
+    && docker-php-ext-install zip \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 COPY . .
 
-# Install dependency PHP
+# Composer boleh dijalankan sebagai root di container build
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 RUN composer install --no-dev --optimize-autoloader
 
-# Install dependency Python
+# Python requirements
+COPY requirements.txt .
 RUN pip3 install --break-system-packages -r requirements.txt
-
-RUN php artisan config:clear
 
 EXPOSE 8080
 
