@@ -165,3 +165,17 @@ Route::controller(MahasiswaController::class)->group(function () {
 });
 
 Route::get('/perusahaan/stats', [PerusahaanController::class, 'getStats'])->name('perusahaan.stats');
+
+Route::get('/debug', function () {
+    return response()->json([
+        'app_url' => config('app.url'),
+        'asset' => asset('css/mahasiswa/welcome_page.css'),
+        'secure_asset' => secure_asset('css/mahasiswa/welcome_page.css'),
+        'url' => url('/'),
+        'secure_url' => secure_url('/'),
+        'scheme' => request()->getScheme(),
+        'is_secure' => request()->isSecure(),
+        'server_https' => $_SERVER['HTTPS'] ?? null,
+        'forwarded_proto' => request()->header('x-forwarded-proto'),
+    ]);
+});
