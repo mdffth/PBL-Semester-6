@@ -21,13 +21,12 @@ env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 env      = dotenv_values(env_path)
 
 DB_CONFIG = {
-    'host'      : env.get('DB_HOST','127.0.0.1'),
-    'port'      : int(env.get('DB_PORT', 3306)),
-    'user'      : env.get('DB_USERNAME', 'root'),
-    'password'  : env.get('DB_PASSWORD', ''),
-    'database'  : env.get('DB_DATABASE', 'rekomendasi_magang'),
+    'host': os.getenv('DB_HOST'),
+    'port': int(os.getenv('DB_PORT', 3306)),
+    'user': os.getenv('DB_USERNAME'),
+    'password': os.getenv('DB_PASSWORD'),
+    'database': os.getenv('DB_DATABASE'),
 }
-
 
 W_SKILL = 0.40
 W_TECH  = 0.30
