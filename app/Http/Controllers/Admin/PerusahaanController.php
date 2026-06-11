@@ -47,7 +47,7 @@ class PerusahaanController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('admin.daftar_perusahaan', compact(
+        return view('Admin.daftar_perusahaan', compact(
             'perusahaan',
             'totalPerusahaan',
             'lowonganAktif',
@@ -69,7 +69,7 @@ class PerusahaanController extends Controller
 
         $minatBidang = MinatBidang::all();
 
-        return view('admin.tambah_perusahaan', compact(
+        return view('Admin.tambah_perusahaan', compact(
             'skills',
             'technologies',
             'minatBidang'

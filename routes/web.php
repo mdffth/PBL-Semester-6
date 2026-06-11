@@ -139,13 +139,12 @@ Route::middleware('auth')
 | HALAMAN MAHASISWA
 |--------------------------------------------------------------------------
 */
-
 Route::get('/detail-perusahaan/{id}', function ($id) {
 
     $perusahaan = Perusahaan::findOrFail($id);
 
     return view(
-        'mahasiswa.detail_perusahaan',
+        'Mahasiswa.detail_perusahaan',
         compact('perusahaan')
     );
 

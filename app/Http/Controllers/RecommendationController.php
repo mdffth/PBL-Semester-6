@@ -20,7 +20,7 @@ class RecommendationController extends Controller
         $minat_bidang = MinatBidang::all();
 
         return view(
-            'mahasiswa.form_page',
+            'Mahasiswa.form_page',
             compact('technologies', 'skills', 'minat_bidang')
         );
     }
@@ -147,7 +147,7 @@ class RecommendationController extends Controller
             ->pluck('kota');
 
         return view(
-            'mahasiswa.result',
+            'Mahasiswa.result',
             compact('results', 'tipeIndustriList', 'benefitList','provinsiList', 'kotaList')
         );
     }
